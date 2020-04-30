@@ -33,6 +33,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="config.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="konfigurace_testu.csv">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

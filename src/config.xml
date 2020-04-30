@@ -10,12 +10,16 @@
     </expected>
   </testcase>
     -->
-  <testcase name="printer">
-    <scope>root\CIMV2</scope>
-    <query>SELECT * FROM Win32_Printer WHERE Name LIKE 'Fax'</query>
-    <expected property="Name">
-      <value>Fax</value>
-    </expected>
+  <testcase name="Kontrola nastavení práv k tiskárnám">
+	  <tests>
+		  <wmi name="Najít fax v tiskárnách.">
+			<scope>root\CIMV2</scope>
+            <query>SELECT * FROM Win32_Printer WHERE Name LIKE 'Fax'</query>
+            <expected property="Name">
+                <value>Fax</value>
+            </expected>
+		  </wmi>
+	  </tests>    
   </testcase>  
   
   <!-- funkcni testy 

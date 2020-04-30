@@ -19,12 +19,12 @@ namespace kobenos
     /// </summary>
     public partial class welcomePage : Page
     {
-        public static string nameFile;
+
         public welcomePage()
         {
             InitializeComponent();
 
-            ConfigFilePathTextBox.Text = System.AppDomain.CurrentDomain.BaseDirectory + "konfigurace_testu.csv";
+            ConfigFilePathTextBox.Text = System.AppDomain.CurrentDomain.BaseDirectory + "config.xml";
         }
 
         private void startButtonClick(object sender, RoutedEventArgs e)
@@ -47,11 +47,10 @@ namespace kobenos
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.InitialDirectory = System.AppDomain.CurrentDomain.BaseDirectory;
-            openFileDialog.Filter = "CSV files (*.csv)|*.csv|All files (*.*)|*.*";
+            openFileDialog.Filter = "XML files (*.xml)|*.xml|All files (*.*)|*.*";
             if (openFileDialog.ShowDialog() == true)
             {
                 ConfigFilePathTextBox.Text = openFileDialog.FileName;
-                nameFile = openFileDialog.FileName;
             }
         }
     }

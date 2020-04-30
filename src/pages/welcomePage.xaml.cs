@@ -19,7 +19,7 @@ namespace kobenos
     /// </summary>
     public partial class welcomePage : Page
     {
-
+        public static string nameFile;
         public welcomePage()
         {
             InitializeComponent();
@@ -51,6 +51,7 @@ namespace kobenos
             if (openFileDialog.ShowDialog() == true)
             {
                 ConfigFilePathTextBox.Text = openFileDialog.FileName;
+                nameFile = openFileDialog.FileName;
             }
         }
     }

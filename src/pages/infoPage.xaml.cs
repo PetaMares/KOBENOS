@@ -16,9 +16,9 @@ namespace kobenos
     /// <summary>
     /// Interaction logic for infoPage.xaml
     /// </summary>
-    public partial class infoPage : Page
+    public partial class InfoPage : Page
     {
-        public infoPage()
+        public InfoPage()
         {
             InitializeComponent();
         }

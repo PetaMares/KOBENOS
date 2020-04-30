@@ -17,13 +17,13 @@ namespace kobenos
     /// <summary>
     /// Interaction logic for executionPage.xaml
     /// </summary>
-    public partial class executionPage : Page
+    public partial class ExecutionPage : Page
     {
         string csvFile;
         bool startExecution;
         InitializeTests tests = new InitializeTests();
 
-        public executionPage(string csvFile, bool startExecution)
+        public ExecutionPage(string csvFile, bool startExecution)
         {
             this.csvFile = csvFile;
             this.startExecution = startExecution;

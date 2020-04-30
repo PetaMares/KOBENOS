@@ -34,11 +34,11 @@ namespace kobenos
             {
                 if (StartExecution.IsChecked == true)
                 {
-                    parentWindow.navigate(new executionPage(ConfigFilePathTextBox.Text, true));
+                    parentWindow.navigate(new ExecutionPage(ConfigFilePathTextBox.Text, true));
                 }
                 else
                 {
-                    parentWindow.navigate(new executionPage(ConfigFilePathTextBox.Text, false));
+                    parentWindow.navigate(new ExecutionPage(ConfigFilePathTextBox.Text, false));
                 }
             }
         }

@@ -9,14 +9,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="configfile\**" />
     <Compile Remove="NewFolder1\**" />
+    <EmbeddedResource Remove="configfile\**" />
     <EmbeddedResource Remove="NewFolder1\**" />
+    <None Remove="configfile\**" />
     <None Remove="NewFolder1\**" />
+    <Page Remove="configfile\**" />
     <Page Remove="NewFolder1\**" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="configfile\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -35,9 +35,6 @@
   <ItemGroup>
     <None Update="config.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="konfigurace_testu.csv">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
 

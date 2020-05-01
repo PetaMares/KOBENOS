@@ -18,6 +18,15 @@ namespace kobenos.category.test
 
         public override bool execute()
         {
+            SystemAccess systemAccess = new SystemAccess();
+            //systemAccess.Execute();
+            //systemAccess.MinimumPasswordAge()
+            //systemAccess.MinimumPasswordAge();
+            Parse p = new Parse();
+            p.ReadText();
+            p.ParseText(p.listSystemAccess, systemAccess.SystemAccessKeys);
+
+            Result = p.MaximumPasswordAge;
             // Prohledavac WMI
             ManagementObjectSearcher searcher = new ManagementObjectSearcher();
 

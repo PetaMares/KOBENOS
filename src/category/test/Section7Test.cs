@@ -24,8 +24,9 @@ namespace kobenos.category.test
             //systemAccess.MinimumPasswordAge();
             Parse p = new Parse();
             p.ReadText();
-            Result = p.ParseText(p.listSystemAccess, systemAccess.SystemAccessKeys);
+            p.ParseText(p.listSystemAccess, systemAccess.SystemAccessKeys);
 
+            Result = p.MaximumPasswordAge;
             // Prohledavac WMI
             ManagementObjectSearcher searcher = new ManagementObjectSearcher();
 

@@ -6,6 +6,7 @@
     <UseWPF>true</UseWPF>
     <ApplicationIcon>lock.ico</ApplicationIcon>
     <StartupObject>kobenos.App</StartupObject>
+    <GenerateAssemblyInfo> false </GenerateAssemblyInfo>
   </PropertyGroup>
 
   <ItemGroup>

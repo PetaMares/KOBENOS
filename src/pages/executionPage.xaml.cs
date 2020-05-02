@@ -17,13 +17,19 @@ namespace kobenos
             InitializeComponent();
         }
 
+        private void CheckStatus()
+        {
+            ReportButton.IsEnabled = mainSuite.Result.IsExecuted;
+        }
+
         public void LoadConfiguration(string configFile)
         {
             this.mainSuite = SerializationHelper.DeserializeFile<Suite>(configFile);
+            CheckStatus();
             this.MainGrid.DataContext = this.mainSuite;
         }
 
-        private void reportClick(object sender, RoutedEventArgs e)
+        private void ReportButton_Click(object sender, RoutedEventArgs e)
         {
             MainWindow parentWindow = Window.GetWindow(this) as MainWindow;
             parentWindow.NavigateToSummaryPage();
@@ -33,6 +39,12 @@ namespace kobenos
         {
             MainWindow parentWindow = Window.GetWindow(this) as MainWindow;
             parentWindow.NavigateToWelcomePage();
+        }
+
+        private void RunAllButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.mainSuite.execute();
+            CheckStatus();
         }
     }
 }

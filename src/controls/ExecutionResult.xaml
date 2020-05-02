@@ -6,8 +6,6 @@
       mc:Ignorable="d" 
       d:DesignHeight="600" d:DesignWidth="800">
 
-    <Grid >
-        <TextBlock Text="{Binding Name}" Foreground="{Binding Color}" />
-    </Grid>
+   <TextBlock Text="{Binding Name}" Foreground="{Binding Color}" />
 
 </ContentControl>

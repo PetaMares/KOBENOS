@@ -29,16 +29,18 @@
             <TreeView.Resources>
                 <HierarchicalDataTemplate DataType="{x:Type src:Suite}" ItemsSource="{Binding Path=Checks}">
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="{Binding Name}" FontSize="14" />
+                        <TextBlock Text="{Binding Name}" />
                         <controls:ExecutionResult DataContext="{Binding Result}"/>
-                        <TextBlock Text=" [" Foreground="Blue" FontSize="14"/>
-                        <TextBlock Text="{Binding Checks.Count}" Foreground="Blue" FontSize="14"/>
-                        <TextBlock Text="]" Foreground="Blue" FontSize="14"/>
+                        <TextBlock Foreground="Blue" >
+                            <Run Text="[" />
+                            <Run Text="{Binding Checks.Count, Mode=OneWay}" />
+                            <Run Text="]" />
+                        </TextBlock>
                     </StackPanel>
                 </HierarchicalDataTemplate>
                 <DataTemplate DataType="{x:Type src:AbstractCheck}">
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="{Binding Name}" FontSize="14"  Margin="0 0 10 0"/>
+                        <TextBlock Text="{Binding Name}"/>
                         <controls:ExecutionResult DataContext="{Binding Result}"/>
                     </StackPanel>
                 </DataTemplate>

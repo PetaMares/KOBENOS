@@ -5,7 +5,7 @@ using System.Management.Automation;
 
 namespace kobenos.category.test
 {
-    class CheckSystemTest : AbstractTest
+    class CheckSystemTest : Result
     {
         public CheckSystemTest(string id, string name, string description)
         {

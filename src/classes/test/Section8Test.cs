@@ -6,7 +6,7 @@ using System.Text;
 
 namespace kobenos.category.test
 {
-    class Section8Test: AbstractTest
+    class Section8Test: Result
     {
         public Section8Test(string id, string name, string description)
         {

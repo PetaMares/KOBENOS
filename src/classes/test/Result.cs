@@ -5,17 +5,15 @@ using System.Text;
 
 namespace kobenos.category.test
 {
-    abstract class AbstractTest : AbstractNode, ITest
-    {
-        private bool? result;
+    abstract class Result { 
 
-        public bool? Result { get => result; set => result = value; }
+        private bool? executionResult;
 
-        public string State
+        public string getName
         {
             get
             {
-                if(result == null)
+                if(executionResult == null)
                 {
                     return "Nespuštěný";
                 }

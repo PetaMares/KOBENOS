@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Management.Automation;
+using System.Xml.Serialization;
 
 namespace kobenos.classes
 {
-    class OSInfo
+    [XmlRoot("os")]
+    class OSVersionCheck : AbstractCheck
     {
-        public static string getOSInfo()
+        private static string getOSInfo()
         {
             //Get Operating system information.
             OperatingSystem os = Environment.OSVersion;
@@ -89,6 +91,13 @@ namespace kobenos.classes
             }
             //Return the information we've gathered.
             return operatingSystem;
+        }
+
+        protected override ExecutionResult internalExecute()
+        {
+            string details = OSVersionCheck.getOSInfo();
+            bool result = true;
+            return new ExecutionResult(result, details);
         }
     }
 }

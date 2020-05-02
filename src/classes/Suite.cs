@@ -14,8 +14,10 @@ namespace kobenos.classes
         private List<AbstractCheck> checks = new List<AbstractCheck>();
 
         [XmlArray("checks")]
-        [XmlArrayItem(typeof(WmiCheck), ElementName = "wmi")]
         [XmlArrayItem(typeof(Suite), ElementName = "suite")]
+        [XmlArrayItem(typeof(OSVersionCheck), ElementName = "os")]
+        [XmlArrayItem(typeof(WmiCheck), ElementName = "wmi")]        
+        [XmlArrayItem(typeof(RegistryCheck), ElementName = "registry")]
         public List<AbstractCheck> Checks { get => checks; set => checks = value; }
 
         protected override ExecutionResult internalExecute()

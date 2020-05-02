@@ -10,7 +10,7 @@
     <Compile Update="pages\executionPage.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="pages\summaryPage.xaml.cs">
+    <Compile Update="pages\SummaryPage.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="pages\WelcomePage.xaml.cs">
@@ -18,6 +18,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Page Update="controls\ExecutionResult.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="controls\ExecutionDetail.xaml">
       <SubType>Designer</SubType>
     </Page>

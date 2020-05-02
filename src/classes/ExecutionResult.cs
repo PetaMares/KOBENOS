@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Text;
+﻿using System.Windows.Media;
 
 namespace kobenos.classes
 {
@@ -68,21 +65,21 @@ namespace kobenos.classes
             }
         }
 
-        public string Color
+        public Brush Color
         {
             get
             {
                 if (executionResult == null)
                 {
-                    return "#DDDD00"; // Color.Yellow;
+                    return Brushes.Orange;
                 }
                 else if (executionResult == true)
                 {
-                    return "#00CD00";// Color.Green;
+                    return Brushes.DarkGreen;
                 }
                 else
                 {
-                    return "#DD0000";// Color.Red;
+                    return Brushes.Red;
                 }
             }
         }

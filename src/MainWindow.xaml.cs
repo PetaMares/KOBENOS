@@ -83,6 +83,11 @@ namespace kobenos
             this.navigate(this.ExecutionPage);
         }
 
+        public void NavigateToExecutionPage()
+        {
+            this.navigate(this.ExecutionPage);
+        }
+
         public void NavigateToSummaryPage()
         {
             this.navigate(this.SummaryPage);

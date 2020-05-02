@@ -13,7 +13,7 @@ namespace kobenos.classes
 
         private bool? executionResult;
 
-        public string details;
+        private string details;
 
         public ExecutionResult(bool? executionResult, string details)
         {
@@ -33,7 +33,7 @@ namespace kobenos.classes
             this.details = "";
         }
 
-        public bool isExecuted
+        public bool IsExecuted
         {
             get
             {
@@ -41,7 +41,7 @@ namespace kobenos.classes
             }
         }
 
-        public bool isSuccessful
+        public bool IsSuccessful
         {
             get
             {
@@ -49,7 +49,7 @@ namespace kobenos.classes
             }
         }
 
-        public string name
+        public string Name
         {
             get
             {
@@ -68,7 +68,7 @@ namespace kobenos.classes
             }
         }
 
-        public string color
+        public string Color
         {
             get
             {
@@ -87,6 +87,7 @@ namespace kobenos.classes
             }
         }
 
+        public string Details { get => details; set => details = value; }
     }
 
 }

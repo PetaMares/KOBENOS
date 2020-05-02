@@ -30,6 +30,5 @@
         </Grid>
 
         <Button Grid.Row="2" Content="Start" Click="startButtonClick" FontSize="18" FontWeight="Bold"/>
-        <CheckBox Grid.Row="3" Name="StartExecution" IsChecked="True" FontSize="14">Spustit testování automaticky</CheckBox>
     </Grid>
 </Page>

@@ -19,18 +19,16 @@ namespace kobenos
     /// </summary>
     public partial class ExecutionPage : Page
     {
-        string configFile;
         bool startExecution;
         Suite mainSuite;
 
-        public ExecutionPage(string configFile, bool startExecution)
+        public ExecutionPage(string configFile)
         {
-            this.configFile = configFile;
-            this.startExecution = startExecution;
             InitializeComponent();
 
             this.mainSuite = SerializationHelper.DeserializeFile<Suite>(configFile);
-            this.categoryTree.ItemsSource = this.mainSuite.checks;
+            this.MainGrid.DataContext = this.mainSuite;
+            this.MainSuiteTree.ItemsSource = this.mainSuite.Checks;
         }
 
         private void reportClick(object sender, RoutedEventArgs e)

@@ -7,8 +7,8 @@ namespace kobenos.classes
 {
     public abstract class AbstractCheck
     {
-        [XmlAttribute]
-        public string name;
+        
+        private string name;
 
         protected ExecutionResult lastResult = new ExecutionResult();
 
@@ -20,12 +20,15 @@ namespace kobenos.classes
             return this.lastResult;
         }
 
-        public ExecutionResult result
+        public ExecutionResult Result
         {
             get
             {
                 return lastResult;
             }
         }
+
+        [XmlAttribute(AttributeName = "name")]
+        public string Name { get => name; set => name = value; }
     }
 }

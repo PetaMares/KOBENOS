@@ -29,7 +29,7 @@ namespace kobenos
         private void startButtonClick(object sender, RoutedEventArgs e)
         {
             MainWindow parentWindow = Window.GetWindow(this) as MainWindow;
-            parentWindow.navigate(new ExecutionPage(ConfigFilePathTextBox.Text, StartExecution.IsChecked.Value));
+            parentWindow.navigate(new ExecutionPage(ConfigFilePathTextBox.Text));
         }
 
         private void vybratButtonClick(object sender, RoutedEventArgs e)

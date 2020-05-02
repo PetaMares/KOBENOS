@@ -10,5 +10,19 @@
 				</wmi>
 			</checks>
 		</suite>
+		<suite name="DVA">
+			<checks>
+				<wmi name="neco.">
+					<scope>root\CIMV2</scope>
+					<query>SELECT * FROM Win32_Printer WHERE Name LIKE 'Fax'</query>
+					<expected property="Name" value="Fax" />
+				</wmi>
+				<wmi name="neco dve.">
+					<scope>root\CIMV2</scope>
+					<query>SELECT * FROM Win32_Printer WHERE Name LIKE 'Fax'</query>
+					<expected property="Name" value="Fax" />
+				</wmi>
+			</checks>
+		</suite>
 	</checks>
 </suite>

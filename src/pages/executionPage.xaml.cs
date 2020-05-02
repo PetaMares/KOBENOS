@@ -19,13 +19,15 @@ namespace kobenos
     /// </summary>
     public partial class ExecutionPage : Page
     {
-        bool startExecution;
         Suite mainSuite;
 
-        public ExecutionPage(string configFile)
+        public ExecutionPage()
         {
             InitializeComponent();
+        }
 
+        public void LoadConfiguration(string configFile)
+        {
             this.mainSuite = SerializationHelper.DeserializeFile<Suite>(configFile);
             this.MainGrid.DataContext = this.mainSuite;
             this.MainSuiteTree.ItemsSource = this.mainSuite.Checks;
@@ -34,10 +36,13 @@ namespace kobenos
         private void reportClick(object sender, RoutedEventArgs e)
         {
             MainWindow parentWindow = Window.GetWindow(this) as MainWindow;
-            if (parentWindow != null)
-            {
-                parentWindow.navigate(new summaryPage());
-            }
+            parentWindow.NavigateToSummaryPage();
+        }
+
+        private void BackButton_Click(object sender, RoutedEventArgs e)
+        {
+            MainWindow parentWindow = Window.GetWindow(this) as MainWindow;
+            parentWindow.NavigateToWelcomePage();
         }
     }
 }

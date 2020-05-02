@@ -48,8 +48,8 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Button Content="Opravit nastavení" Grid.Column="0" FontSize="14" Padding="3" Margin="0 0 10 0"/>
-            <Button Content="Report" Grid.Column="1" FontSize="14" Padding="3" Click="reportClick" />
+            <Button Content="Zpět" Grid.Column="0" FontSize="14" Padding="3" Margin="0 0 10 0" Name="BackButton" Click="BackButton_Click"/>
+            <Button Content="Generovat report" Grid.Column="1" FontSize="14" Padding="3" Click="reportClick" />
         </Grid>
     </Grid>
 </Page>

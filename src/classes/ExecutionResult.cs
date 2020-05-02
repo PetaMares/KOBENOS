@@ -78,7 +78,7 @@ namespace kobenos.classes
                 }
                 else if (executionResult == true)
                 {
-                    return "#00DD00";// Color.Green;
+                    return "#00CD00";// Color.Green;
                 }
                 else
                 {

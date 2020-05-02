@@ -5,6 +5,9 @@ using System.Xml.Serialization;
 
 namespace kobenos.classes
 {
+    /*
+     * Abstraktni spustitelna kontrola. Sada kontrol (Suite) i jednotlive kontroly (WmiCheck atd.) jsou odvozene od teto tridy.
+     */
     public abstract class AbstractCheck
     {
         

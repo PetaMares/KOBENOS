@@ -1,4 +1,5 @@
-﻿using System;
+﻿using kobenos.classes;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Windows;
@@ -11,16 +12,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace kobenos
+namespace kobenos.controls
 {
-    /// <summary>
-    /// Interaction logic for infoPage.xaml
-    /// </summary>
-    public partial class InfoPage : Page
+    public partial class ExecutionDetail : ContentControl
     {
-        public InfoPage()
+       
+        public ExecutionDetail()
         {
             InitializeComponent();
+
         }
+
     }
 }

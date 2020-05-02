@@ -1,4 +1,4 @@
-﻿using kobenos.category;
+﻿using kobenos.classes;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -19,24 +19,18 @@ namespace kobenos
     /// </summary>
     public partial class ExecutionPage : Page
     {
-        string csvFile;
+        string configFile;
         bool startExecution;
-        InitializeTests tests = new InitializeTests();
+        Suite mainSuite;
 
-        public ExecutionPage(string csvFile, bool startExecution)
+        public ExecutionPage(string configFile, bool startExecution)
         {
-            this.csvFile = csvFile;
+            this.configFile = configFile;
             this.startExecution = startExecution;
             InitializeComponent();
-            List<Category> categories = tests.initilize();
-            categoryTree.ItemsSource = categories;
-            if(startExecution)
-            {
-                foreach(Category category in categories)
-                {
-                    category.execute();
-                }
-            }
+
+            this.mainSuite = SerializationHelper.DeserializeFile<Suite>(configFile);
+            this.categoryTree.ItemsSource = this.mainSuite.checks;
         }
 
         private void reportClick(object sender, RoutedEventArgs e)

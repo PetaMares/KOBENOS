@@ -23,24 +23,13 @@ namespace kobenos
         public welcomePage()
         {
             InitializeComponent();
-
             ConfigFilePathTextBox.Text = System.AppDomain.CurrentDomain.BaseDirectory + "config.xml";
         }
 
         private void startButtonClick(object sender, RoutedEventArgs e)
         {
             MainWindow parentWindow = Window.GetWindow(this) as MainWindow;
-            if (parentWindow != null)
-            {
-                if (StartExecution.IsChecked == true)
-                {
-                    parentWindow.navigate(new ExecutionPage(ConfigFilePathTextBox.Text, true));
-                }
-                else
-                {
-                    parentWindow.navigate(new ExecutionPage(ConfigFilePathTextBox.Text, false));
-                }
-            }
+            parentWindow.navigate(new ExecutionPage(ConfigFilePathTextBox.Text, StartExecution.IsChecked.Value));
         }
 
         private void vybratButtonClick(object sender, RoutedEventArgs e)

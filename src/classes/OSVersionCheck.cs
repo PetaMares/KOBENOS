@@ -7,9 +7,9 @@ using System.Xml.Serialization;
 namespace kobenos.classes
 {
     [XmlRoot("os")]
-    class OSVersionCheck : AbstractCheck
+    public class OSVersionCheck : AbstractCheck
     {
-        private static string getOSInfo()
+        public static string getOSInfo()
         {
             //Get Operating system information.
             OperatingSystem os = Environment.OSVersion;

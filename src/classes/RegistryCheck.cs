@@ -2,8 +2,12 @@
 
 namespace kobenos.classes
 {
-    internal class RegistryCheck : AbstractCheck
+    public class RegistryCheck : AbstractCheck
     {
+        public string key;
+        public string value;
+        public string expected;
+
         static object GetRegistryValue(string key, string value)
         {
             return Registry.GetValue(key, value, null);
@@ -23,7 +27,8 @@ namespace kobenos.classes
 
         protected override ExecutionResult internalExecute()
         {
-            throw new System.NotImplementedException();
+            bool result = GetRegistryStringValue(this.key, this.value).Equals(this.expected);
+            return new ExecutionResult(result);
         }
     }
 }

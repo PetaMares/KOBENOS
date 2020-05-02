@@ -2,7 +2,6 @@
 using System.Windows;
 using System.Windows.Controls;
 
-
 namespace kobenos
 {
     /// <summary>
@@ -15,6 +14,8 @@ namespace kobenos
         public ExecutionPage()
         {
             InitializeComponent();
+
+            CheckStatus();
         }
 
         private void CheckStatus()
@@ -43,7 +44,13 @@ namespace kobenos
 
         private void RunAllButton_Click(object sender, RoutedEventArgs e)
         {
-            this.mainSuite.execute();
+            this.mainSuite.Execute();
+            CheckStatus();
+        }
+
+        private void RunCheckButton_Click(object sender, RoutedEventArgs e)
+        {
+            //this.mainSuite.execute();
             CheckStatus();
         }
     }

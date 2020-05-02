@@ -71,13 +71,19 @@
 				</suite>
 				<suite name="Článek 11 - Kontrola uživatelských účtů a skupin podle doporučené tabulky">
 					<checks>
-						<testcase name="user">
+						<wmi name="user">
 							<scope>root\CIMV2</scope>
 							<query>SELECT * FROM Win32_GroupUser WHERE GroupComponent.Name = 'Administrators'</query>
 							<expected property="Status">
 								<value>Degraded</value>
 							</expected>
-						</testcase>
+						</wmi>
+						<registry
+							name="kontrola registrů"
+							key="HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control"
+							value="LsaFullPrivilegeAuditing"
+							expected="0"
+						/>
 					</checks>
 				</suite>
 				<suite name="Článek 12 - Kontrola nastavení práv k tiskárnám">

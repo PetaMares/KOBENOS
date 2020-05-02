@@ -17,9 +17,15 @@ namespace kobenos.classes
 
         protected abstract ExecutionResult internalExecute();
 
-        public ExecutionResult execute()
+        public ExecutionResult Execute()
         {
-            this.lastResult = this.internalExecute();
+            try
+            {
+                this.lastResult = this.internalExecute();
+            } catch (Exception e)
+            {
+                this.lastResult = new ExecutionResult(false, e.Message);
+            }
             return this.lastResult;
         }
 

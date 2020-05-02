@@ -47,7 +47,7 @@ namespace kobenos.pages
         private void CheckFile()
         {
             FileExistsCheck check = new FileExistsCheck(ConfigFilePathTextBox.Text);
-            ExecutionResult result = check.execute();
+            ExecutionResult result = check.Execute();
             ContinueButton.IsEnabled = result.IsSuccessful;
             FileCheckDetail.DataContext = result;
         }

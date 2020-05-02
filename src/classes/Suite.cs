@@ -23,14 +23,20 @@ namespace kobenos.classes
         protected override ExecutionResult internalExecute()
         {
             bool result = true;
+            int success = 0;
 
             // provedeni vsech testu
             foreach (AbstractCheck check in this.Checks)
             {
-                check.execute();
+                check.Execute();
+                if (check.Result.IsSuccessful)
+                {
+                    success++;
+                }
                 result = result && check.Result.IsSuccessful;
             }
-            return new ExecutionResult(result);
+            string details = System.String.Format("{0}/{1}", success, checks.Count);
+            return new ExecutionResult(result, details);
         }
 
     }

@@ -365,10 +365,330 @@
 					</checks>
 					<checks>
 						<registry
-							name="Interaktivní přihlašování: Text zprávy pro uživatele pokoušejícího"
+							name="Interaktivní přihlašování: Text zprávy pro uživatele pokoušející se přihlásit"
 							key=""
 							value=""
-							expected="Disabled"/>
+							expected="Přihlašujete se do informačního systému"/>
+					</checks>
+					<checks>
+						<registry
+							name="Interaktivní přihlašování: Vyzvat uživatele ke změně hesla před jeho vypršením"
+							key=""
+							value=""
+							expected="14"/>
+					</checks>
+					<checks>
+						<registry
+							name="Interaktivní přihlašování: Zobrazit informace o uživateli, pokud je relace uzamčena"
+							key=""
+							value=""
+							expected="Not defined"/>
+					</checks>
+					<checks>
+						<registry
+							name="Konzola pro zotavení: Povolit automatické přihlášení správce"
+							key=""
+							value=""
+							expected="Disable"/>
+					</checks>
+					<checks>
+						<registry
+							name="Konzola pro zotavení: Povolit kopírování na disketua přítup ke všem jednotkám a složkám"
+							key=""
+							value=""
+							expected="Disable"/>
+					</checks>
+					<checks>
+						<registry
+							name="Nastavení systému: Volitelné podsystémy"
+							key=""
+							value=""
+							expected=""/>
+					</checks>
+					<checks>
+						<registry
+							name="Řízení uživatelských účtů: Chování výzvy ke zvýšení oprávnění pro správce v Režimu schválneí správce"
+							key=""
+							value=""
+							expected="Prompt for consent"/>
+					</checks>
+					<checks>
+						<registry
+							name="Řízení uživatelských účtů: Chování výzvy ke zvýšení oprávnění pro standardního uživatele"
+							key=""
+							value=""
+							expected="Automatically deny elevation requests"/>
+					</checks>
+					<checks>
+						<registry
+							name="Řízení uživatelských účtů: Povolit aplikacím UIAccess zobrazení výzvy ke zvýšení oprávnění bez použití zabezpečené plochy"
+							key=""
+							value=""
+							expected="Disable"/>
+					</checks>
+					<checks>
+						<registry
+							name="Řízení uživatelských účtů: Při zobrazení výzvy ke zvýšení oprávnění přepnout na zabezpečenou plochu"
+							key=""
+							value=""
+							expected="Enable"/>
+					</checks>
+					<checks>
+						<registry
+							name="Řízení uživatelských účtů: Režim schválení správce pro integrovaný účet správce"
+							key=""
+							value=""
+							expected="Enable"/>
+					</checks>
+					<checks>
+						<registry
+							name="Řízení uživatelských účtů: Spustit všechny správce v Režimu schválení správce"
+							key=""
+							value=""
+							expected="Enable"/>
+					</checks>
+					<checks>
+						<registry
+							name="Řízení uživatelských účtů: Virtualizovat chyby zápisu do souboru a registru do umístění jednotlivých uživatelů"
+							key=""
+							value=""
+							expected="Enable"/>
+					</checks>
+					<checks>
+						<registry
+							name="Řízení uživatelských účtů: Zjistit instalace aplikací a zobrazit výzvu ke zvýšení oprávnění"
+							key=""
+							value=""
+							expected="Enable"/>
+					</checks>
+					<checks>
+						<registry
+							name="Řízení uživatelských účtů: Zvýšit oprávnění pouze u aplikací UIAccess, které jsou nainstalovány v zabezpečených umístěních"
+							key=""
+							value=""
+							expected="Enable"/>
+					</checks>
+					<checks>
+						<registry
+							name="Řízení uživatelských účtů: Zvýšit oprávnění pouze u podepsaných a ověřených spustitelných souborů"
+							key=""
+							value=""
+							expected="Disable"/>
+					</checks>
+					<checks>
+						<registry
+							name="Účty: Blokovat účty Microsoft"
+							key=""
+							value=""
+							expected="Users can’t add or log on with Microsoft accounts"/>
+					</checks>
+					<checks>
+						<registry
+							name="Účty: Omezit použití prázdného hesla místního účtu pouze pro přihlášení ke konzole"
+							key=""
+							value=""
+							expected="Enable"/>
+					</checks>
+					<checks>
+						<registry
+							name="Účty: Přejmenovat účet Guest"
+							key=""
+							value=""
+							expected=""/>
+					</checks>
+					<checks>
+						<registry
+							name="Účty: Přejmenovat účet správce"
+							key=""
+							value=""
+							expected=""/>
+					</checks>
+					<checks>
+						<registry
+							name="Účty: Stav účtu hosta"
+							key=""
+							value=""
+							expected="Disable"/>
+					</checks>
+					<checks>
+						<registry
+							name="Účty: Stav účtu správce"
+							key=""
+							value=""
+							expected="Enable"/>
+					</checks>
+					<checks>
+						<registry
+							name="Vypnutí: Povolit vypnutí systému bez nutnosti přihlášení"
+							key=""
+							value=""
+							expected="Disable"/>
+					</checks>
+					<checks>
+						<registry
+							name="Vypnutí: Vymazat stránkovací soubor virtuální paměti"
+							key=""
+							value=""
+							expected="Disable"/>
+					</checks>
+					<checks>
+						<registry
+							name="Zařízení: Zabránit uživatelům instalovat ovladače tiskáren"
+							key=""
+							value=""
+							expected="Enable"/>
+					</checks>
+				</suite>
+				<suite name="Článek 19 - Služba protokolu událostí">
+					<checks>
+						<registry
+							name="Zadat maximální velikost souboru protokolu (kB)"
+							key="HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\EventLog\System\"
+							value="MaxSize"
+							expected="0x00008000 (32768) (or greater)"/>
+					</checks>
+					<checks>
+						<registry
+							name="Automaticky zálohovat protokol při naplnění"
+							key="HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\EventLog\System\"
+							value="AutoBackupLogFiles"
+							expected="Enable 1"/>
+					</checks>
+					<checks>
+						<registry
+							name="Řídit chování služby Protokol událostí, když soubor protokolu dosáhne maximální velikosti"
+							key="HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\EventLog\System\"
+							value=""
+							expected="Enable 1"/>
+					</checks>
+					<checks>
+						<registry
+							name="Zadat maximální velikost souboru protokolu (kB)"
+							key="HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\..."
+							value=""
+							expected="Enable 50 048kb"/>
+					</checks>
+					<checks>
+						<registry
+							name="Automaticky zálohovat protokol při naplnění"
+							key="HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\..."
+							value=""
+							expected="Enable 1"/>
+					</checks>
+					<checks>
+						<registry
+							name="Řídit chování služby Protokol událostí, když soubor protokolu dosáhne maximální velikosti"
+							key="HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\..."
+							value=""
+							expected="Enable 1"/>
+					</checks>
+					<checks>
+						<registry
+							name="Zadat maximální velikost souboru protokolu (kB)"
+							key="HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\..."
+							value=""
+							expected="Enable 100 096kb"/>
+					</checks>
+					<checks>
+						<registry
+							name="Automaticky zálohovat protokol při naplnění"
+							key="HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\..."
+							value=""
+							expected="Enable 1"/>
+					</checks>
+					<checks>
+						<registry
+							name="Řídit chování služby Protokol událostí, když soubor protokolu dosáhne maximální velikosti"
+							key="HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\..."
+							value=""
+							expected="Enable 1"/>
+					</checks>
+				</suite>
+				<suite name="Článek 20 - Možnosti přihlášení k systému Windows">
+					<checks>
+						<registry 
+							name="Zobrazit informace o předchozích přihlášeních během přihlášení uživatele"
+							key="HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\..."
+							value=""
+							expected="Disable 0"/>	
+					</checks>
+					<checks>
+						<registry 
+							name="Automaticky přihlásit posledního interaktivního uživatele po restartování vyvolaném systémem"
+							key="HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System"
+							value="DisplayLastLogonInfo"
+							expected="0"/>	
+					</checks>
+				</suite>
+				<suite name="Článek 21 - One Drive">
+					<checks>
+						<registry 
+							name="Bránit používání OneDrivu jako úložiště souborů"
+							key="HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows\OneDrive"
+							value="	DisableFileSyncNGSC"
+							expected="1"/>	
+					</checks>
+				</suite>
+				<suite name="Článek 22 - Zásady automatického přehrávání">
+					<checks>
+						<registry 
+							name="Vypnout automatické přehrávání"
+							key="HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer"
+							value="NoDriveTypeAutoRun"
+							expected="181"/>
+					</checks>
+				</suite>
+				<suite name="Článek 23 - Přihlášení">
+					<checks>
+						<registry 
+							name="Zapnout přihlášení praktickým PIN kodem"
+							key="HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows\System"
+							value="AllowDomainPINLogon"
+							expected="0"/>
+					</checks>
+					<checks>
+						<registry 
+							name="Vypnout přihlášení pomocí obrázkového hesla"
+							key="HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows\System"
+							value="BlockDomainPicturePassword"
+							expected="1"/>
+					</checks>
+					<checks>
+						<registry 
+							name="Vypnout přihlášení pomocí obrázkového hesla"
+							key="HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows\System"
+							value="DisableLockScreenAppNotifications"
+							expected="1"/>
+					</checks>
+					<checks>
+						<registry 
+							name="Skrýt vstupní body pro Rychlé přepínání uživatele"
+							key="HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows\System"
+							value="HideFastUserSwitching"
+							expected="1"/>
+					</checks>
+					<checks>
+						<registry 
+							name="Vždy použít klasické přihlašování"
+							key="HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows\System"
+							value="LogonType"
+							expected="1"/>
+					</checks>
+				</suite>
+				<suite name="Článek 23 - Zásady skupiny">
+					<checks>
+						<registry 
+							name="Vypnout zpracování místních objektů Zásad skupiny"
+							key="HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows\System"
+							value="DisableLGPOProcessing"
+							expected="0"/>
+					</checks>
+					<checks>
+						<registry 
+							name="Vypnout protokolování výsledné sady zásad"
+							key="HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows\System"
+							value="RSoPLogging"
+							expected="0"/>
 					</checks>
 				</suite>
 			</checks>

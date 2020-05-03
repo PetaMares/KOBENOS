@@ -691,6 +691,244 @@
 							expected="0"/>
 					</checks>
 				</suite>
+				<suite name="Článek 25 - Omezení instalace zařízení">
+					<checks>
+						<registry 
+							name="Povolit správcům přepsat zásady Omezení pro instalaci zařízení"
+							key="HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows\DeviceInstall\Restrictions"
+							value="AllowAdminInstall"
+							expected="0"/>
+					</checks>
+					<checks>
+						<registry 
+							name="Zobrazit vlastní zprávu v případě, že nastavení zásad znemožní instalaci"
+							key="HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows\DeviceInstall\Restrictions\DeniedPolicy"
+							value="DetailText"
+							expected="Instalace nepovoleného zařízení"/>
+					</checks>
+					<checks>
+						<registry 
+							name="Zobrazit nadpis vlastní zprávy v případě, že nastavení zásad znemožní instalaci zařízení"
+							key="HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows\DeviceInstall\Restrictions\DeniedPolicy"
+							value="SimpleText"
+							expected="Upozornění"/>
+					</checks>
+					<checks>
+						<registry 
+							name="Povolit instalaci zařízení s těmito identifikačními čísly zařízení"
+							key="HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows\DeviceInstall\Restrictions"
+							value="AllowDeviceIDs"
+							expected="0"/>
+					</checks>
+					<checks>
+						<registry 
+							name="Zakázat instalaci vyměnitelných zařízení"
+							key="HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows\DeviceInstall\Restrictions"
+							value="DenyRemovableDevices"
+							expected="1"/>
+					</checks>
+					<checks>
+						<registry 
+							name="Zakázat instalaci zařízení nepopsaných v jiných nastaveních zásad"
+							key="HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows\DeviceInstall\Restrictions"
+							value="DenyUnspecified"
+							expected="1"/>
+					</checks>
+				</suite>
+				<suite name="Článek 26 - Přístup k vyměnitelnému úložišti">
+					<checks>
+						<registry 
+							name="Disk CD a DVD: Odepřít oprávnění ke spouštění"
+							key="HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows\RemovableStorageDevices\{53f56308-b6bf-11d0-94f2-00a0c91efb8b}"
+							value="Deny_Execute"
+							expected="1"/>
+					</checks>
+					<checks>
+						<registry 
+							name="Disk CD a DVD: Odepřít přístup ke čtení"
+							key="HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows\RemovableStorageDevices\{53f56308-b6bf-11d0-94f2-00a0c91efb8b}"
+							value="Deny_Read"
+							expected=""/>
+					</checks>
+					<checks>
+						<registry 
+							name="Disk CD a DVD: Odepřít přístup pro zápis"
+							key="HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows\RemovableStorageDevices\{53f56308-b6bf-11d0-94f2-00a0c91efb8b}"
+							value="Deny_Write"
+							expected=""/>
+					</checks>
+					<checks>
+						<registry 
+							name="Disketové jednotky: Odepřít oprávnění ke spouštění"
+							key="HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows\RemovableStorageDevices\{53f56311-b6bf-11d0-94f2-00a0c91efb8b}"
+							value="Deny_Execute"
+							expected="1"/>
+					</checks>
+					<checks>
+						<registry 
+							name="Disketové jednotky: Odepřít přístup ke čtení"
+							key="HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows\RemovableStorageDevices\{53f56311-b6bf-11d0-94f2-00a0c91efb8b}"
+							value="Deny_Read"
+							expected=""/>
+					</checks>
+					<checks>
+						<registry 
+							name="Disketové jednotky: Odepřít přístup pro zápis"
+							key="HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows\RemovableStorageDevices\{53f56311-b6bf-11d0-94f2-00a0c91efb8b}"
+							value="Deny_Write"
+							expected=""/>
+					</checks>	
+					<checks>
+						<registry 
+							name="Vyměnitelné disky: Odepřít oprávnění ke spouštění"
+							key="HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows\RemovableStorageDevices\{53f5630d-b6bf-11d0-94f2-00a0c91efb8b}"
+							value="Deny_Execute"
+							expected="1"/>
+					</checks>
+					<checks>
+						<registry 
+							name="Vyměnitelné disky: Odepřít přístup ke čtení"
+							key="HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows\RemovableStorageDevices\{53f5630d-b6bf-11d0-94f2-00a0c91efb8b}"
+							value="Deny_Read"
+							expected=""/>
+					</checks>
+					<checks>
+						<registry 
+							name="Vyměnitelné disky: Odepřít přístup zápis"
+							key="HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows\RemovableStorageDevices\{53f5630d-b6bf-11d0-94f2-00a0c91efb8b}"
+							value="Deny_Write"
+							expected=""/>
+					</checks>
+					<checks>
+						<registry 
+							name="Všechny třídy vyměnitelného úložiště: Odepřít veškerý přístup"
+							key="HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows\RemovableStorageDevices"
+							value="AllowRemoteDASD"
+							expected=""/>
+					</checks>
+					<checks>
+						<registry 
+							name="Páskové jednotky: Odepřít oprávnění ke spouštění"
+							key="HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows\RemovableStorageDevices\{53f5630b-b6bf-11d0-94f2-00a0c91efb8b}"
+							value="Deny_Execute"
+							expected="1"/>
+					</checks>
+					<checks>
+						<registry 
+							name="Páskové jednotky: Odepřít oprávnění ke čtení"
+							key="HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows\RemovableStorageDevices\{53f5630b-b6bf-11d0-94f2-00a0c91efb8b}"
+							value="Deny_Read"
+							expected=""/>
+					</checks>
+					<checks>
+						<registry 
+							name="Páskové jednotky: Odepřít oprávnění pro zápis"
+							key="HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows\RemovableStorageDevices\{53f5630b-b6bf-11d0-94f2-00a0c91efb8b}"
+							value="Deny_Write"
+							expected=""/>
+					</checks>
+					<checks>
+						<registry 
+							name="Zařízení WPD: Odepřít přístup ke čtení"
+							key="HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows\RemovableStorageDevices\{F33FDC04-D1AC-4E8E-9A30-19BBD4B108AE}"
+							value="Deny_Read"
+							expected="1"/>
+					</checks>
+					<checks>
+						<registry 
+							name="Zařízení WPD: Odepřít přístup pro zápis"
+							key="HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows\RemovableStorageDevices\{F33FDC04-D1AC-4E8E-9A30-19BBD4B108AE}"
+							value="Deny_Write"
+							expected="1"/>
+					</checks>
+				</suite>
+				<suite name="Článek 27 - Obnovení">
+					<check>
+						<registry
+							name="Povolit obnovení systému do výchozího stavu"
+							key="HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\WinRE"
+							value="DisableSetup"
+							expected="1"/>
+					</check>
+				</suite>
+				<suite name="Článek 28 - Obnovení systému">
+					<check>
+						<registry
+							name="Vypnout konfiguraci"
+							key="HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\WindowsNT\SystemRestore"
+							value="DisableConfig"
+							expected="1"/>
+					</check>
+				</suite>
+				<suite name="Článek 29 - Přizpůsobení">
+					<check>
+						<registry
+							name="Nezobrazovat zamykací obrazovku"
+							key="HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows\Personalization"
+							value="NoLockScreen"
+							expected="1"/>
+					</check>
+					<check>
+						<registry
+							name="Bránit povolení kamery na zamykací obrazovce"
+							key="HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows\Personalization"
+							value="NoLockScreenCamera"
+							expected="1"/>
+					</check>
+					<check>
+						<registry
+							name="Bránit povolení prezentace na zamykací obrazovce"
+							key="HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows\Personalization"
+							value="NoLockScreenSlideshow"
+							expected="1"/>
+					</check>
+				</suite>
+				<suite name="Článek 30 - Přizpůsobení">
+					<check>
+						<registry
+							name="Povolit šetřič obrazovky"
+							key="HKEY_CURRENT_USER\Software\Policies\Microsoft\Windows\ControlPanel\Desktop"
+							value="ScreenSaveActive"
+							expected="1"/>
+					</check>
+					<check>
+						<registry
+							name="Zabránit změnám šetřiče obrazovky"
+							key="HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Policies\System"
+							value="NoDispScrSavPage"
+							expected="1"/>
+					</check>
+					<check>
+						<registry
+							name="Chránit šetřič obrazovky heslem"
+							key="HKEY_CURRENT_USER\Software\Policies\Microsoft\Windows\ControlPanel\Desktop"
+							value="ScreenSaverIsSecure"
+							expected="1"/>
+					</check>
+					<check>
+						<registry
+							name="Časový limit šetřiče obrazovky"
+							key="HKEY_CURRENT_USER\Software\Policies\Microsoft\Windows\ControlPanel\Desktop"
+							value="ScreenSaveTimeOut"
+							expected="900"/>
+					</check>
+					<check>
+						<registry
+							name="Vynutit konkrétní spořič obrazovky"
+							key="HKEY_CURRENT_USER\Software\Policies\Microsoft\Windows\ControlPanel\Desktop"
+							value="SCRNSAVE.EXE"
+							expected=""/>
+					</check>
+				</suite>
+				<suite name="Článek 31 - Průzkumník Windows">
+					<check>
+						<registry
+							name="Nepřesouvat odstraněné soubory do koše "
+							key="HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer"
+							value="NoRecycleFiles"
+							expected="1"/>
+					</check>
+				</suite>
 			</checks>
 		</suite>
 	</checks>

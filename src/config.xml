@@ -73,7 +73,7 @@
 					<checks>
 						<wmi name="user">
 							<scope>root\CIMV2</scope>
-							<query>SELECT * FROM Win32_GroupUser WHERE GroupComponent.Name = 'Administrators'</query>
+							<query>SELECT * FROM Win32_GroupUser WHERE Name='Administrators'</query>
 							<expected property="Status">
 								<value>Degraded</value>
 							</expected>
@@ -82,7 +82,7 @@
 							name="kontrola registrů"
 							key="HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control"
 							value="LsaFullPrivilegeAuditing"
-							expected="0"
+							expected=""
 						/>
 					</checks>
 				</suite>
@@ -93,6 +93,282 @@
 							<query>SELECT * FROM Win32_Printer WHERE Name LIKE 'Fax'</query>
 							<expected property="Name" value="Fax" />
 						</wmi>
+					</checks>
+				</suite>
+				<suite name="Článek 14 - Zásady hesla">
+					<checks>
+						<registry
+							name="Heslo musí splňovat požadavky na složitost"
+							key="\HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\SecEdit\Reg Values\MACHINE/System/CurrentControlSet/Services/Netlogon/Parameters/MaximumPasswordAge"
+							value=""
+							expected="Accepted"/> 
+					</checks>
+					<checks>
+						<registry
+							name="Maximální stáří hesla"
+							key=""
+							value=""
+							expected="90"/>
+					</checks>
+					<checks>
+						<registry
+							name="Minimální délka hesla"
+							key=""
+							value=""
+							expected="9"/>
+					</checks>
+					<checks>
+						<registry
+							name="Minimální stáří hesla"
+							key=""
+							value=""
+							expected="1"/>
+					</checks>
+					<checks>
+						<registry
+							name="Ukládat hesla pomocí reverzibilního šifrování"
+							key=""
+							value=""
+							expected="Disabled"/>
+					</checks>
+					<checks>
+						<registry
+							name="Vynutit použití historie hesel"
+							key=""
+							value=""
+							expected="24"/>
+					</checks>
+				</suite>
+				<suite name="Článek 15 - Zásady uzamčení účtu">
+					<checks>
+						<registry
+							name="Doba uzamčení účtu"
+							key=""
+							value=""
+							expected="0"/>
+					</checks>
+					<checks>
+						<registry
+							name="Prahová hodnota pro uazmčení účtu"
+							key=""
+							value=""
+							expected="3"/>
+					</checks>
+					<checks>
+						<registry
+							name="Vynulovat čítač uzamčení účtu po"
+							key=""
+							value=""
+							expected="60"/>
+					</checks>
+				</suite>
+				<suite name="Článek 16 - Zásady auditu">
+					<checks>
+						<registry
+							name="Auditovat použití oprávnění"
+							key=""
+							value=""
+							expected="No auditing"/>
+					</checks>
+					<checks>
+						<registry
+							name="Auditovat přístup k adresářové službě"
+							key=""
+							value=""
+							expected="No auditing"/>
+					</checks>
+					<checks>
+						<registry
+							name="Auditovat přístup k objektům"
+							key=""
+							value=""
+							expected="No auditing"/>
+					</checks>
+					<checks>
+						<registry
+							name="Auditovat sledování procesů"
+							key=""
+							value=""
+							expected="No auditing"/>
+					</checks>
+					<checks>
+						<registry
+							name="Auditovat správu účtů"
+							key=""
+							value=""
+							expected=""/>
+					</checks>
+					<checks>
+						<registry
+							name="Auditovat systémové události"
+							key=""
+							value=""
+							expected=""/>
+					</checks>
+					<checks>
+						<registry
+							name="Auditovat události přihlášení"
+							key=""
+							value=""
+							expected="No auditing"/>
+					</checks>
+					<checks>
+						<registry
+							name="Auditovat události přihlášení k účtu"
+							key=""
+							value=""
+							expected=""/>
+					</checks>
+					<checks>
+						<registry
+							name="Auditovat změny zásad"
+							key=""
+							value=""
+							expected="No auditing"/>
+					</checks>
+				</suite>
+				<suite name="Článek 17 - Přiřazení uživatelských práv">
+					<checks>
+						<registry
+							name="Generovat audity zabezpečení"
+							key=""
+							value=""
+							expected=""/>
+					</checks>
+					<checks>
+						<registry
+							name="Obnovit soubory a adresáře"
+							key=""
+							value=""
+							expected="Administrators"/>
+					</checks>
+					<checks>
+						<registry
+							name="Odepřít místní přihlášení"
+							key=""
+							value=""
+							expected="Guests"/>
+					</checks>
+					<checks>
+						<registry
+							name="Povolit místní přihlášení"
+							key=""
+							value=""
+							expected=""/>
+					</checks>
+					<checks>
+						<registry
+							name="Provést úlohy údržby svazku"
+							key=""
+							value=""
+							expected="Administrators"/>
+					</checks>
+					<checks>
+						<registry
+							name="Převzít vlastnictví souborů a dalších objektů"
+							key=""
+							value=""
+							expected="Administrators"/>
+					</checks>
+					<checks>
+						<registry
+							name="Spravovat auditování a protokol zabezpečení"
+							key=""
+							value=""
+							expected="Administrators"/>
+					</checks>
+					<checks>
+						<registry
+							name="Vypnout systém"
+							key=""
+							value=""
+							expected=""/>
+					</checks>
+					<checks>
+						<registry
+							name="Zálohovat soubory a adresáře"
+							key=""
+							value=""
+							expected="Administrators"/>
+					</checks>
+					<checks>
+						<registry
+							name="Změnit časové pásmo"
+							key=""
+							value=""
+							expected="Administrators"/>
+					</checks>
+					<checks>
+						<registry
+							name="Změnit systémový čas"
+							key=""
+							value=""
+							expected="Administrators"/>
+					</checks>
+				</suite>
+				<suite name="Článek 18 - Možnosti zabezpečení">
+					<checks>
+						<registry
+							name="Audit: Auditovat oprávnění k zálohování a obnovení dat"
+							key=""
+							value=""
+							expected="Disabled"/>
+					</checks>
+					<checks>
+						<registry
+							name="Audit: Auditovat přístup globálních systémových objektů"
+							key=""
+							value=""
+							expected="Disabled"/>
+					</checks>
+					<checks>
+						<registry
+							name="Audit: Není-li možno protokolovat audity zabezpečení, vypnout okamžitě systém"
+							key=""
+							value=""
+							expected="Disabled"/>
+					</checks>
+					<checks>
+						<registry
+							name="Audit: Vynutit přednost nastavení podkategorie zásad auditování před nastavením kategorie zásad auditování"
+							key=""
+							value=""
+							expected="Disabled"/>
+					</checks>
+					<checks>
+						<registry
+							name="Interaktivní přihlašování: Limit pro nečinnost počítače"
+							key=""
+							value=""
+							expected="900"/>
+					</checks>
+					<checks>
+						<registry
+							name="Interaktivní přihlašování: Nadpis zprávy pro uživatele pokoušející se přihlásit"
+							key=""
+							value=""
+							expected="Upozornění"/>
+					</checks>
+					<checks>
+						<registry
+							name="Interaktivní přihlašování: Nevyžadovat stisknutí kláves Ctrl+Alt+Del"
+							key=""
+							value=""
+							expected="Disabled"/>
+					</checks>
+					<checks>
+						<registry
+							name="Interaktivní přihlašování: Nezobrazovat naposledy použité uživatelské jméno"
+							key=""
+							value=""
+							expected="Enabled"/>
+					</checks>
+					<checks>
+						<registry
+							name="Interaktivní přihlašování: Text zprávy pro uživatele pokoušejícího"
+							key=""
+							value=""
+							expected="Disabled"/>
 					</checks>
 				</suite>
 			</checks>

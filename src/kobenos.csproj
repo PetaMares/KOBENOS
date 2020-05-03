@@ -10,14 +10,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="configfile\**" />
     <Compile Remove="NewFolder1\**" />
+    <EmbeddedResource Remove="configfile\**" />
     <EmbeddedResource Remove="NewFolder1\**" />
+    <None Remove="configfile\**" />
     <None Remove="NewFolder1\**" />
+    <Page Remove="configfile\**" />
     <Page Remove="NewFolder1\**" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="configfile\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -30,6 +30,7 @@
   <ItemGroup>
     <EmbeddedResource Update="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
 
@@ -37,9 +38,29 @@
     <None Update="config.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="konfigurace_testu.csv">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="controls\ExecutionResult.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="controls\ExecutionDetail.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="controls\ExecutionResult.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="controls\ExecutionDetail.xaml">
+      <SubType>Designer</SubType>
+    </Page>
   </ItemGroup>
 
 </Project>

@@ -2,37 +2,14 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Management.Automation;
+using System.Xml.Serialization;
 
-namespace kobenos.category.test
+namespace kobenos.classes
 {
-    class CheckSystemTest : AbstractTest
+    [XmlRoot("os")]
+    public class OSVersionCheck : AbstractCheck
     {
-        public CheckSystemTest(string id, string name, string description)
-        {
-            this.id = id;
-            this.name = name;
-            this.description = description;
-        }
-
-        public override bool execute()
-        {
-            Result = true;
-            return true;
-            // throw new NotImplementedException();
-        }
-
-        public override bool fixSetting()
-        {
-            return true;
-            //throw new NotImplementedException();
-        }
-
-        public override void setConfiguration(string key, string value)
-        {
-            //throw new NotImplementedException();
-        }
-
-        string getOSInfo()
+        public static string getOSInfo()
         {
             //Get Operating system information.
             OperatingSystem os = Environment.OSVersion;
@@ -114,6 +91,13 @@ namespace kobenos.category.test
             }
             //Return the information we've gathered.
             return operatingSystem;
+        }
+
+        protected override ExecutionResult internalExecute()
+        {
+            string details = OSVersionCheck.getOSInfo();
+            bool result = true;
+            return new ExecutionResult(result, details);
         }
     }
 }

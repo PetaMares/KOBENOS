@@ -1,31 +1,33 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using kobenos.classes;
 
-namespace kobenos
+namespace kobenos.pages
 {
     /// <summary>
     /// Interaction logic for summaryPage.xaml
     /// </summary>
-    public partial class summaryPage : Page
+    public partial class SummaryPage : Page
     {
-        public summaryPage()
+        public SummaryPage()
         {
             InitializeComponent();
+        }
+
+        public void SetResult(ExecutionResult result)
+        {
+            MainResult.DataContext = result;
         }
 
         private void konecClick(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();
+        }
+
+        private void BackButton_Click(object sender, RoutedEventArgs e)
+        {
+            MainWindow parentWindow = Window.GetWindow(this) as MainWindow;
+            parentWindow.NavigateToExecutionPage();
         }
     }
 }

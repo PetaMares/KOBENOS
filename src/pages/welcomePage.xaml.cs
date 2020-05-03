@@ -1,4 +1,5 @@
-﻿using Microsoft.Win32;
+﻿using kobenos.classes;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -12,38 +13,28 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace kobenos
+namespace kobenos.pages
 {
     /// <summary>
     /// Interaction logic for welcomePage.xaml
     /// </summary>
-    public partial class welcomePage : Page
+    public partial class WelcomePage : Page
     {
         public static string nameFile;
-        public welcomePage()
+        public WelcomePage()
         {
             InitializeComponent();
 
             ConfigFilePathTextBox.Text = System.AppDomain.CurrentDomain.BaseDirectory + "config.xml";
         }
 
-        private void startButtonClick(object sender, RoutedEventArgs e)
+        private void ContinueButton_Click(object sender, RoutedEventArgs e)
         {
             MainWindow parentWindow = Window.GetWindow(this) as MainWindow;
-            if (parentWindow != null)
-            {
-                if (StartExecution.IsChecked == true)
-                {
-                    parentWindow.navigate(new executionPage(ConfigFilePathTextBox.Text, true));
-                }
-                else
-                {
-                    parentWindow.navigate(new executionPage(ConfigFilePathTextBox.Text, false));
-                }
-            }
+            parentWindow.NavigateToExecutionPage(ConfigFilePathTextBox.Text);
         }
 
-        private void vybratButtonClick(object sender, RoutedEventArgs e)
+        private void VybratButton_Click(object sender, RoutedEventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.InitialDirectory = System.AppDomain.CurrentDomain.BaseDirectory;
@@ -53,6 +44,24 @@ namespace kobenos
                 ConfigFilePathTextBox.Text = openFileDialog.FileName;
                 nameFile = openFileDialog.FileName;
             }
+        }
+
+        private void CheckFile()
+        {
+            FileExistsCheck check = new FileExistsCheck(ConfigFilePathTextBox.Text);
+            ExecutionResult result = check.Execute();
+            ContinueButton.IsEnabled = result.IsSuccessful;
+            FileCheckDetail.DataContext = result;
+        }
+
+        private void ConfigFilePathTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            CheckFile();
+        }
+
+        private void EndButton_Click(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Shutdown();
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using kobenos.pages;
+using kobenos.classes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -90,6 +91,12 @@ namespace kobenos
 
         public void NavigateToSummaryPage()
         {
+            this.navigate(this.SummaryPage);
+        }
+
+        public void NavigateToSummaryPage(ExecutionResult result)
+        {
+            this.SummaryPage.SetResult(result);
             this.navigate(this.SummaryPage);
         }
     }

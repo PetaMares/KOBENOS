@@ -24,13 +24,18 @@ namespace kobenos.classes
             ManagementObjectSearcher searcher = new ManagementObjectSearcher(this.scope, this.query);
             ManagementObjectCollection queryResults = searcher.Get();
 
+            string actualValues = "";
             bool result = false;
             string details = "";
 
             foreach (ManagementObject queryResult in queryResults)
             {
-                result = result || queryResult.GetPropertyValue(this.expected.property).Equals(this.expected.value);
-                details = queryResult.ToString();
+                string actualValue = queryResult.GetPropertyValue(this.expected.property).ToString();
+                actualValues += actualValue + ",";
+                bool thisResult = actualValue.Equals(this.expected.value);
+                string detail = thisResult ? "" : String.Format("Actual value: {0}, expected value: {1}", actualValue, this.expected.value);
+                result = result || thisResult;
+                details += detail;
             }
 
             return new ExecutionResult(result, details);

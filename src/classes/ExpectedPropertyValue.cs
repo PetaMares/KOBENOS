@@ -11,7 +11,6 @@ namespace kobenos.classes
         [XmlAttribute]
         public string property;
 
-        [XmlAttribute]
         public string value;
     }
 }

@@ -42,7 +42,7 @@ namespace kobenos.controls
             }
         }
 
-        public static async void Show(Func<IProgress<string>, Task> workAsync)
+        public static void Show(Func<IProgress<string>, Task> workAsync)
         {
             var progressWindow = new WaitWindow();
             progressWindow.Owner = Application.Current.MainWindow;            
@@ -54,7 +54,7 @@ namespace kobenos.controls
             worker.RunWorkerCompleted +=
                 (s, workerArgs) => progressWindow.Close();
                 
-            progressWindow.Loaded += async (s, e) =>
+            progressWindow.Loaded += (s, e) =>
             {
                 worker.RunWorkerAsync();
             };

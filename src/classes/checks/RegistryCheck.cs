@@ -4,6 +4,9 @@ using System.Xml.Serialization;
 
 namespace kobenos.classes
 {
+    /// <summary>
+    /// Zkontroluje hodnotu z registrů.
+    /// </summary>
     public class RegistryCheck : AbstractCheck
     {
         [XmlAttribute]

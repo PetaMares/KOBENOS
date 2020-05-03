@@ -1,4 +1,6 @@
 ﻿using kobenos.classes;
+using kobenos.controls;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -84,16 +86,26 @@ namespace kobenos
             parentWindow.NavigateToWelcomePage();
         }
 
+        private void RunCheck(AbstractCheck check)
+        {
+            WaitWindow.Show(async progress =>
+            {
+                progress.Report("running...");
+                check.Execute();
+                progress.Report("finished");
+            });
+        }
+
         private void RunAllButton_Click(object sender, RoutedEventArgs e)
         {
-            this.MainSuite.Execute();
+            RunCheck(this.MainSuite);
             RefreshTree();
             RefreshButtons();
         }
 
         private void RunCheckButton_Click(object sender, RoutedEventArgs e)
         {
-            this.SelectedCheck.Execute();
+            RunCheck(this.SelectedCheck);
             RefreshTree();
             RefreshButtons();
         }

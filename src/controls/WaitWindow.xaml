@@ -4,15 +4,16 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:kobenos.controls"
-        mc:Ignorable="d" WindowStartupLocation="CenterOwner"
-        Title="WaitWindow" Height="150" Width="300">
+        mc:Ignorable="d" WindowStartupLocation="CenterOwner" WindowStyle="None"
+        ShowInTaskbar="False" ShowActivated="True"
+        Title="Čekejte prosím" Height="150" Width="300">
     <Grid  HorizontalAlignment="Center" VerticalAlignment="Center">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         
-        <TextBlock Text="Čekejte prosím" />
+        <TextBlock Text="Čekejte prosím..." />
         <TextBlock Text="{Binding ProgressText, ElementName=window}" Grid.Row="1" />
     </Grid>
 </Window>

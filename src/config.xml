@@ -99,15 +99,15 @@
 					<checks>
 						<registry
 							name="Heslo musí splňovat požadavky na složitost"
-							key="\HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\SecEdit\Reg Values\MACHINE/System/CurrentControlSet/Services/Netlogon/Parameters/MaximumPasswordAge"
+							key=""
 							value=""
 							expected="Accepted"/> 
 					</checks>
 					<checks>
 						<registry
 							name="Maximální stáří hesla"
-							key=""
-							value=""
+							key="HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Netlogon\Parameters"
+							value="MaximumPasswordAge"
 							expected="90"/>
 					</checks>
 					<checks>
@@ -143,15 +143,15 @@
 					<checks>
 						<registry
 							name="Doba uzamčení účtu"
-							key=""
-							value=""
+							key="HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\RemoteAccess\Parameters\AccountLockout"
+							value="MaxDenials"
 							expected="0"/>
 					</checks>
 					<checks>
 						<registry
 							name="Prahová hodnota pro uazmčení účtu"
-							key=""
-							value=""
+							key="HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System"
+							value="MaxDevicePasswordFailedAttempts"
 							expected="3"/>
 					</checks>
 					<checks>
@@ -338,43 +338,43 @@
 					<checks>
 						<registry
 							name="Interaktivní přihlašování: Limit pro nečinnost počítače"
-							key=""
-							value=""
+							key="HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System"
+							value="InactivityTimeoutSecs"
 							expected="900"/>
 					</checks>
 					<checks>
 						<registry
 							name="Interaktivní přihlašování: Nadpis zprávy pro uživatele pokoušející se přihlásit"
-							key=""
-							value=""
+							key="HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System"
+							value="legalnoticecaption"
 							expected="Upozornění"/>
 					</checks>
 					<checks>
 						<registry
 							name="Interaktivní přihlašování: Nevyžadovat stisknutí kláves Ctrl+Alt+Del"
-							key=""
-							value=""
-							expected="Disabled"/>
+							key="HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon"
+							value="DisableCad"
+							expected="0"/>
 					</checks>
 					<checks>
 						<registry
 							name="Interaktivní přihlašování: Nezobrazovat naposledy použité uživatelské jméno"
-							key=""
-							value=""
-							expected="Enabled"/>
+							key="HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System"
+							value="dontdisplaylastusername"
+							expected="1"/>
 					</checks>
 					<checks>
 						<registry
 							name="Interaktivní přihlašování: Text zprávy pro uživatele pokoušející se přihlásit"
-							key=""
-							value=""
+							key="HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System"
+							value="legalnoticetext"
 							expected="Přihlašujete se do informačního systému"/>
 					</checks>
 					<checks>
 						<registry
 							name="Interaktivní přihlašování: Vyzvat uživatele ke změně hesla před jeho vypršením"
-							key=""
-							value=""
+							key="HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon"
+							value="PasswordExpiryWarning"
 							expected="14"/>
 					</checks>
 					<checks>
@@ -387,37 +387,37 @@
 					<checks>
 						<registry
 							name="Konzola pro zotavení: Povolit automatické přihlášení správce"
-							key=""
-							value=""
-							expected="Disable"/>
+							key="HKEY_LOCAL_MACHINE\Software\Microsoft\Windows NT\CurrentVersion\Setup\RecoveryConsole"
+							value="SecurityLevel"
+							expected="0"/>
 					</checks>
 					<checks>
 						<registry
-							name="Konzola pro zotavení: Povolit kopírování na disketua přítup ke všem jednotkám a složkám"
-							key=""
-							value=""
-							expected="Disable"/>
+							name="Konzola pro zotavení: Povolit kopírování na disketu a přítup ke všem jednotkám a složkám"
+							key="HKEY_LOCAL_MACHINE\Software\Microsoft\Windows NT\CurrentVersion\Setup\RecoveryConsole"
+							value="SetCommand"
+							expected="0"/>
 					</checks>
 					<checks>
 						<registry
 							name="Nastavení systému: Volitelné podsystémy"
-							key=""
-							value=""
+							key="HKEY_LOCAL_MACHINE"
+							value="\System\CurrentControlSet\Control\Session Manager\Subsystems"
 							expected=""/>
 					</checks>
 					<checks>
 						<registry
 							name="Řízení uživatelských účtů: Chování výzvy ke zvýšení oprávnění pro správce v Režimu schválneí správce"
-							key=""
-							value=""
-							expected="Prompt for consent"/>
+							key="HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System"
+							value="ConsentPromptBehaviorAdmin"
+							expected="5"/>
 					</checks>
 					<checks>
 						<registry
 							name="Řízení uživatelských účtů: Chování výzvy ke zvýšení oprávnění pro standardního uživatele"
-							key=""
-							value=""
-							expected="Automatically deny elevation requests"/>
+							key="HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System"
+							value="ConsentPromptBehaviorUser"
+							expected="0"/>
 					</checks>
 					<checks>
 						<registry
@@ -429,9 +429,9 @@
 					<checks>
 						<registry
 							name="Řízení uživatelských účtů: Při zobrazení výzvy ke zvýšení oprávnění přepnout na zabezpečenou plochu"
-							key=""
-							value=""
-							expected="Enable"/>
+							key="Software\Microsoft\Windows\CurrentVersion\Policies\System"
+							value="PromptOnSecureDesktop"
+							expected="1"/>
 					</checks>
 					<checks>
 						<registry

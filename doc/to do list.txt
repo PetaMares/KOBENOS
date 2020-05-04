@@ -1,0 +1,19 @@
+- vytvoøit testy na èlánek 11 all
+- vytvoøit testy na èlánek 12 all
+- vytvoøit testy na èlánek 14 all
+- vytvoøit testy na èlánek 15   - doba uzamèení úètu funguje
+                                - prahová hodnota pro uzamèení úètu nefunguje- neexistující hodnota v registrech
+                                - vynulovat èítaè uzamèení úètu po - nikde jsem nenašel v registrech
+- vytvoøit testy na èlánek 16 - prý to není nikde v registrech
+- vytvoøit testy na èlánek 17 - taky to není nikde v registrech
+- vytvoøit testy na èlánek 18 - v registrech nelze najít nic pro tyto hodnoty   - Audit: Vynutit pøednost nastavení podkategorie zásad auditování pøed nastavením kategorie zásad auditování
+                                                                                - Interaktivní pøihlašování: Zobrazit informace o uživateli, pokud je relace uzamèena
+                                                                                - Úèty: Blokovat úèty Microsoft
+                                                                                - Úèty: Pøejmenovat úèet Guest
+                                                                                - Úèty: Pøejmenovat úèet správce
+                                                                                - Úèty: Stav úètu hosta
+- vytvoøit testy na èlánek 19 - v registrech nejsou žádné odpovídající hodnoty pro EvenLog
+- vytvoøit testy na èlánek 20 - v registrech pr onì nejsou odpovídající hodnoty     
+- vytvoøit test pro 21- One drive- v registrech pro nìj není odpovídající hodnota
+- to stejné pro 22,23,25, 26, 27,28,29,30,31
+                                                                                                         

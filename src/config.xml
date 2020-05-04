@@ -149,7 +149,7 @@
 					</checks>
 					<checks>
 						<registry
-							name="Prahová hodnota pro uazmčení účtu"
+							name="Prahová hodnota pro uzamčení účtu"
 							key="HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System"
 							value="MaxDevicePasswordFailedAttempts"
 							expected="3"/>
@@ -369,7 +369,7 @@
 							name="Interaktivní přihlašování: Text zprávy pro uživatele pokoušející se přihlásit"
 							key="HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System"
 							value="legalnoticetext"
-							expected="Přihlašujete se do informačního systému"/>
+							expected="Jedná se o systém pro zpracování CITLIVÝCH informací.(Zařízení nesmí být připojeno ani na WIFI ani na LAN).........všechny bezpečnostní incidenty jsou logovány........."/>
 					</checks>
 					<checks>
 						<registry
@@ -408,7 +408,7 @@
 					</checks>
 					<checks>
 						<registry
-							name="Řízení uživatelských účtů: Chování výzvy ke zvýšení oprávnění pro správce v Režimu schválneí správce"
+							name="Řízení uživatelských účtů: Chování výzvy ke zvýšení oprávnění pro správce v Režimu schválení správce"
 							key="HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System"
 							value="ConsentPromptBehaviorAdmin"
 							expected="5"/>
@@ -430,49 +430,49 @@
 					<checks>
 						<registry
 							name="Řízení uživatelských účtů: Při zobrazení výzvy ke zvýšení oprávnění přepnout na zabezpečenou plochu"
-							key="Software\Microsoft\Windows\CurrentVersion\Policies\System"
+							key="HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System"
 							value="PromptOnSecureDesktop"
 							expected="1"/>
 					</checks>
 					<checks>
 						<registry
 							name="Řízení uživatelských účtů: Režim schválení správce pro integrovaný účet správce"
-							key="Software\Microsoft\Windows\CurrentVersion\Policies\System"
+							key="HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System"
 							value="FilterAdministratorToken"
 							expected="1"/>
 					</checks>
 					<checks>
 						<registry
 							name="Řízení uživatelských účtů: Spustit všechny správce v Režimu schválení správce"
-							key="Software\Microsoft\Windows\CurrentVersion\Policies\System"
+							key="HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System"
 							value="EnableLUA"
 							expected="1"/>
 					</checks>
 					<checks>
 						<registry
 							name="Řízení uživatelských účtů: Virtualizovat chyby zápisu do souboru a registru do umístění jednotlivých uživatelů"
-							key="Software\Microsoft\Windows\CurrentVersion\Policies\System"
+							key="HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System"
 							value="EnableVirtualization"
 							expected="1"/>
 					</checks>
 					<checks>
 						<registry
 							name="Řízení uživatelských účtů: Zjistit instalace aplikací a zobrazit výzvu ke zvýšení oprávnění"
-							key="Software\Microsoft\Windows\CurrentVersion\Policies\System"
+							key="HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System"
 							value="EnableInstallerDetection"
 							expected="1"/>
 					</checks>
 					<checks>
 						<registry
 							name="Řízení uživatelských účtů: Zvýšit oprávnění pouze u aplikací UIAccess, které jsou nainstalovány v zabezpečených umístěních"
-							key="Software\Microsoft\Windows\CurrentVersion\Policies\System"
+							key="HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System"
 							value="EnableSecureUIAPaths"
 							expected="1"/>
 					</checks>
 					<checks>
 						<registry
 							name="Řízení uživatelských účtů: Zvýšit oprávnění pouze u podepsaných a ověřených spustitelných souborů"
-							key="Software\Microsoft\Windows\CurrentVersion\Policies\System"
+							key="HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System"
 							value="ValidateAdminCodeSignatures"
 							expected="0"/>
 					</checks>
@@ -619,7 +619,7 @@
 						<registry 
 							name="Bránit používání OneDrivu jako úložiště souborů"
 							key="HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows\OneDrive"
-							value="	DisableFileSyncNGSC"
+							value="DisableFileSyncNGSC"
 							expected="1"/>	
 					</checks>
 				</suite>
@@ -917,7 +917,7 @@
 				<suite name="Článek 31 - Průzkumník Windows">
 					<checks>
 						<registry
-							name="Nepřesouvat odstraněné soubory do koše "
+							name="Nepřesouvat odstraněné soubory do koše"
 							key="HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer"
 							value="NoRecycleFiles"
 							expected="1"/>

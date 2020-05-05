@@ -15,6 +15,11 @@ namespace kobenos.classes
 
         protected ExecutionResult lastResult = new ExecutionResult();
 
+        [XmlArray("eval")]
+        [XmlArrayItem(typeof(FirstValueRegExEvaluation), ElementName = "first")]
+        [XmlArrayItem(typeof(MinValuesCountEvaluation), ElementName = "min")]
+        public Evaluations Evaluations;
+
         protected abstract ExecutionResult internalExecute();
 
         public ExecutionResult Execute()

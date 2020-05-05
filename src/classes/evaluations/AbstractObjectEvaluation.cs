@@ -8,10 +8,10 @@ namespace kobenos.classes
     /// <summary>
     /// Abstraktni trida, od ktere jsou odvozena vsechna vyhodnoceni dotazu na WMI.
     /// </summary>
-    public abstract class AbstractWmiEvaluation
+    public abstract class AbstractObjectEvaluation
     {
         
-        public abstract EvaluationResult Evaluate(ManagementObjectCollection values);
+        public abstract EvaluationResult Evaluate(EvaluationInputValues values);
 
     }
 }

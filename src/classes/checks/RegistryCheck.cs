@@ -33,10 +33,10 @@ namespace kobenos.classes
                     byte[] bytes = (byte[])regValue;
                     foreach (byte b in bytes)
                     {
-                        values.Add(b.ToString());
+                        values.Add(new StringEvaluationObjectAdapter(b.ToString()));
                     }
                 } else {
-                    values.Add(regValue.ToString());
+                    values.Add(new StringEvaluationObjectAdapter(regValue.ToString()));
                 }
             }            
             return new ExecutionResult(this.Evaluations.Evaluate(values));

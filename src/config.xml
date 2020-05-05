@@ -93,5 +93,15 @@
 				</gpo>
 			</checks>
 		</suite>
+		<suite name="PS test">
+			<checks>
+				<powershell name="PSO">
+					<command>secedit /export /cfg temp.ini; Get-Content -Path .\temp.ini;</command>
+					<eval>
+						<first value="Disabled" />
+					</eval>
+				</powershell>
+			</checks>
+		</suite>
 	</checks>
 </suite>

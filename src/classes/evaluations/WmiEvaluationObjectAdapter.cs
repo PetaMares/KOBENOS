@@ -17,7 +17,8 @@ namespace kobenos.classes
 
         public string GetProperty(string name)
         {
-            return this.actualObject.GetPropertyValue(name).ToString();
+            object value = this.actualObject.GetPropertyValue(name);
+            return value != null ? value.ToString() : null;
         }
     }
 }

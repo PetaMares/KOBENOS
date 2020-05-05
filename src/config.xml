@@ -109,6 +109,7 @@
 					<eval>
 						<first property="MinimumPasswordAge" value="0" />
 						<first property="MaximumPasswordAge" value="42" />
+						<first property="NewAdministratorName" value="&quot;Administrator&quot;" />
 					</eval>
 				</security>
 			</checks>

@@ -31,10 +31,17 @@ namespace kobenos.classes
             if (evalCountResult.IsCompliant)
             {
                 string actualValue = values[0].GetProperty(this.property);
-                Regex regex = new Regex(this.value, RegexOptions.Compiled);
-                bool result = regex.IsMatch(actualValue);
-                string message = result ? "OK" : String.Format("Value '{0}' doesn't match regular expression '{1}'.", actualValue, this.value);
-                return new EvaluationResult(result, message);
+                if (actualValue != null)
+                {
+                    Regex regex = new Regex(this.value, RegexOptions.Compiled);
+                    bool result = regex.IsMatch(actualValue);
+                    string message = result ? "OK" : String.Format("Value '{0}' doesn't match regular expression '{1}'.", actualValue, this.value);
+                    return new EvaluationResult(result, message);
+                }
+                else 
+                {
+                    return new EvaluationResult(false, String.Format("Property '{0}' doesn't exist.", this.property));
+                }
             } else
             {
                 return evalCountResult;

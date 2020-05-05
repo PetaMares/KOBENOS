@@ -15,7 +15,13 @@ namespace kobenos.classes
 
         public string GetProperty(string name)
         {
-            return this.dictionary[name];
+            if (this.dictionary.ContainsKey(name))
+            {
+                return this.dictionary[name];
+            } else
+            {
+                return null;
+            }
         }
     }
 }

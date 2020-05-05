@@ -13,11 +13,6 @@ namespace kobenos.classes
 
         public string value;
 
-        [XmlArray("eval")]
-        [XmlArrayItem(typeof(FirstValueRegExEvaluation), ElementName = "first")]
-        [XmlArrayItem(typeof(MinValuesCountEvaluation), ElementName = "min")]
-        public Evaluations Evaluations;
-
         static object GetRegistryValue(string key, string value)
         {
             return Registry.GetValue(key, value, null);

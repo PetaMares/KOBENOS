@@ -103,5 +103,15 @@
 				</powershell>
 			</checks>
 		</suite>
+		<suite name="SECURITY test">
+			<checks>
+				<security name="secedit">					
+					<eval>
+						<first property="MinimumPasswordAge" value="0" />
+						<first property="MaximumPasswordAge" value="42" />
+					</eval>
+				</security>
+			</checks>
+		</suite>
 	</checks>
 </suite>

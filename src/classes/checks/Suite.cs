@@ -20,6 +20,7 @@ namespace kobenos.classes
         [XmlArrayItem(typeof(RegistryCheck), ElementName = "registry")]
         [XmlArrayItem(typeof(GpoCheck), ElementName = "gpo")]
         [XmlArrayItem(typeof(PowerShellCheck), ElementName = "powershell")]
+        [XmlArrayItem(typeof(SecurityCheck), ElementName = "security")]
         public List<AbstractCheck> Checks { get => checks; set => checks = value; }
 
         protected override ExecutionResult internalExecute()

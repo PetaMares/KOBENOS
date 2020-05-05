@@ -30,7 +30,7 @@ namespace kobenos.classes
                 string actualValue = values[0];
                 Regex regex = new Regex(this.value, RegexOptions.Compiled);
                 bool result = regex.IsMatch(actualValue);
-                string message = result ? "OK" : String.Format("Value {0} doesn't match regular expression {1}.", actualValue, this.value);
+                string message = result ? "OK" : String.Format("Value '{0}' doesn't match regular expression '{1}'.", actualValue, this.value);
                 return new EvaluationResult(result, message);
             } else
             {

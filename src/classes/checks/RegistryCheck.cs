@@ -9,10 +9,8 @@ namespace kobenos.classes
     /// </summary>
     public class RegistryCheck : AbstractCheck
     {
-        [XmlAttribute]
         public string key;
 
-        [XmlAttribute]
         public string value;
 
         [XmlArray("eval")]

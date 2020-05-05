@@ -35,7 +35,7 @@ namespace kobenos.classes
                 string actualValue = actualObject.GetPropertyValue(this.property).ToString();
                 Regex regex = new Regex(this.value, RegexOptions.Compiled);
                 bool result = regex.IsMatch(actualValue);
-                string message = result ? "OK" : String.Format("Value of property {0} is {1} and that doesn't match regular expression {2}.", this.property, actualValue, this.value);
+                string message = result ? "OK" : String.Format("Value of property {0} is '{1}' and that doesn't match regular expression '{2}'.", this.property, actualValue, this.value);
                 return new EvaluationResult(result, message);
             }
             else

@@ -39,5 +39,6 @@ namespace kobenos.classes
 
         [XmlAttribute(AttributeName = "name")]
         public string Name { get => name; set => name = value; }
+
     }
 }

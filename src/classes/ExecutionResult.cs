@@ -12,6 +12,12 @@ namespace kobenos.classes
 
         private string details;
 
+        public ExecutionResult(EvaluationResult evalResult)
+        {
+            this.executionResult = evalResult.IsCompliant;
+            this.details = evalResult.Message;
+        }
+
         public ExecutionResult(bool? executionResult, string details)
         {
             this.executionResult = executionResult;

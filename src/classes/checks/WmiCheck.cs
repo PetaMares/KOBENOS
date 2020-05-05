@@ -16,7 +16,10 @@ namespace kobenos.classes
 
         public string query;
 
-        public ExpectedPropertyValue expected;
+        [XmlArray("eval")]
+        [XmlArrayItem(typeof(FirstValueRegExWmiEvaluation), ElementName = "first")]
+        [XmlArrayItem(typeof(MinValuesCountWmiEvaluation), ElementName = "min")]
+        public WmiEvaluations Evaluations;
 
         protected override ExecutionResult internalExecute()
         {
@@ -24,21 +27,7 @@ namespace kobenos.classes
             ManagementObjectSearcher searcher = new ManagementObjectSearcher(this.scope, this.query);
             ManagementObjectCollection queryResults = searcher.Get();
 
-            string actualValues = "";
-            bool result = false;
-            string details = "";
-
-            foreach (ManagementObject queryResult in queryResults)
-            {
-                string actualValue = queryResult.GetPropertyValue(this.expected.property).ToString();
-                actualValues += actualValue + ",";
-                bool thisResult = actualValue.Equals(this.expected.value);
-                string detail = thisResult ? "" : String.Format("Actual value: {0}, expected value: {1}", actualValue, this.expected.value);
-                result = result || thisResult;
-                details += detail;
-            }
-
-            return new ExecutionResult(result, details);
+            return new ExecutionResult(this.Evaluations.Evaluate(queryResults));
         }
             
     }

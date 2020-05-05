@@ -15,32 +15,33 @@ namespace kobenos.classes
         [XmlAttribute]
         public string value;
 
-        [XmlAttribute]
-        public string expected;
+        [XmlArray("eval")]
+        [XmlArrayItem(typeof(FirstValueRegExEvaluation), ElementName = "first")]
+        [XmlArrayItem(typeof(MinValuesCountEvaluation), ElementName = "min")]
+        public Evaluations Evaluations;
 
         static object GetRegistryValue(string key, string value)
         {
             return Registry.GetValue(key, value, null);
         }
 
-        static string GetRegistryStringValue(string key, string value)
-        {
-            object regValue = GetRegistryValue(key, value);
-            return regValue == null ? "" : (regValue is byte[]) ? ((byte[])regValue)[0].ToString() : regValue.ToString();
-        }
-
-        static byte GetRegistryByteValue(string key, string value)
-        {
-            object regValue = GetRegistryValue(key, value);
-            return regValue == null ? (byte)0 : ((byte[])regValue)[0];
-        }
-
         protected override ExecutionResult internalExecute()
         {
-            string actualValue = GetRegistryStringValue(this.key, this.value);
-            bool result = actualValue.Equals(this.expected);
-            string detail = result ? "" : String.Format("Actual value: {0}, expected value: {1}", actualValue, expected);
-            return new ExecutionResult(result, detail);
+            object regValue = GetRegistryValue(key, value);
+            EvaluationInputValues values = new EvaluationInputValues();
+            if (regValue != null)
+            {
+                if (regValue is byte[]) {
+                    byte[] bytes = (byte[])regValue;
+                    foreach (byte b in bytes)
+                    {
+                        values.Add(b.ToString());
+                    }
+                } else {
+                    values.Add(regValue.ToString());
+                }
+            }            
+            return new ExecutionResult(this.Evaluations.Evaluate(values));
         }
     }
 }

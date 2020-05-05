@@ -6,6 +6,10 @@ using System.Xml.Serialization;
 
 namespace kobenos.classes
 {
+    /// <summary>
+    /// Tato třída umožňuje serializovat objekt do XML a zpět.
+    /// Zdroj: stackoverflow.com
+    /// </summary>
     class SerializationHelper
     {
         public static T Deserialize<T>(string input) where T : class
@@ -18,7 +22,7 @@ namespace kobenos.classes
             }
         }
 
-        public string Serialize<T>(T ObjectToSerialize)
+        public static string Serialize<T>(T ObjectToSerialize)
         {
             XmlSerializer xmlSerializer = new XmlSerializer(ObjectToSerialize.GetType());
 
@@ -29,6 +33,10 @@ namespace kobenos.classes
             }
         }
 
+        /// <summary>
+        /// Načte XML soubor a vrátí deserializovaný objekt.
+        /// </summary>
+        /// <param name="path">Cesta k souboru s XML.</param>
         public static T DeserializeFile<T>(string path) where T : class
         { 
             string xmlString = File.ReadAllText(path);

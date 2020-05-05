@@ -6,6 +6,6 @@
       mc:Ignorable="d" 
       d:DesignHeight="600" d:DesignWidth="800">
 
-    <TextBlock Text="{Binding Details}" Foreground="{Binding Color}" />
+    <TextBlock TextWrapping="Wrap" Text="{Binding Details}" Foreground="{Binding Color}" />
 
 </ContentControl>

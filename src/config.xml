@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suite name="Výchozí kontrola bezpečnosti">
+	<checks>
+		<suite name="Všeobecná nastavení">
+			<checks>
+				<os name="Kontrola verze Windows">
+				</os>
+				<wmi name="Kontrola aktivace Windows">
+					<scope>root\CIMV2</scope>
+					<query>SELECT * FROM SoftwareLicensingProduct WHERE Name LIKE "%Windows%" AND LicenseStatus = 1</query>
+					<eval>
+						<first property="LicenseStatus" value="1" />
+					</eval>
+				</wmi>
+				<wmi name="Kontrola nastavení BIOS">
+					<scope>root\CIMV2</scope>
+					<query>SELECT * FROM Win32_BootConfiguration WHERE Name='BootConfiguration' AND Caption LIKE "%Harddisk0%" </query>
+					<eval>
+						<first property="Caption" value=".*\\Device\\Harddisk0.*" />
+					</eval>					
+				</wmi>
+				<suite name="Článek 7 - Kontrola deaktivace WLAN">
+					<checks>
+						<wmi name="kontrolaWLANState">
+							<scope>root\CIMV2</scope>
+							<query>SELECT * FROM Win32_Service WHERE Name='WlanSvc'</query>
+							<eval>
+								<first property="State" value="Stopped" />
+								<first property="StartMode" value="Disabled" />
+							</eval>
+						</wmi>
+						<wmi name="kontrolaWWANState">
+							<scope>root\CIMV2</scope>
+							<query>SELECT * FROM Win32_Service WHERE Name='WwanSvc'</query>
+							<eval>
+								<first property="State" value="Stopped" />
+								<first property="StartMode" value="Disabled" />
+							</eval>
+						</wmi>
+					</checks>
+				</suite>
+				<suite name="Článek 8 - Kontrola deaktivace Bluetooth">
+					<checks>
+						<wmi name="kontrolaBTState">
+							<scope>root\CIMV2</scope>
+							<query>SELECT * FROM Win32_Service WHERE Name='bthserv'</query>
+							<eval>
+								<first property="State" value="Stopped" />
+								<first property="StartMode" value="Disabled" />
+							</eval>
+						</wmi>
+					</checks>
+				</suite>
+				<suite name="Článek 11 - Kontrola uživatelských účtů a skupin podle doporučené tabulky">
+					<checks>
+						<wmi name="user">
+							<scope>root\CIMV2</scope>
+							<query>SELECT * FROM Win32_GroupUser WHERE GroupComponent.Name = 'Administrators'</query>
+							<eval>
+								<first property="Status" value="Degraded" />
+							</eval>
+						</wmi>
+						<registry name="kontrola registrů">
+							<key>HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control</key>
+							<value>LsaFullPrivilegeAuditing</value>
+							<eval>
+								<first value="0" />
+							</eval>
+						</registry>
+					</checks>
+				</suite>
+				<suite name="Článek 12 - Kontrola nastavení práv k tiskárnám">
+					<checks>
+						<wmi name="Najít fax v tiskárnách.">
+							<scope>root\CIMV2</scope>
+							<query>SELECT * FROM Win32_Printer WHERE Name LIKE 'Fax'</query>
+							<eval>
+								<first property="Name" value="Fax" />
+							</eval>
+						</wmi>
+					</checks>
+				</suite>
+			</checks>
+		</suite>
+		<suite name="GPO test">
+			<checks>
+				<gpo name="Audit: Audit the use of Backup and Restore privilege">
+					<location>Computer Configuration\Windows Settings\Security Settings\Local Policies\Security Options</location>
+					<policy>Audit: Audit the use of Backup and Restore privilege</policy>
+					<eval>
+						<first value="Disabled" />
+					</eval>
+				</gpo>
+			</checks>
+		</suite>
+		<suite name="PS test">
+			<checks>
+				<powershell name="PSO">
+					<command>secedit /export /cfg temp.ini; Get-Content -Path .\temp.ini;</command>
+					<eval>
+						<first value="Disabled" />
+					</eval>
+				</powershell>
+			</checks>
+		</suite>
+		<suite name="SECURITY test">
+			<checks>
+				<security name="secedit">					
+					<eval>
+						<first property="MinimumPasswordAge" value="0" />
+						<first property="MaximumPasswordAge" value="42" />
+						<first property="NewAdministratorName" value="&quot;Administrator&quot;" />
+					</eval>
+				</security>
+			</checks>
+		</suite>
+	</checks>
+</suite>

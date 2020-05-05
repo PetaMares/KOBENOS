@@ -16,11 +16,6 @@ namespace kobenos.classes
 
         public string policy;
 
-        [XmlArray("eval")]
-        [XmlArrayItem(typeof(FirstValueRegExEvaluation), ElementName = "first")]
-        [XmlArrayItem(typeof(MinValuesCountEvaluation), ElementName = "min")]
-        public Evaluations Evaluations;
-
         protected override ExecutionResult internalExecute()
         {
             EvaluationInputValues values = new EvaluationInputValues();

@@ -13,11 +13,6 @@ namespace kobenos.classes
 
         public string value;
 
-        [XmlArray("eval")]
-        [XmlArrayItem(typeof(FirstValueRegExEvaluation), ElementName = "first")]
-        [XmlArrayItem(typeof(MinValuesCountEvaluation), ElementName = "min")]
-        public Evaluations Evaluations;
-
         static object GetRegistryValue(string key, string value)
         {
             return Registry.GetValue(key, value, null);
@@ -33,10 +28,10 @@ namespace kobenos.classes
                     byte[] bytes = (byte[])regValue;
                     foreach (byte b in bytes)
                     {
-                        values.Add(b.ToString());
+                        values.Add(new StringEvaluationObjectAdapter(b.ToString()));
                     }
                 } else {
-                    values.Add(regValue.ToString());
+                    values.Add(new StringEvaluationObjectAdapter(regValue.ToString()));
                 }
             }            
             return new ExecutionResult(this.Evaluations.Evaluate(values));

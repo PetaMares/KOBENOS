@@ -7,7 +7,7 @@ namespace kobenos.classes
     /// <summary>
     /// Vstupem pro vyhodnoceni je vzdy kolekce retezcu.
     /// </summary>
-    public class EvaluationInputValues : List<string>
+    public class EvaluationInputValues : List<IEvaluationObject>
     {
     }
 }

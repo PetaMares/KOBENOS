@@ -15,6 +15,9 @@ namespace kobenos.classes
     {
 
         [XmlAttribute]
+        public string property;
+
+        [XmlAttribute]
         public string value;
 
         public FirstValueRegExEvaluation() : base(1)
@@ -27,11 +30,18 @@ namespace kobenos.classes
             EvaluationResult evalCountResult = base.Evaluate(values);
             if (evalCountResult.IsCompliant)
             {
-                string actualValue = values[0];
-                Regex regex = new Regex(this.value, RegexOptions.Compiled);
-                bool result = regex.IsMatch(actualValue);
-                string message = result ? "OK" : String.Format("Value '{0}' doesn't match regular expression '{1}'.", actualValue, this.value);
-                return new EvaluationResult(result, message);
+                string actualValue = values[0].GetProperty(this.property);
+                if (actualValue != null)
+                {
+                    Regex regex = new Regex(this.value, RegexOptions.Compiled);
+                    bool result = regex.IsMatch(actualValue);
+                    string message = result ? "OK" : String.Format("Value '{0}' doesn't match regular expression '{1}'.", actualValue, this.value);
+                    return new EvaluationResult(result, message);
+                }
+                else 
+                {
+                    return new EvaluationResult(false, String.Format("Property '{0}' doesn't exist.", this.property));
+                }
             } else
             {
                 return evalCountResult;

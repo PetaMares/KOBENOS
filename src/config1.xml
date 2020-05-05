@@ -82,40 +82,32 @@
 				</suite>
 				<suite name="Článek 14 - Zásady hesla">
 					<checks>
-						<registry name="Heslo musí splňovat požadavky na složitost">
-							<key></key>
-							<value></value>
-                            <eval>
-							     <first value="Accepted"/>
+						<security name="Heslo musí splňovat požadavky na složitost">
+							<eval>
+							     <first property="PasswordComplexity" value="1"/>
                             </eval>
-                        </registry>
+                        </security>
 					</checks>
 					<checks>
-						<registry name="Maximální stáří hesla">
-							<key>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Netlogon\Parameters</key>
-							<value>MaximumPasswordAge"</value>
-							 <eval>
-                                <firts value="90"/>
+						<security name="Maximální stáří hesla">
+							<eval>
+                                <firts property="MaximumPasswordAge" value="90"/>
                             </eval>
-                        </registry>
+                        </security>
 					</checks>
 					<checks>
-						<registry name="Minimální délka hesla">
-							<key></key>
-							<value></value>
+						<security name="Minimální délka hesla">
 						    <eval> 
-                              	<first value="9"/>
+                              	<first property="MinimumPasswordLength" value="9"/>
                             </eval>
-                        </registry>
+                        </security>
 					</checks>
 					<checks>
-						<registry name="Minimální stáří hesla">
-							<key></key>
-							<value></value>
+						<security name="Minimální stáří hesla">
                             <eval>
-							    <first value="1"/>
+							    <first property="MinimumPasswordAge" value="1"/>
                             </eval>     
-                        </registry>
+                        </security>
 					</checks>
 					<checks>
 						<registry name="Ukládat hesla pomocí reverzibilního šifrování">
@@ -127,13 +119,11 @@
                         </registry>    
 					</checks>
 					<checks>
-						<registry name="Vynutit použití historie hesel">
-							<key></key>
-							<value></value>
+						<security name="Vynutit použití historie hesel">
 							<eval>
-                                 <first value="24"/>
+                                 <first property="PasswordHistorySize" value="24"/>
                             </eval>
-                        </registry>
+                        </security>
 					</checks>
 				</suite> 
                 <suite name="Článek 15 - Zásady uzamčení účtu">
@@ -156,13 +146,11 @@
                         </registry>    
 					</checks>
 					<checks>
-						<registry name="Vynulovat čítač uzamčení účtu po">
-							<key></key>
-							<value></value>
+						<security name="Vynulovat čítač uzamčení účtu po">
 							<eval>
-                                <first value="60"/>
+                                <first property="ResetLockoutCount" value="60"/>
                             </eval>
-                        </registry>    
+                        </security>    
 					</checks>
 				</suite>
                 <suite name="Článek 16 - Zásady auditu">
@@ -171,81 +159,65 @@
 							<key></key>
 							<value></value>
                             <eval>
-                                <first value="No auditing"/>
+                                <first property="AuditPrivilageUse" value="0"/>
                             </eval>
                         </registry>    
 					</checks>
 					<checks>
-						<registry name="Auditovat přístup k adresářové službě">
-							<key></key>
-							<value></value>
+						<security name="Auditovat přístup k adresářové službě">
                             <eval>
-                                <first value="No auditing"/>
+                                <first property="AuditDSAccess" value="0"/>
                              </eval>
-                        </registry>   
+                        </security>   
 					</checks>
 					<checks>
-						<registry name="Auditovat přístup k objektům">
-							<key></key>
-							<value></value>
+						<security name="Auditovat přístup k objektům">
                             <eval>
-                                <first value="No auditing"/>
+                                <first property="AuditObjectAccess" value="0"/>
                              </eval>
-                        </registry>
+                        </security>
 					</checks>
 					<checks>
-						<registry name="Auditovat sledování procesů">
-							<key></key>
-							<value></value>
+						<security name="Auditovat sledování procesů">
                             <eval>
-                                <first value="No auditing"/>
+                                <first property="AuditProcessTracking" value="0"/>
                              </eval>
-                        </registry>
+                        </security>
 					</checks>
 					<checks>
 						<registry name="Auditovat správu účtů">
-							<key></key>
-							<value></value>
-                            <eval>
-                                <first value=""/>
+							<eval>
+                                <first property="AuditAccountManage" value="3"/>
                              </eval>
                         </registry>
 					</checks>
 					<checks>
-						<registry name="Auditovat systémové události">
-							<key></key>
-							<value></value>
+						<security name="Auditovat systémové události">
                             <eval>
-                                <first value=""/>
+                                <first property="AuditSystemEvents" value="3"/>
                              </eval>
-                        </registry>
+                        </security>
 					</checks>
 					<checks>
-						<registry name="Auditovat události přihlášení">
-							<key></key>
-							<value></value>
+						<security name="Auditovat události přihlášení">
                             <eval>
-                                <first value="No auditing"/>
+                                <first property="AuditLogonEvents" value="3"/>
                              </eval>
-                        </registry>
+                        </security>
 					</checks>
 					<checks>
-						<registry name="Auditovat události přihlášení k účtu">
-							<key></key>
-							<value></value>
+						<security name="Auditovat události přihlášení k účtu">
                             <eval>
-                                <first value=""/>
+                                <first property="AuditAccountLogon" value="3"/>
                              </eval>
-                        </registry>
+                        </security>
 					</checks>
 					<checks>
-						<registry name="Auditovat změny zásad">
-						    <key></key>
-							<value></value>
+						<security name="Auditovat změny zásad">
                             <eval>
-                                <first value="No auditing"/>
+                                <first property="AuditPolicyChange" value="3"/>
                              </eval>
-                        </registry>
+                        </security>
 					</checks>
 				</suite> 
 				<suite name="Článek 17 - Přiřazení uživatelských práv">
@@ -331,22 +303,18 @@
                             </registry>
 						</checks>
 						<checks>
-							<registry name="Změnit časové pásmo">
-								<key></key>
-						      	<value></value>
+							<security name="Změnit časové pásmo">
 								<eval>
-                                    <first value="Administrators"/>
+                                    <first property="SeTimeZonePrivilege" value="\*S-1-5-19,\*S-1-5-32-544"/>
                                 </eval>
-                            </registry>
+                            </security>
 						</checks>
 						<checks>
-							<registry name="Změnit systémový čas">
-								<key></key>
-						      	<value></value>
+							<security name="Změnit systémový čas">
 								<eval>
-                                    <first value="Administrators"/>
+                                    <first property="SeSystemtimePrivilege" value="\*S-1-5-19,\*S-1-5-32-544"/>
                                 </eval>
-                            </registry>
+                            </security>
 						</checks>
 					</suite>
                     <suite name="Článek 18 - Možnosti zabezpečení">
@@ -443,10 +411,8 @@
 					</checks>
 					<checks>
 						<registry name="Interaktivní přihlašování: Zobrazit informace o uživateli, pokud je relace uzamčena">
-								<key></key>
-						      	<value></value>
 								<eval>
-                                    <first value="Not defined"/>
+                                    <first property="" value="Not defined"/>
                                 </eval>
                         </registry>
 					</checks>
@@ -1136,7 +1102,17 @@
 				</suite>
 			</checks>
 		</suite>
-	    
+		<suite name="SECURITY test">
+			<checks>
+				<security name="secedit">
+					<eval>
+						<first property="MinimumPasswordAge" value="9" />
+						<first property="MaximumPasswordAge" value="90" />
+						<first property="NewAdministratorName" value="&quot;Administrator&quot;" />
+					</eval>
+				</security>
+			</checks>
+		</suite>
     
     
     

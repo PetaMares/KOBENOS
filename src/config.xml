@@ -93,10 +93,10 @@
 				</gpo>
 			</checks>
 		</suite>
-		<suite name="PS test">
+		<suite name="uyivatele">
 			<checks>
-				<powershell name="PSO">
-					<command>secedit /export /cfg temp.ini; Get-Content -Path .\temp.ini;</command>
+				<powershell name="local user">
+					<command>get-localuser</command>
 					<eval>
 						<first value="Disabled" />
 					</eval>
@@ -110,6 +110,7 @@
 						<first property="MinimumPasswordAge" value="0" />
 						<first property="MaximumPasswordAge" value="42" />
 						<first property="NewAdministratorName" value="&quot;Administrator&quot;" />
+						<first property="SeNetworkLogonRight" value="\*S-1-1-0,\*S-1-5-32-544,\*S-1-5-32-545,\*S-1-5-32-551,\*S-1-5-32-583" />
 					</eval>
 				</security>
 			</checks>

@@ -80,9 +80,179 @@
 						</wmi>
 					</checks>
 				</suite>
+				<suite name="Článek 14 - Zásady hesla">
+					<checks>
+						<registry name="Heslo musí splňovat požadavky na složitost">
+							<key></key>
+							<value></value>
+                            <eval>
+							     <first value="Accepted"/>
+                            </eval>
+                        </registry>
+					</checks>
+					<checks>
+						<registry name="Maximální stáří hesla">
+							<key>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Netlogon\Parameters</key>
+							<value>MaximumPasswordAge"</value>
+							 <eval>
+                                <firts value="90"/>
+                            </eval>
+                        </registry>
+					</checks>
+					<checks>
+						<registry name="Minimální délka hesla">
+							<key></key>
+							<value></value>
+						    <eval> 
+                              	<first value="9"/>
+                            </eval>
+                        </registry>
+					</checks>
+					<checks>
+						<registry name="Minimální stáří hesla">
+							<key></key>
+							<value></value>
+                            <eval>
+							    <first value="1"/>
+                            </eval>     
+                        </registry>
+					</checks>
+					<checks>
+						<registry name="Ukládat hesla pomocí reverzibilního šifrování">
+							<key></key>
+							<value></value>
+							<eval>
+                                <first value="Disabled"/>
+                            </eval>
+                        </registry>    
+					</checks>
+					<checks>
+						<registry name="Vynutit použití historie hesel">
+							<key></key>
+							<value></value>
+							<eval>
+                                 <first value="24"/>
+                            </eval>
+					</checks>
+				</suite> 
+                <suite name="Článek 15 - Zásady uzamčení účtu">
+					<checks>
+						<registry name="Doba uzamčení účtu">
+							<key>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\RemoteAccess\Parameters\AccountLockout</key>
+							<value>MaxDenials</value>
+							<eval> 
+                             <first value"0"/>
+                            </eval> 
+                        </registry>    
+					</checks>
+					<checks>
+						<registry name="Prahová hodnota pro uzamčení účtu">
+							<key>HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System</key>
+							<value>MaxDevicePasswordFailedAttempts</value>
+							<eval>
+                                <first value="3"/>
+                            </eval>
+                        </registry>    
+					</checks>
+					<checks>
+						<registry name="Vynulovat čítač uzamčení účtu po">
+							<key></key>
+							<value></value>
+							<eval>
+                                <first value="60"/>
+                            </eval>    
+					</checks>
+				</suite>
+                <suite name="Článek 16 - Zásady auditu">
+					<checks>
+						<registry name="Auditovat použití oprávnění">
+							<key></key>
+							<value></value>
+                            <eval>
+                                <first value="No auditing"/>
+                        </registry>    
+					</checks>
+					<checks>
+						<registry name="Auditovat přístup k adresářové službě">
+							<key></key>
+							<value></value>
+                            <eval>
+                                <first value=="No auditing"/>
+                             </eval>
+                        </registry>   
+					</checks>
+					<checks>
+						<registry name="Auditovat přístup k objektům">
+							<key></key>
+							<value></value>
+                            <eval>
+                                <first value=="No auditing"/>
+                             </eval>
+                        </registry>
+					</checks>
+					<checks>
+						<registry name="Auditovat sledování procesů">
+							<key></key>
+							<value></value>
+                            <eval>
+                                <first value=="No auditing"/>
+                             </eval>
+                        </registry>
+					</checks>
+					<checks>
+						<registry name="Auditovat správu účtů">
+							<key></key>
+							<value></value>
+                            <eval>
+                                <first value==""/>
+                             </eval>
+                        </registry>
+					</checks>
+					<checks>
+						<registry name="Auditovat systémové události">
+							<key></key>
+							<value></value>
+                            <eval>
+                                <first value==""/>
+                             </eval>
+                        </registry>
+					</checks>
+					<checks>
+						<registry name="Auditovat události přihlášení">
+							<key></key>
+							<value></value>
+                            <eval>
+                                <first value=="No auditing"/>
+                             </eval>
+                        </registry>
+					</checks>
+					<checks>
+						<registry name="Auditovat události přihlášení k účtu">
+							<key></key>
+							<value></value>
+                            <eval>
+                                <first value==""/>
+                             </eval>
+                        </registry>
+					</checks>
+					<checks>
+						<registry name="Auditovat změny zásad">
+						    <key></key>
+							<value></value>
+                            <eval>
+                                <first value=="No auditing"/>
+                             </eval>
+                        </registry>
+					</checks>
+				</suite>               
 			</checks>
 		</suite>
-		<suite name="GPO test">
+	
+    
+    
+    
+    
+    	<!--<suite name="GPO test">
 			<checks>
 				<gpo name="Audit: Audit the use of Backup and Restore privilege">
 					<location>Computer Configuration\Windows Settings\Security Settings\Local Policies\Security Options</location>
@@ -92,6 +262,6 @@
 					</eval>
 				</gpo>
 			</checks>
-		</suite>
+		</suite>  -->
 	</checks>
 </suite>

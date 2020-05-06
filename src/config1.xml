@@ -19,54 +19,90 @@
 						<first property="Caption" value=".*\\Device\\Harddisk0.*" />
 					</eval>					
 				</wmi>
-				<suite name="Článek 7 - Kontrola deaktivace WLAN">
+				<suite name="Článek 9 - Nastavení systémových služeb">
 					<checks>
-						<wmi name="kontrolaWLANState">
+						<wmi name="kontrola deaktivace WLAN- State">
 							<scope>root\CIMV2</scope>
 							<query>SELECT * FROM Win32_Service WHERE Name='WlanSvc'</query>
 							<eval>
 								<first property="State" value="Stopped" />
+							</eval>
+						</wmi>
+						<wmi name="kontrola deaktivace WLAN- StartMode">
+							<scope>root\CIMV2</scope>
+							<query>SELECT * FROM Win32_Service WHERE Name='WlanSvc'</query>
+							<eval>
 								<first property="StartMode" value="Disabled" />
 							</eval>
 						</wmi>
-						<wmi name="kontrolaWWANState">
+						<wmi name="kontrola deaktivace WWAN- State">
 							<scope>root\CIMV2</scope>
 							<query>SELECT * FROM Win32_Service WHERE Name='WwanSvc'</query>
 							<eval>
 								<first property="State" value="Stopped" />
+							</eval>
+						</wmi>
+						<wmi name="kontrola deaktivace WWAN- Start Mode">
+							<scope>root\CIMV2</scope>
+							<query>SELECT * FROM Win32_Service WHERE Name='WwanSvc'</query>
+							<eval>
 								<first property="StartMode" value="Disabled" />
 							</eval>
 						</wmi>
-					</checks>
-				</suite>
-				<suite name="Článek 8 - Kontrola deaktivace Bluetooth">
-					<checks>
-						<wmi name="kontrolaBTState">
+						<wmi name="kontrola deaktivace Bluetooth- State">
 							<scope>root\CIMV2</scope>
 							<query>SELECT * FROM Win32_Service WHERE Name='bthserv'</query>
 							<eval>
 								<first property="State" value="Stopped" />
-								<first property="StartMode" value="Disabled" />
+							</eval>
+						</wmi>
+						<wmi name="kontrola deaktivace Bluetooth- Start Mode">
+							<scope>root\CIMV2</scope>
+							<query>SELECT * FROM Win32_Service WHERE Name='bthserv'</query>
+							<eval>
+								<first property="State" value="Stopped" />
 							</eval>
 						</wmi>
 					</checks>
 				</suite>
 				<suite name="Článek 11 - Kontrola uživatelských účtů a skupin podle doporučené tabulky">
 					<checks>
-						<wmi name="user">
+						<wmi name="zablokovaný Administrator">
 							<scope>root\CIMV2</scope>
-							<query>SELECT * FROM Win32_GroupUser WHERE GroupComponent.Name = 'Administrators'</query>
+							<query>SELECT * FROM Win32_UserAccount WHERE SID LIKE "S-1-5-21-%-%-%-500"</query>
 							<eval>
 								<first property="Status" value="Degraded" />
 							</eval>
 						</wmi>
-						<registry name="kontrola registrů">
-							<key>HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control</key>
-							<value>LsaFullPrivilegeAuditing</value>
+						<wmi name="zablokovaný Guest">
+							<scope>root\CIMV2</scope>
+							<query>SELECT * FROM Win32_UserAccount WHERE SID LIKE "S-1-5-21-%-%-%-501"</query>
 							<eval>
-								<first value="0" />
+								<first property="Status" value="Degraded" />
 							</eval>
-						</registry>
+						</wmi>
+						<securityaccount name="Správce počítače je člen skupiny Administrators">
+							<accountName>Správce počítače</accountName>
+							<eval>
+								<exactCount count="1" />
+								<hasString value="Administrators" />
+							</eval>
+						</securityaccount>
+						<securityaccount name="Bezpečnostnísprávce je člen skupiny Users a člen skupiny Event Log Readers ">
+							<accountName>Bezpečnostní správce</accountName>
+							<eval>
+								<exactCount count="2" />
+								<hasString value="Users" />
+								<hasString value="Event Log Readers" />
+							</eval>
+						</securityaccount>
+						<securityaccount name="Uživatel je člen skupiny Users">
+							<accountName>Petr</accountName>
+							<eval>
+								<exactCount count="1" />
+								<hasString value="Users" />
+							</eval>
+						</securityaccount>
 					</checks>
 				</suite>
 				<suite name="Článek 12 - Kontrola nastavení práv k tiskárnám">
@@ -91,7 +127,7 @@
 					<checks>
 						<security name="Maximální stáří hesla">
 							<eval>
-                                <firts property="MaximumPasswordAge" value="90"/>
+                                <first property="MaximumPasswordAge" value="90"/>
                             </eval>
                         </security>
 					</checks>
@@ -155,13 +191,11 @@
 				</suite>
                 <suite name="Článek 16 - Zásady auditu">
 					<checks>
-						<registry name="Auditovat použití oprávnění">
-							<key></key>
-							<value></value>
+						<security name="Auditovat použití oprávnění">
                             <eval>
-                                <first property="AuditPrivilageUse" value="0"/>
+                                <first property="AuditPrivilegeUse" value="0"/>
                             </eval>
-                        </registry>    
+                        </security>    
 					</checks>
 					<checks>
 						<security name="Auditovat přístup k adresářové službě">
@@ -222,83 +256,65 @@
 				</suite> 
 				<suite name="Článek 17 - Přiřazení uživatelských práv">
 						<checks>
-							<registry name="Generovat audity zabezpečení">
-								<key></key>
-							    <value></value>
+							<security name="Generovat audity zabezpečení">
                                 <eval>
-                                    <first value=""/>
+                                    <first property="SeAuditPrivilege" value="\*S-1-5-19,\*S-1-5-20"/>
                                 </eval>
-							</registry>
+							</security>
 						</checks>
 						<checks>
-							<registry name="Obnovit soubory a adresáře">
-								<key></key>
-						      	<value></value>
+							<security name="Obnovit soubory a adresáře">
                                 <eval>
-                                    <first value="Administrators"/>
+                                    <first property="SeRestorePrivilege" value="\*S-1-5-32-544"/>
                                 </eval>
-                            </registry>
+                            </security>
 						</checks>
 						<checks>
 							<registry name="Odepřít místní přihlášení">
-								<key></key>
-						      	<value></value>
 								<eval>
-                                    <first value="Guests"/>
+                                    <first property="SeDenyInteractiveLogonRight" value="Guests"/>
                                 </eval>
                             </registry>
 						</checks>
 						<checks>
 							<registry name="Povolit místní přihlášení">
-								<key></key>
-						      	<value></value>
 								<eval>
-                                    <first value=""/>
+                                    <first property="SeInteractiveLogonRight" value="\*S-1-5-32-544,\*S-1-5-32-545"/>
                                 </eval>
                             </registry>
 						</checks>
 						<checks>
 							<registry name="Provést úlohy údržby svazku">
-								<key></key>
-						      	<value></value>
 								<eval>
-                                    <first value="Administrators"/>
+                                    <first property="SeManageVolumePrivilege" value="\*S-1-5-32-544"/>
                                 </eval>
                             </registry>
 						</checks>
 						<checks>
 							<registry name="Převzít vlastnictví souborů a dalších objektů">
-								<key></key>
-						      	<value></value>
 								<eval>
-                                    <first value="Administrators"/>
+                                    <first property="SeTakeOwnershipPrivilege" value="\*S-1-5-32-544"/>
                                 </eval>
                             </registry>
 						</checks>
 						<checks>
 							<registry name="Spravovat auditování a protokol zabezpečení">
-								<key></key>
-						      	<value></value>
 								<eval>
-                                    <first value="Administrators"/>
+                                    <first property="SeSecurityPrivilege" value="\*S-1-5-32-544"/>
                                 </eval>
                             </registry>
 						</checks>
 						<checks>
-							<registry name="Vypnout systém">
-								<key></key>
-						      	<value></value>
+							<security name="Vypnout systém">
 								<eval>
-                                    <first value=""/>
+                                    <first property="SeShutdownPrivilege" value="\*S-1-5-32-544,\*S-1-5-32-545"/>
                                 </eval>
-                            </registry>
+                            </security>
 						</checks>
 						<checks>
 							<registry name="Zálohovat soubory a adresáře">
-								<key></key>
-						      	<value></value>
 								<eval>
-                                    <first value="Administrators"/>
+                                    <first property="SeBackupPrivilege" value="\*S-1-5-32-544"/>
                                 </eval>
                             </registry>
 						</checks>
@@ -1102,6 +1118,8 @@
 				</suite>
 			</checks>
 		</suite>
+		
+			<!--
 		<suite name="SECURITY test">
 			<checks>
 				<security name="secedit">
@@ -1115,7 +1133,7 @@
 		</suite>
     
     
-    
+    -->
     
     	<!--<suite name="GPO test">
 			<checks>

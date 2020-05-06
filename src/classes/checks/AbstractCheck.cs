@@ -18,6 +18,8 @@ namespace kobenos.classes
         [XmlArray("eval")]
         [XmlArrayItem(typeof(FirstValueRegExEvaluation), ElementName = "first")]
         [XmlArrayItem(typeof(MinValuesCountEvaluation), ElementName = "min")]
+        [XmlArrayItem(typeof(ExactValuesCountEvaluation), ElementName = "exactCount")]
+        [XmlArrayItem(typeof(HasStringValueEvaluation), ElementName = "hasString")]
         public Evaluations Evaluations;
 
         protected abstract ExecutionResult internalExecute();

@@ -12,6 +12,13 @@
 						<first property="LicenseStatus" value="1" />
 					</eval>
 				</wmi>
+				<wmi name="Kontrola specifického typu OS Windows">
+					<scope>root\CIMV2</scope>
+					<query>SELECT * FROM Win32_OperatingSystem WHERE Caption LIKE "Microsoft Windows 10%"</query>
+					<eval>
+						<first property="Status" value="OK" />
+					</eval>
+				</wmi>
 				<wmi name="Kontrola nastavení BIOS">
 					<scope>root\CIMV2</scope>
 					<query>SELECT * FROM Win32_BootConfiguration WHERE Name='BootConfiguration' AND Caption LIKE "%Harddisk0%" </query>
@@ -88,7 +95,7 @@
 								<hasString value="Administrators" />
 							</eval>
 						</securityaccount>
-						<securityaccount name="Bezpečnostnísprávce je člen skupiny Users a člen skupiny Event Log Readers ">
+						<securityaccount name="Bezpečnostní správce je člen skupiny Users a člen skupiny Event Log Readers ">
 							<accountName>Bezpečnostní správce</accountName>
 							<eval>
 								<exactCount count="2" />
@@ -97,7 +104,7 @@
 							</eval>
 						</securityaccount>
 						<securityaccount name="Uživatel je člen skupiny Users">
-							<accountName>Petr</accountName>
+							<accountName>Uživatel</accountName>
 							<eval>
 								<exactCount count="1" />
 								<hasString value="Users" />
@@ -219,11 +226,11 @@
                         </security>
 					</checks>
 					<checks>
-						<registry name="Auditovat správu účtů">
+						<security name="Auditovat správu účtů">
 							<eval>
                                 <first property="AuditAccountManage" value="3"/>
                              </eval>
-                        </registry>
+                        </security>
 					</checks>
 					<checks>
 						<security name="Auditovat systémové události">
@@ -270,39 +277,39 @@
                             </security>
 						</checks>
 						<checks>
-							<registry name="Odepřít místní přihlášení">
+							<security name="Odepřít místní přihlášení">
 								<eval>
-                                    <first property="SeDenyInteractiveLogonRight" value="Guests"/>
+                                    <first property="SeDenyInteractiveLogonRight" value="Guest"/>
                                 </eval>
-                            </registry>
+                            </security>
 						</checks>
 						<checks>
-							<registry name="Povolit místní přihlášení">
+							<security name="Povolit místní přihlášení">
 								<eval>
                                     <first property="SeInteractiveLogonRight" value="\*S-1-5-32-544,\*S-1-5-32-545"/>
                                 </eval>
-                            </registry>
+                            </security>
 						</checks>
 						<checks>
-							<registry name="Provést úlohy údržby svazku">
+							<security name="Provést úlohy údržby svazku">
 								<eval>
                                     <first property="SeManageVolumePrivilege" value="\*S-1-5-32-544"/>
                                 </eval>
-                            </registry>
+                            </security>
 						</checks>
 						<checks>
-							<registry name="Převzít vlastnictví souborů a dalších objektů">
+							<security name="Převzít vlastnictví souborů a dalších objektů">
 								<eval>
                                     <first property="SeTakeOwnershipPrivilege" value="\*S-1-5-32-544"/>
                                 </eval>
-                            </registry>
+                            </security>
 						</checks>
 						<checks>
-							<registry name="Spravovat auditování a protokol zabezpečení">
+							<security name="Spravovat auditování a protokol zabezpečení">
 								<eval>
                                     <first property="SeSecurityPrivilege" value="\*S-1-5-32-544"/>
                                 </eval>
-                            </registry>
+                            </security>
 						</checks>
 						<checks>
 							<security name="Vypnout systém">
@@ -312,11 +319,11 @@
                             </security>
 						</checks>
 						<checks>
-							<registry name="Zálohovat soubory a adresáře">
+							<security name="Zálohovat soubory a adresáře">
 								<eval>
                                     <first property="SeBackupPrivilege" value="\*S-1-5-32-544"/>
                                 </eval>
-                            </registry>
+                            </security>
 						</checks>
 						<checks>
 							<security name="Změnit časové pásmo">
@@ -399,13 +406,18 @@
                         </registry>
 					</checks>
 					<checks>
-						<registry name="Interaktivní přihlašování: Nezobrazovat naposledy použité uživatelské jméno">
+						<registry name="Interaktivní přihlašování: Nezobrazovat naposledy použité uživatelské jméno- kontrola v registrech">
 								<key>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System</key>
 						      	<value>dontdisplaylastusername</value>
 								<eval>
                                     <first value="1"/>
                                 </eval>
                         </registry>
+						<security name="Interaktivní přihlašování: Nezobrazovat naposledy použité uživatelské jméno- kontrola přes PowerShell">
+							<eval>
+								<first property="MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System\DontDisplayLastUserName" value="4,1"/>
+							</eval>
+						</security>
 					</checks>
 					<checks>
 						<registry name="Interaktivní přihlašování: Text zprávy pro uživatele pokoušející se přihlásit">
@@ -451,31 +463,39 @@
                         </registry>
 					</checks>
 					<checks>
-						<registry name="Nastavení systému: Volitelné podsystémy">
-								<key>HKEY_LOCAL_MACHINE</key>
-						      	<value>\System\CurrentControlSet\Control\Session Manager\Subsystems</value>
+						<security name="Nastavení systému: Volitelné podsystémy">
 								<eval>
-                                    <first value=""/>
+                                    <first property="MACHINE\System\CurrentControlSet\Control\Session Manager\SubSystems\optional" value="7"/>
                                 </eval>
-                        </registry>
+                        </security>
 					</checks>
 					<checks>
-						<registry name="Řízení uživatelských účtů: Chování výzvy ke zvýšení oprávnění pro správce v Režimu schválení správce">
+						<registry name="Řízení uživatelských účtů: Chování výzvy ke zvýšení oprávnění pro správce v Režimu schválení správce- kontrola v registrech">
 								<key>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System</key>
 						      	<value>ConsentPromptBehaviorAdmin</value>
 								<eval>
                                     <first value="5"/>
                                 </eval>
                         </registry>
+						<security name="Řízení uživatelských účtů: Chování výzvy ke zvýšení oprávnění pro správce v Režimu schválení správce- kontrola přes PowerShell">
+							<eval>
+								<first property="MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System\ConsentPromptBehaviorAdmin" value="4,5"/>
+							</eval>
+						</security>
 					</checks>
 					<checks>
-						<registry name="Řízení uživatelských účtů: Chování výzvy ke zvýšení oprávnění pro standardního uživatele">
+						<registry name="Řízení uživatelských účtů: Chování výzvy ke zvýšení oprávnění pro standardního uživatele- kontrola v registrech">
 								<key>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System</key>
 						      	<value>ConsentPromptBehaviorUser</value>
 								<eval>
                                     <first value="0"/>
                                 </eval>
                         </registry>
+						<security name="Řízení uživatelských účtů: Chování výzvy ke zvýšení oprávnění pro standardního uživatele- kontrola přes PowerShell">
+							<eval>
+								<first property="MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System\ConsentPromptBehaviorUser" value="4,0"/>
+							</eval>
+						</security>
 					</checks>
 					<checks>
 						<registry name="Řízení uživatelských účtů: Povolit aplikacím UIAccess zobrazení výzvy ke zvýšení oprávnění bez použití zabezpečené plochy">
@@ -568,6 +588,7 @@
                         </registry>
 					</checks>
 					<checks>
+						<!--
 						<registry name="Účty: Přejmenovat účet Guest">
 								<key></key>
 						      	<value></value>
@@ -595,6 +616,7 @@
                         </registry>
 					</checks>
 					<checks>
+					-->
 						<registry name="Účty: Stav účtu správce">
 								<key></key>
 						      	<value></value>
@@ -681,24 +703,6 @@
 						<registry name="Řídit chování služby Protokol událostí, když soubor protokolu dosáhne maximální velikosti">
 								<key>HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows\EventLog\Setup</key>
 						      	<value>Retention</value>
-								<eval>
-                                    <first value="1"/>
-                                </eval>
-                        </registry>
-					</checks>
-					<checks>
-						<registry name="Zadat maximální velikost souboru protokolu (kB)">
-								<key>HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\EventLog\Application</key>
-						      	<value>MaxSize</value>
-								<eval>
-                                    <first value="100096"/>
-                                </eval>
-                        </registry>
-					</checks>
-					<checks>
-						<registry name="Automaticky zálohovat protokol při naplnění">
-								<key>HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows\EventLog\System</key>
-						      	<value>AutoBackupLogFiles</value>
 								<eval>
                                     <first value="1"/>
                                 </eval>
@@ -885,7 +889,7 @@
 								<key>HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows\RemovableStorageDevices\{53f56308-b6bf-11d0-94f2-00a0c91efb8b}</key>
 						      	<value>Deny_Read</value>
 								<eval>
-                                    <first value=""/> 
+                                    <first value="1"/> 
                                 </eval>
                         </registry>
 					</checks>
@@ -894,7 +898,7 @@
 								<key>HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows\RemovableStorageDevices\{53f56308-b6bf-11d0-94f2-00a0c91efb8b}</key>
 						      	<value>Deny_Write</value>
 								<eval>
-                                    <first value=""/> 
+                                    <first value="1"/> 
                                 </eval>
                         </registry>
 					</checks>
@@ -912,7 +916,7 @@
 								<key>HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows\RemovableStorageDevices\{53f56311-b6bf-11d0-94f2-00a0c91efb8b}</key>
 						      	<value>Deny_Read</value>
 								<eval>
-                                    <first value=""/> 
+                                    <first value="1"/> 
                                 </eval>
                         </registry>
 					</checks>
@@ -921,7 +925,7 @@
 								<key>HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows\RemovableStorageDevices\{53f56311-b6bf-11d0-94f2-00a0c91efb8b}</key>
 						      	<value>Deny_Write</value>
 								<eval>
-                                    <first value=""/>  
+                                    <first value="1"/>  
                                 </eval>
                         </registry>
 					</checks>	
@@ -939,7 +943,7 @@
 								<key>HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows\RemovableStorageDevices\{53f5630d-b6bf-11d0-94f2-00a0c91efb8b}</key>
 						      	<value>Deny_Read</value>
 								<eval>
-                                    <first value=""/>  
+                                    <first value="1"/>  
                                 </eval>
                         </registry>
 					</checks>
@@ -948,7 +952,7 @@
 								<key>HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows\RemovableStorageDevices\{53f5630d-b6bf-11d0-94f2-00a0c91efb8b}</key>
 						      	<value>Deny_Write</value>
 								<eval>
-                                    <first value=""/>  
+                                    <first value="1"/>  
                                 </eval>
                         </registry>
 					</checks>

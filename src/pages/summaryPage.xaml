@@ -19,22 +19,23 @@
 
         <TextBlock Text="Výsledek testu" HorizontalAlignment="Center" FontSize="18" Grid.Row="0"/>
         
-        <Grid Grid.Row="1" HorizontalAlignment="Stretch" Margin="0 20">
+        <Grid Grid.Row="1" HorizontalAlignment="Stretch" >
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Label Content="Testovaný:" Grid.Column="0" FontSize="14"/>
-            <TextBox Name="Tested" Padding="3" Grid.Column="1" FontSize="14" Margin="10 0"/>
-        </Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+            <Label Content="Testovaný:" Grid.Column="0" FontSize="14" VerticalAlignment="Center"/>
+            <TextBox Name="Tested" Padding="3" Grid.Column="1" FontSize="14" Margin="10"/>
 
-        <Grid Grid.Row="2" HorizontalAlignment="Stretch">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-            <Label Content="Testující:" Grid.Column="0" FontSize="14"/>
-            <TextBox Name="Tester" Padding="3" Grid.Column="1" FontSize="14" Margin="10 0"/>
+            <Label Content="Testující:" Grid.Column="0" Grid.Row="1" FontSize="14" VerticalAlignment="Center"/>
+            <TextBox Name="Tester" Padding="3" Grid.Column="1" Grid.Row="1" FontSize="14" Margin="10"/>
+
+            <Button Name="GenerateReportButton" Grid.Row="2" Grid.Column="1" Content="Report" Click="GenerateReportButton_Click" />
         </Grid>
 
         <Grid Grid.Row="3" HorizontalAlignment="Stretch">

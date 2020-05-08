@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<suite name="Výchozí kontrola bezpečnosti">
+<suite name="Kontrola bezpečnosti podle doporučených požadavků">
 	<checks>
 		<suite name="Všeobecná nastavení">
 			<checks>
@@ -265,14 +265,14 @@
 						<checks>
 							<security name="Generovat audity zabezpečení">
                                 <eval>
-                                    <first property="SeAuditPrivilege" value="\*S-1-5-19,\*S-1-5-20"/>
+                                    <first property="SeAuditPrivilege" value="^\*S-1-5-19,\*S-1-5-20$"/>
                                 </eval>
 							</security>
 						</checks>
 						<checks>
 							<security name="Obnovit soubory a adresáře">
                                 <eval>
-                                    <first property="SeRestorePrivilege" value="\*S-1-5-32-544"/>
+                                    <first property="SeRestorePrivilege" value="^\*S-1-5-32-544$"/>
                                 </eval>
                             </security>
 						</checks>
@@ -286,56 +286,56 @@
 						<checks>
 							<security name="Povolit místní přihlášení">
 								<eval>
-                                    <first property="SeInteractiveLogonRight" value="\*S-1-5-32-544,\*S-1-5-32-545"/>
+                                    <first property="SeInteractiveLogonRight" value="^\*S-1-5-32-544,\*S-1-5-32-545$"/>
                                 </eval>
                             </security>
 						</checks>
 						<checks>
 							<security name="Provést úlohy údržby svazku">
 								<eval>
-                                    <first property="SeManageVolumePrivilege" value="\*S-1-5-32-544"/>
+                                    <first property="SeManageVolumePrivilege" value="^\*S-1-5-32-544$"/>
                                 </eval>
                             </security>
 						</checks>
 						<checks>
 							<security name="Převzít vlastnictví souborů a dalších objektů">
 								<eval>
-                                    <first property="SeTakeOwnershipPrivilege" value="\*S-1-5-32-544"/>
+                                    <first property="SeTakeOwnershipPrivilege" value="^\*S-1-5-32-544$"/>
                                 </eval>
                             </security>
 						</checks>
 						<checks>
 							<security name="Spravovat auditování a protokol zabezpečení">
 								<eval>
-                                    <first property="SeSecurityPrivilege" value="\*S-1-5-32-544"/>
+                                    <first property="SeSecurityPrivilege" value="^\*S-1-5-32-544$"/>
                                 </eval>
                             </security>
 						</checks>
 						<checks>
 							<security name="Vypnout systém">
 								<eval>
-                                    <first property="SeShutdownPrivilege" value="\*S-1-5-32-544,\*S-1-5-32-545"/>
+                                    <first property="SeShutdownPrivilege" value="^\*S-1-5-32-544,\*S-1-5-32-545$"/>
                                 </eval>
                             </security>
 						</checks>
 						<checks>
 							<security name="Zálohovat soubory a adresáře">
 								<eval>
-                                    <first property="SeBackupPrivilege" value="\*S-1-5-32-544"/>
+                                    <first property="SeBackupPrivilege" value="^\*S-1-5-32-544$"/>
                                 </eval>
                             </security>
 						</checks>
 						<checks>
 							<security name="Změnit časové pásmo">
 								<eval>
-                                    <first property="SeTimeZonePrivilege" value="\*S-1-5-19,\*S-1-5-32-544"/>
+                                    <first property="SeTimeZonePrivilege" value="^\*S-1-5-19,\*S-1-5-32-544$"/>
                                 </eval>
                             </security>
 						</checks>
 						<checks>
 							<security name="Změnit systémový čas">
 								<eval>
-                                    <first property="SeSystemtimePrivilege" value="\*S-1-5-19,\*S-1-5-32-544"/>
+                                    <first property="SeSystemtimePrivilege" value="^\*S-1-5-19,\*S-1-5-32-544$"/>
                                 </eval>
                             </security>
 						</checks>
@@ -587,7 +587,7 @@
                                 </eval>
                         </registry>
 					</checks>
-					<checks>
+					
 						<!--
 						<registry name="Účty: Přejmenovat účet Guest">
 								<key></key>

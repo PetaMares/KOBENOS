@@ -606,6 +606,7 @@
                                 </eval>
                         </registry>
 					</checks>
+					-->
 					<checks>
 						<registry name="Účty: Stav účtu hosta">
 								<key></key>
@@ -616,7 +617,7 @@
                         </registry>
 					</checks>
 					<checks>
-					-->
+					
 						<registry name="Účty: Stav účtu správce">
 								<key></key>
 						      	<value></value>

@@ -34,7 +34,7 @@ namespace kobenos.pages
             parentWindow.NavigateToExecutionPage(ConfigFilePathTextBox.Text);
         }
 
-        private void VybratButton_Click(object sender, RoutedEventArgs e)
+        public void VybratButton_Click(object sender, RoutedEventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.InitialDirectory = System.AppDomain.CurrentDomain.BaseDirectory;

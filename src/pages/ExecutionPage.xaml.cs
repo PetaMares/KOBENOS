@@ -67,11 +67,19 @@ namespace kobenos
             RunCheckButton.IsEnabled = SelectedCheck != null;
         }
 
-        public void LoadConfiguration(string configFile)
+        public bool LoadConfiguration(string configFile)
         {
             this.MainSuite = SerializationHelper.DeserializeFile<Suite>(configFile);
-            RefreshButtons();
-            this.MainGrid.DataContext = this.MainSuite;
+            if (this.MainSuite != null)
+            {
+                RefreshButtons();
+                this.MainGrid.DataContext = this.MainSuite;
+                return true;
+            }
+            else 
+            {
+                return false;
+            }
         }
         
         private void ReportButton_Click(object sender, RoutedEventArgs e)

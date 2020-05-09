@@ -80,8 +80,15 @@ namespace kobenos
 
         public void NavigateToExecutionPage(string configFile)
         {
-            this.ExecutionPage.LoadConfiguration(configFile);
-            this.navigate(this.ExecutionPage);
+            var checkControl = this.ExecutionPage.LoadConfiguration(configFile);
+            if (checkControl)
+            {
+                this.navigate(this.ExecutionPage);
+            }
+            else 
+            {
+                //zůstane na stránce a umožní vybrat nový soubor
+            }
         }
 
         public void NavigateToExecutionPage()

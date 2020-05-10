@@ -18,7 +18,7 @@ namespace kobenos.classes
 
         protected override ExecutionResult internalExecute()
         {
-            EvaluationInputValues values = new EvaluationInputValues();
+            var values = new List<IEvaluationObject>();
             using (PowerShell PowerShellInstance = PowerShell.Create())
             {               
                 PowerShellInstance.AddScript(this.command);

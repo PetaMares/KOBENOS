@@ -12,7 +12,7 @@ namespace kobenos.classes
         [XmlAttribute]
         public string value;
 
-        public override EvaluationResult Evaluate(EvaluationInputValues values)
+        public override EvaluationResult Evaluate(List<IEvaluationObject> values)
         {
             bool result = values
                 .OfType<StringEvaluationObjectAdapter>()

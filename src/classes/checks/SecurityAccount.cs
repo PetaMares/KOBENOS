@@ -16,7 +16,7 @@ namespace kobenos.classes
 
         protected override ExecutionResult internalExecute()
         {
-            EvaluationInputValues values = new EvaluationInputValues();
+            var values = new List<IEvaluationObject>();
             using (PowerShell PowerShellInstance = PowerShell.Create())
             {
                 string command = "$adsi = [ADSI]\"WinNT://$env:COMPUTERNAME\"; $adsi.Children | where {$_.SchemaClassName -eq 'user'} | where {$_.Name -eq '" + accountName + "'} | Foreach-Object {$_.Groups() | Foreach-Object {$_.GetType().InvokeMember(\"Name\", 'GetProperty', $null, $_, $null)} }";

@@ -69,6 +69,7 @@ namespace kobenos
 
         public bool LoadConfiguration(string configFile)
         {
+
             this.MainSuite = SerializationHelper.DeserializeFile<Suite>(configFile);
             if (this.MainSuite != null)
             {

@@ -18,7 +18,8 @@ namespace kobenos.classes
             if (this.dictionary.ContainsKey(name))
             {
                 return this.dictionary[name];
-            } else
+            } 
+            else
             {
                 return null;
             }

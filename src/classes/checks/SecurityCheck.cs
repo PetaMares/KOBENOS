@@ -14,7 +14,7 @@ namespace kobenos.classes
     {
         protected override ExecutionResult internalExecute()
         {
-            EvaluationInputValues values = new EvaluationInputValues();
+            var values = new List<IEvaluationObject>();
             using (PowerShell PowerShellInstance = PowerShell.Create())
             {
                 string command = "secedit /export /cfg temp.ini; Get-Content -Path .\\temp.ini;";

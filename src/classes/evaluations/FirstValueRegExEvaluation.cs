@@ -25,9 +25,9 @@ namespace kobenos.classes
 
         }
 
-        public override EvaluationResult Evaluate(EvaluationInputValues values)
+        public override EvaluationResult Evaluate(List<IEvaluationObject> values)
         {
-            EvaluationResult evalCountResult = base.Evaluate(values);
+            var evalCountResult = base.Evaluate(values);
             if (evalCountResult.IsCompliant)
             {
                 string actualValue = values[0].GetProperty(this.property);

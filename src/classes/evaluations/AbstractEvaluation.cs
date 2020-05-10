@@ -9,8 +9,6 @@ namespace kobenos.classes
     /// </summary>
     public abstract class AbstractEvaluation
     {
-        
-        public abstract EvaluationResult Evaluate(EvaluationInputValues values);
-
+        public abstract EvaluationResult Evaluate(List<IEvaluationObject> values);
     }
 }

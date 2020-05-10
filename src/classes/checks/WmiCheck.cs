@@ -11,7 +11,6 @@ namespace kobenos.classes
     [XmlRoot("wmi")]
     public class WmiCheck: AbstractCheck
     {
-
         public string scope;
 
         public string query;
@@ -22,7 +21,7 @@ namespace kobenos.classes
             ManagementObjectSearcher searcher = new ManagementObjectSearcher(this.scope, this.query);
             ManagementObjectCollection queryResults = searcher.Get();
 
-            EvaluationInputValues values = new EvaluationInputValues();
+            var values = new List<IEvaluationObject>();
             foreach (ManagementObject queryResult in queryResults)
             {
                 values.Add(new WmiEvaluationObjectAdapter(queryResult));

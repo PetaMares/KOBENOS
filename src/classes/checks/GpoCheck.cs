@@ -18,7 +18,7 @@ namespace kobenos.classes
 
         protected override ExecutionResult internalExecute()
         {
-            EvaluationInputValues values = new EvaluationInputValues();
+            var values = new List<IEvaluationObject>();
             return new ExecutionResult(this.Evaluations.Evaluate(values));
         }
             

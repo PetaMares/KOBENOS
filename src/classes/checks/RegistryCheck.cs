@@ -1,5 +1,6 @@
 ﻿using Microsoft.Win32;
 using System;
+using System.Collections.Generic;
 using System.Xml.Serialization;
 
 namespace kobenos.classes
@@ -21,7 +22,7 @@ namespace kobenos.classes
         protected override ExecutionResult internalExecute()
         {
             object regValue = GetRegistryValue(key, value);
-            EvaluationInputValues values = new EvaluationInputValues();
+            var values = new List<IEvaluationObject>();
             if (regValue != null)
             {
                 if (regValue is byte[]) {

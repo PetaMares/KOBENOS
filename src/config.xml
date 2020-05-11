@@ -112,17 +112,6 @@
 						</securityaccount>
 					</checks>
 				</suite>
-				<suite name="Článek 12 - Kontrola nastavení práv k tiskárnám">
-					<checks>
-						<wmi name="Najít fax v tiskárnách.">
-							<scope>root\CIMV2</scope>
-							<query>SELECT * FROM Win32_Printer WHERE Name LIKE 'Fax'</query>
-							<eval>
-								<first property="Name" value="Fax" />
-							</eval>
-						</wmi>
-					</checks>
-				</suite>
 				<suite name="Článek 14 - Zásady hesla">
 					<checks>
 						<security name="Heslo musí splňovat požadavky na složitost">
@@ -151,15 +140,6 @@
 							    <first property="MinimumPasswordAge" value="1"/>
                             </eval>     
                         </security>
-					</checks>
-					<checks>
-						<registry name="Ukládat hesla pomocí reverzibilního šifrování">
-							<key></key>
-							<value></value>
-							<eval>
-                                <first value="Disabled"/>
-                            </eval>
-                        </registry>    
 					</checks>
 					<checks>
 						<security name="Vynutit použití historie hesel">
@@ -438,13 +418,6 @@
                         </registry>
 					</checks>
 					<checks>
-						<registry name="Interaktivní přihlašování: Zobrazit informace o uživateli, pokud je relace uzamčena">
-								<eval>
-                                    <first property="" value="Not defined"/>
-                                </eval>
-                        </registry>
-					</checks>
-					<checks>
 						<registry name="Konzola pro zotavení: Povolit automatické přihlášení správce">
 								<key>HKEY_LOCAL_MACHINE\Software\Microsoft\Windows NT\CurrentVersion\Setup\RecoveryConsole</key>
 						      	<value>SecurityLevel</value>
@@ -587,45 +560,6 @@
                                 </eval>
                         </registry>
 					</checks>
-					
-						<!--
-						<registry name="Účty: Přejmenovat účet Guest">
-								<key></key>
-						      	<value></value>
-								<eval>
-                                    <first value=""/>
-                                </eval>
-                        </registry>
-					</checks>
-					<checks>
-						<registry name="Účty: Přejmenovat účet správce">
-								<key></key>
-						      	<value></value>
-								<eval>
-                                    <first value=""/>
-                                </eval>
-                        </registry>
-					</checks>
-					-->
-					<checks>
-						<registry name="Účty: Stav účtu hosta">
-								<key></key>
-						      	<value></value>
-								<eval>
-                                    <first value="Disable"/>
-                                </eval>
-                        </registry>
-					</checks>
-					<checks>
-					
-						<registry name="Účty: Stav účtu správce">
-								<key></key>
-						      	<value></value>
-								<eval>
-                                    <first value="Enable"/> 
-                                </eval>
-                        </registry>
-					</checks>
 					<checks>
 						<registry name="Vypnutí: Povolit vypnutí systému bez nutnosti přihlášení">
 								<key>HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System</key>
@@ -655,15 +589,6 @@
 					</checks>
 				</suite>
                 <suite name="Článek 19 - Služba protokolu událostí">
-					<checks>
-						<registry name="Zadat maximální velikost souboru protokolu (kB)">
-								<key>HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\EventLog\System\</key>
-						      	<value>MaxSize</value>
-								<eval>
-                                    <first value="0x00008000"/>
-                                </eval>
-                        </registry>
-					</checks>
 					<checks>
 						<registry name="Automaticky zálohovat protokol při naplnění">
 								<key>HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\EventLog\System\</key>
@@ -935,7 +860,7 @@
 								<key>HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows\RemovableStorageDevices</key>
 						      	<value>AllowRemoteDASD</value>
 								<eval>
-                                    <first value=""/>  
+                                    <first value="1"/>  
                                 </eval>
                         </registry>
 					</checks>
@@ -953,7 +878,7 @@
 								<key>HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows\RemovableStorageDevices\{53f5630b-b6bf-11d0-94f2-00a0c91efb8b}</key>
 						      	<value>Deny_Read</value>
 								<eval>
-                                    <first value=""/>   
+                                    <first value="1"/>   
                                 </eval>
                         </registry>
 					</checks>
@@ -962,7 +887,7 @@
 								<key>HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows\RemovableStorageDevices\{53f5630b-b6bf-11d0-94f2-00a0c91efb8b}</key>
 						      	<value>Deny_Write</value>
 								<eval>
-                                    <first value=""/>  
+                                    <first value="1"/>  
                                 </eval>
                         </registry>
 					</checks>
@@ -1096,33 +1021,5 @@
 				</suite>
 			</checks>
 		</suite>
-		
-			<!--
-		<suite name="SECURITY test">
-			<checks>
-				<security name="secedit">
-					<eval>
-						<first property="MinimumPasswordAge" value="9" />
-						<first property="MaximumPasswordAge" value="90" />
-						<first property="NewAdministratorName" value="&quot;Administrator&quot;" />
-					</eval>
-				</security>
-			</checks>
-		</suite>
-    
-    
-    -->
-    
-    	<!--<suite name="GPO test">
-			<checks>
-				<gpo name="Audit: Audit the use of Backup and Restore privilege">
-					<location>Computer Configuration\Windows Settings\Security Settings\Local Policies\Security Options</location>
-					<policy>Audit: Audit the use of Backup and Restore privilege</policy>
-					<eval>
-						<first value="Disabled" />
-					</eval>
-				</gpo>
-			</checks>
-		</suite>  -->
 	</checks>
 </suite>

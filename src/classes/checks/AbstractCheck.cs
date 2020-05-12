@@ -10,7 +10,6 @@ namespace kobenos.classes
      */
     public abstract class AbstractCheck
     {
-        
         private string name;
 
         [XmlIgnore]
@@ -22,6 +21,7 @@ namespace kobenos.classes
 
         [XmlArray("eval")]
         [XmlArrayItem(typeof(FirstValueRegExEvaluation), ElementName = "first")]
+        [XmlArrayItem(typeof(NumericEvaluation), ElementName = "num")]
         [XmlArrayItem(typeof(MinValuesCountEvaluation), ElementName = "min")]
         [XmlArrayItem(typeof(ExactValuesCountEvaluation), ElementName = "exactCount")]
         [XmlArrayItem(typeof(HasStringValueEvaluation), ElementName = "hasString")]

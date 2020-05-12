@@ -13,6 +13,11 @@ namespace kobenos.classes
         
         private string name;
 
+        [XmlIgnore]
+        public DateTime StartTime { get; private set; }
+        [XmlIgnore]
+        public DateTime EndTime { get; private set; }
+
         protected ExecutionResult lastResult = new ExecutionResult();
 
         [XmlArray("eval")]
@@ -26,6 +31,7 @@ namespace kobenos.classes
 
         public ExecutionResult Execute()
         {
+            StartTime = DateTime.Now;
             try
             {
                 this.lastResult = this.internalExecute();
@@ -33,6 +39,7 @@ namespace kobenos.classes
             {
                 this.lastResult = new ExecutionResult(false, e.Message);
             }
+            EndTime = DateTime.Now;
             return this.lastResult;
         }
 

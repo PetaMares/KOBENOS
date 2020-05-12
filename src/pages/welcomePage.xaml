@@ -11,11 +11,24 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-         
+
         <Grid Grid.Row="0" HorizontalAlignment="Stretch">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
+            <Label Content="Vítejte" Grid.Column="0" Grid.Row="0" FontSize="14"/>
+            <Label Content="rggagreag" Grid.Column="0" Grid.Row="1" FontSize="14"/>
+        </Grid>
+        
+        <Grid Grid.Row="1" HorizontalAlignment="Stretch">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="auto"/>
                 <ColumnDefinition Width="*"/>
@@ -32,7 +45,7 @@
             <Button Content="Vybrat" Grid.Column="2" FontSize="14" Padding="3" Click="VybratButton_Click" />                
         </Grid>
 
-        <Grid Grid.Row="2" HorizontalAlignment="Stretch">
+        <Grid Grid.Row="3" HorizontalAlignment="Stretch">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>

@@ -101,9 +101,9 @@ namespace kobenos
             this.navigate(this.SummaryPage);
         }
 
-        public void NavigateToSummaryPage(ExecutionResult result)
+        public void NavigateToSummaryPage(Suite result, string configFilePath)
         {
-            this.SummaryPage.SetResult(result);
+            this.SummaryPage.SetResult(result, configFilePath);
             this.navigate(this.SummaryPage);
         }
     }

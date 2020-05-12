@@ -39,7 +39,7 @@ namespace kobenos.classes
                 }
                 result = result && check.Result.IsSuccessful;
             }
-            string details = System.String.Format("{0}/{1}", success, checks.Count);
+            string details = System.String.Format("Úspěšné testy: {0}/{1}", success, checks.Count);
             return new ExecutionResult(result, details);
         }
 

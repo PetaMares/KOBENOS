@@ -1,5 +1,7 @@
 ﻿using kobenos.classes;
 using kobenos.controls;
+using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -101,9 +103,30 @@ namespace kobenos
         {
             WaitWindow.Show(async progress =>
             {
-                progress.Report("running...");
-                check.Execute();
-                progress.Report("finished");
+                progress.Report(new WaitWindow.WaitWindowProgress("Startuji...", 0));
+
+                List<AbstractCheck> list = check.GetAllChecksToExecute();
+                int total = list.Count;
+                int executed = 0;
+                int progressPercent = 0;
+
+                // provedeni vsech testu
+                foreach (AbstractCheck check in list)
+                {
+                    executed += 1;
+                    progressPercent = (int)Math.Round(((double)executed / total) * 100);
+                    progress.Report(new WaitWindow.WaitWindowProgress(check.Name, progressPercent));
+                    
+                    check.Execute();                    
+                }
+
+                if (check is Suite)
+                {
+                    Suite suite = (Suite)check;
+                    suite.UpdateExecutionResult();                    
+                }
+
+                progress.Report(new WaitWindow.WaitWindowProgress("Dokončeno", 100));
             });
         }
 

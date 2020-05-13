@@ -8,18 +8,16 @@
         ShowInTaskbar="False" ShowActivated="True" ResizeMode="NoResize"
         Title="Čekejte prosím" Height="150" Width="300">
     <Border BorderThickness="1" BorderBrush="Black">
-        <Grid  HorizontalAlignment="Stretch" Margin="10" VerticalAlignment="Center">
+        <Grid HorizontalAlignment="Stretch" VerticalAlignment="Center">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
         
-            <TextBlock HorizontalAlignment="Center" Text="Čekejte prosím..." />
-            
-            <ProgressBar HorizontalAlignment="Stretch" Height="10" Grid.Row="1" VerticalAlignment="Top" Margin="10" Width="Auto" Value="33" />
-
-            <TextBlock Text="{Binding ProgressText, ElementName=window}" HorizontalAlignment="Center" Grid.Row="2" />
+            <TextBlock Text="Čekejte prosím..." HorizontalAlignment="Center" />
+            <ProgressBar Name="MainProgressBar" Margin="10" Grid.Row="1" HorizontalAlignment="Stretch" Height="20" />
+            <TextBlock Text="{Binding ProgressText, ElementName=window}" Grid.Row="2" HorizontalAlignment="Center" />
         </Grid>
     </Border>
 </Window>

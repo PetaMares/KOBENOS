@@ -12,28 +12,41 @@ namespace kobenos.classes
 
         private string details;
 
+        private int successfulChecks;
+
         public ExecutionResult(EvaluationResult evalResult)
         {
             this.executionResult = evalResult.IsCompliant;
             this.details = evalResult.Message;
+            this.successfulChecks = evalResult.IsCompliant ? 1 : 0;
         }
 
         public ExecutionResult(bool? executionResult, string details)
         {
             this.executionResult = executionResult;
             this.details = details;
+            this.successfulChecks = executionResult == true ? 1 : 0;
+        }
+
+        public ExecutionResult(bool? executionResult, string details, int successfulChecks)
+        {
+            this.executionResult = executionResult;
+            this.details = details;
+            this.successfulChecks = successfulChecks;
         }
 
         public ExecutionResult(bool? executionResult)
         {
             this.executionResult = executionResult;
             this.details = "";
+            this.successfulChecks = executionResult == true ? 1 : 0;
         }
 
         public ExecutionResult()
         {
             this.executionResult = null;
             this.details = "";
+            this.successfulChecks = 0;
         }
 
         public bool IsExecuted
@@ -49,6 +62,14 @@ namespace kobenos.classes
             get
             {
                 return this.executionResult == true;
+            }
+        }
+
+        public int SuccessfulChecks
+        {
+            get
+            {
+                return this.successfulChecks;
             }
         }
 

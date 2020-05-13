@@ -18,19 +18,19 @@ namespace kobenos.classes
         [XmlArrayItem(typeof(OSVersionCheck), ElementName = "os")]
         [XmlArrayItem(typeof(WmiCheck), ElementName = "wmi")]        
         [XmlArrayItem(typeof(RegistryCheck), ElementName = "registry")]
-        [XmlArrayItem(typeof(GpoCheck), ElementName = "gpo")]
         [XmlArrayItem(typeof(PowerShellCheck), ElementName = "powershell")]
         [XmlArrayItem(typeof(SecurityCheck), ElementName = "security")]
         [XmlArrayItem(typeof(SecurityCheckAccount), ElementName = "securityaccount")]
         public List<AbstractCheck> Checks { get => checks; set => checks = value; }
-
+               
         protected override ExecutionResult internalExecute()
         {
+            List<AbstractCheck> list = this.GetAllChecksToExecute();
             bool result = true;
             int success = 0;
 
             // provedeni vsech testu
-            foreach (AbstractCheck check in this.Checks)
+            foreach (AbstractCheck check in list)
             {
                 check.Execute();
                 if (check.Result.IsSuccessful)
@@ -39,9 +39,46 @@ namespace kobenos.classes
                 }
                 result = result && check.Result.IsSuccessful;
             }
-            string details = System.String.Format("Úspěšné testy: {0}/{1}", success, checks.Count);
+            string details = System.String.Format("Úspěšné testy: {0}/{1}", success, list.Count);
             return new ExecutionResult(result, details);
         }
 
+        /// <summary>
+        /// aktualizuje vysledek spusteni - to je nutne, pokud jsou podrizene testy spusteny jinak, nez pomoci internal Execute
+        /// </summary>
+        public void UpdateExecutionResult()
+        {
+            bool result = true;
+            int success = 0;
+            int total = 0;
+
+            foreach (AbstractCheck check in this.Checks)
+            {
+                total += check.GetAllChecksToExecute().Count;
+
+                if (check is Suite)
+                {
+                    Suite suite = (Suite)check;
+                    suite.UpdateExecutionResult();
+                    success += suite.Result.SuccessfulChecks;
+                } else if (check.Result.IsSuccessful)
+                {
+                    success++;
+                }
+                result = result && check.Result.IsSuccessful;
+            }
+            string details = System.String.Format("Úspěšné testy: {0}/{1}", success, total);
+            this.lastResult = new ExecutionResult(result, details, success);
+        }
+
+        public override List<AbstractCheck> GetAllChecksToExecute()
+        {
+            List<AbstractCheck> list = new List<AbstractCheck>();
+            foreach (AbstractCheck check in this.Checks)
+            {
+                list.AddRange(check.GetAllChecksToExecute());
+            }
+            return list;           
+        }
     }
 }

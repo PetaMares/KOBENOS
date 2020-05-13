@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -25,6 +26,18 @@ namespace kobenos.controls
                         
         }
 
+        public class WaitWindowProgress
+        {
+            public string Text;
+            public int Percent;
+
+            public WaitWindowProgress(string Text, int Percent)
+            {
+                this.Text = Text;
+                this.Percent = Percent;
+            }
+        }
+
         public static readonly DependencyProperty ProgressTextProperty =
             DependencyProperty.Register(
                 "ProgressText",
@@ -42,11 +55,17 @@ namespace kobenos.controls
             }
         }
 
-        public static void Show(Func<IProgress<string>, Task> workAsync)
+        public static void Show(Func<IProgress<WaitWindowProgress>, Task> workAsync)
         {
             var progressWindow = new WaitWindow();
-            progressWindow.Owner = Application.Current.MainWindow;            
-            Progress<string> progress = new Progress<string>(text => progressWindow.ProgressText = text);
+            progressWindow.Owner = Application.Current.MainWindow;
+            Progress<WaitWindowProgress> progress = new Progress<WaitWindowProgress>(
+                (progress) => { 
+                    progressWindow.ProgressText = progress.Text;
+                    progressWindow.MainProgressBar.Value = progress.Percent;
+                }
+            );
+
             BackgroundWorker worker = new BackgroundWorker();
                        
             worker.DoWork += (s, workerArgs) => workAsync(progress);
@@ -62,7 +81,5 @@ namespace kobenos.controls
             progressWindow.ShowDialog();
             Application.Current.MainWindow.Focus();
         }
-
-       
     }
 }

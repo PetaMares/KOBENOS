@@ -10,7 +10,7 @@ namespace kobenos.classes
 {
 
     [XmlRoot("security")]
-    public class SecurityCheck : AbstractCheck
+    public class SecurityCheck : SimpleCheck
     {
         protected override ExecutionResult internalExecute()
         {

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <suite name="Kontrola bezpečnosti podle doporučených požadavků">
 	<checks>
 		<suite name="Všeobecná nastavení">
@@ -450,12 +450,12 @@
 								<key>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System</key>
 						      	<value>ConsentPromptBehaviorAdmin</value>
 								<eval>
-                                    <first value="5"/>
+                                    <first value="4"/>
                                 </eval>
                         </registry>
 						<security name="Řízení uživatelských účtů: Chování výzvy ke zvýšení oprávnění pro správce v Režimu schválení správce- kontrola přes PowerShell">
 							<eval>
-								<first property="MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System\ConsentPromptBehaviorAdmin" value="4,5"/>
+								<first property="MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System\ConsentPromptBehaviorAdmin" value="4,4"/>
 							</eval>
 						</security>
 					</checks>
@@ -565,10 +565,10 @@
 					</checks>
 					<checks>
 						<registry name="Vypnutí: Povolit vypnutí systému bez nutnosti přihlášení">
-								<key>HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System</key>
-						      	<value>ShutdownWithoutLogon</value>
+								<key>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System</key>
+						      	<value>shutdownwithoutlogon</value>
 								<eval>
-                                    <first value="1"/>
+                                    <first value="0"/>
                                 </eval>
                         </registry>
 					</checks>
@@ -593,8 +593,8 @@
 				</suite>
                 <suite name="Článek 19 - Služba protokolu událostí">
 					<checks>
-						<registry name="Automaticky zálohovat protokol při naplnění">
-								<key>HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\EventLog\System\</key>
+						<registry name="Automaticky zálohovat protokol při naplnění- Aplikace">
+								<key>HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\EventLog\Application</key>
 						      	<value>AutoBackupLogFiles</value>
 								<eval>
                                     <first value="1"/>
@@ -602,8 +602,44 @@
                         </registry>
 					</checks>
 					<checks>
-						<registry name="Řídit chování služby Protokol událostí, když soubor protokolu dosáhne maximální velikosti">
-								<key>HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\EventLog\System\</key>
+						<registry name="Řídit chování služby Protokol událostí, když soubor protokolu dosáhne maximální velikosti- Aplikace">
+								<key>HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\EventLog\Application</key>
+						      	<value>Retention</value>
+								<eval>
+                                    <first value="1"/>
+                                </eval>
+                        </registry>
+					</checks>
+					<checks>
+						<registry name="Automaticky zálohovat protokol při naplnění- System">
+								<key>HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\EventLog\System</key>
+						      	<value>AutoBackupLogFiles</value>
+								<eval>
+                                    <first value="1"/>
+                                </eval>
+                        </registry>
+					</checks>
+					<checks>
+						<registry name="Řídit chování služby Protokol událostí, když soubor protokolu dosáhne maximální velikosti- System">
+								<key>HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\EventLog\System</key>
+						      	<value>Retention</value>
+								<eval>
+                                    <first value="1"/>
+                                </eval>
+                        </registry>
+					</checks>
+					<checks>
+						<registry name="Automaticky zálohovat protokol při naplnění- Zabezpečení">
+								<key>HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\EventLog\Security</key>
+						      	<value>AutoBackupLogFiles</value>
+								<eval>
+                                    <first value="1"/>
+                                </eval>
+                        </registry>
+					</checks>
+					<checks>
+						<registry name="Řídit chování služby Protokol událostí, když soubor protokolu dosáhne maximální velikosti- Zabezpečení">
+								<key>HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\EventLog\Security</key>
 						      	<value>Retention</value>
 								<eval>
                                     <first value="1"/>
@@ -674,7 +710,7 @@
 					</checks>
 					<checks>
 						<registry name="Vypnout oznámení aplikací na zamykací obrazovce">
-								<key>HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows\System</key>
+								<key>HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\System</key>
 						      	<value>DisableLockScreenAppNotifications</value>
 								<eval>
                                     <first value="1"/>
@@ -683,7 +719,7 @@
 					</checks>
 					<checks>
 						<registry name="Skrýt vstupní body pro Rychlé přepínání uživatele">
-								<key>HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows\System</key>
+								<key>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System</key>
 						      	<value>HideFastUserSwitching</value>
 								<eval>
                                     <first value="1"/>
@@ -692,10 +728,10 @@
 					</checks>
 					<checks>
 						<registry name="Vždy použít klasické přihlašování">
-								<key>HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows\System</key>
+								<key>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System</key>
 						      	<value>LogonType</value>
 								<eval>
-                                    <first value="1"/>
+                                    <first value="0"/>
                                 </eval>
                         </registry>
 					</checks>
@@ -703,7 +739,7 @@
 				<suite name="Článek 24 - Zásady skupiny">
 					<checks>
 						<registry name="Vypnout zpracování místních objektů Zásad skupiny">
-								<key>HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows\System</key>
+								<key>HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\System</key>
 						      	<value>DisableLGPOProcessing</value>
 								<eval>
                                     <first value="0"/>
@@ -715,7 +751,7 @@
 								<key>HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows\System</key>
 						      	<value>RSoPLogging</value>
 								<eval>
-                                    <first value="0"/> 
+                                    <first value="1"/> 
                                 </eval>
                         </registry>
 					</checks>
@@ -741,7 +777,7 @@
 					</checks>
 					<checks>
 						<registry name="Zobrazit nadpis vlastní zprávy v případě, že nastavení zásad znemožní instalaci zařízení">
-								<key>HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows\DeviceInstall\Restrictions\DeniedPolicy</key>
+								<key>HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\DeviceInstall\Restrictions\DeniedPolicy</key>
 						      	<value>SimpleText</value>
 								<eval>
                                     <first value="Upozornění"/> 
@@ -762,7 +798,7 @@
 								<key>HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows\DeviceInstall\Restrictions</key>
 						      	<value>DenyRemovableDevices</value>
 								<eval>
-                                    <first value="1"/>
+                                    <first value="0"/>
                                 </eval>
                         </registry>
 					</checks>
@@ -771,7 +807,7 @@
 								<key>HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows\DeviceInstall\Restrictions</key>
 						      	<value>DenyUnspecified</value>
 								<eval>
-                                    <first value="1"/>
+                                    <first value="0"/>
                                 </eval>
                         </registry>
 					</checks>
@@ -860,8 +896,8 @@
 					</checks>
 					<checks>
 						<registry name="Všechny třídy vyměnitelného úložiště: Odepřít veškerý přístup">
-								<key>HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows\RemovableStorageDevices</key>
-						      	<value>AllowRemoteDASD</value>
+								<key>HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\RemovableStorageDevices</key>
+						      	<value>Deny_All</value>
 								<eval>
                                     <first value="0"/>  
                                 </eval>
@@ -927,7 +963,7 @@
 				<suite name="Článek 28 - Obnovení systému">
 					<checks>
 						<registry name="Vypnout konfiguraci">
-								<key>HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\WindowsNT\SystemRestore</key>
+								<key>HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows NT\SystemRestore</key>
 						      	<value>DisableConfig</value>
 								<eval>
                                     <first value="1"/>  

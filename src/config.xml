@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<suite name="Výchozí kontrola bezpečnosti">
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<suite name="Kontrola bezpečnosti podle doporučených požadavků">
 	<checks>
 		<suite name="Všeobecná nastavení">
 			<checks>
@@ -12,107 +12,1051 @@
 						<first property="LicenseStatus" value="1" />
 					</eval>
 				</wmi>
-				<wmi name="Kontrola nastavení BIOS">
+				<wmi name="Kontrola specifického typu OS Windows">
+					<scope>root\CIMV2</scope>
+					<query>SELECT * FROM Win32_OperatingSystem WHERE Caption LIKE "Microsoft Windows 10%"</query>
+					<eval>
+						<first property="Status" value="OK" />
+					</eval>
+				</wmi>
+				<wmi name="Kontrola bootování">
 					<scope>root\CIMV2</scope>
 					<query>SELECT * FROM Win32_BootConfiguration WHERE Name='BootConfiguration' AND Caption LIKE "%Harddisk0%" </query>
 					<eval>
 						<first property="Caption" value=".*\\Device\\Harddisk0.*" />
-					</eval>					
+					</eval>
 				</wmi>
-				<suite name="Článek 7 - Kontrola deaktivace WLAN">
+			</checks>
+		</suite>
+		
+				<suite name="Článek 9 - Nastavení systémových služeb">
 					<checks>
-						<wmi name="kontrolaWLANState">
+						<wmi name="kontrola deaktivace WLAN- State">
 							<scope>root\CIMV2</scope>
 							<query>SELECT * FROM Win32_Service WHERE Name='WlanSvc'</query>
 							<eval>
 								<first property="State" value="Stopped" />
+							</eval>
+						</wmi>
+						<wmi name="kontrola deaktivace WLAN- StartMode">
+							<scope>root\CIMV2</scope>
+							<query>SELECT * FROM Win32_Service WHERE Name='WlanSvc'</query>
+							<eval>
 								<first property="StartMode" value="Disabled" />
 							</eval>
 						</wmi>
-						<wmi name="kontrolaWWANState">
+						<wmi name="kontrola deaktivace WWAN- State">
 							<scope>root\CIMV2</scope>
 							<query>SELECT * FROM Win32_Service WHERE Name='WwanSvc'</query>
 							<eval>
 								<first property="State" value="Stopped" />
+							</eval>
+						</wmi>
+						<wmi name="kontrola deaktivace WWAN- Start Mode">
+							<scope>root\CIMV2</scope>
+							<query>SELECT * FROM Win32_Service WHERE Name='WwanSvc'</query>
+							<eval>
 								<first property="StartMode" value="Disabled" />
 							</eval>
 						</wmi>
-					</checks>
-				</suite>
-				<suite name="Článek 8 - Kontrola deaktivace Bluetooth">
-					<checks>
-						<wmi name="kontrolaBTState">
+						<wmi name="kontrola deaktivace Bluetooth- State">
 							<scope>root\CIMV2</scope>
 							<query>SELECT * FROM Win32_Service WHERE Name='bthserv'</query>
 							<eval>
 								<first property="State" value="Stopped" />
-								<first property="StartMode" value="Disabled" />
+							</eval>
+						</wmi>
+						<wmi name="kontrola deaktivace Bluetooth- Start Mode">
+							<scope>root\CIMV2</scope>
+							<query>SELECT * FROM Win32_Service WHERE Name='bthserv'</query>
+							<eval>
+								<first property="State" value="Stopped" />
 							</eval>
 						</wmi>
 					</checks>
 				</suite>
 				<suite name="Článek 11 - Kontrola uživatelských účtů a skupin podle doporučené tabulky">
 					<checks>
-						<wmi name="user">
+						<wmi name="zablokovaný Administrator">
 							<scope>root\CIMV2</scope>
-							<query>SELECT * FROM Win32_GroupUser WHERE GroupComponent.Name = 'Administrators'</query>
+							<query>SELECT * FROM Win32_UserAccount WHERE SID LIKE "S-1-5-21-%-%-%-500"</query>
 							<eval>
 								<first property="Status" value="Degraded" />
 							</eval>
 						</wmi>
-						<registry name="kontrola registrů">
-							<key>HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control</key>
-							<value>LsaFullPrivilegeAuditing</value>
-							<eval>
-								<first value="0" />
-							</eval>
-						</registry>
-					</checks>
-				</suite>
-				<suite name="Článek 12 - Kontrola nastavení práv k tiskárnám">
-					<checks>
-						<wmi name="Najít fax v tiskárnách.">
+						<wmi name="zablokovaný Guest">
 							<scope>root\CIMV2</scope>
-							<query>SELECT * FROM Win32_Printer WHERE Name LIKE 'Fax'</query>
+							<query>SELECT * FROM Win32_UserAccount WHERE SID LIKE "S-1-5-21-%-%-%-501"</query>
 							<eval>
-								<first property="Name" value="Fax" />
+								<first property="Status" value="Degraded" />
 							</eval>
 						</wmi>
+						<securityaccount name="Správce počítače je člen skupiny Administrators">
+							<accountName>Správce počítače</accountName>
+							<eval>
+								<exactCount count="1" />
+								<hasString value="Administrators" />
+							</eval>
+						</securityaccount>
+						<securityaccount name="Bezpečnostní správce je člen skupiny Users a člen skupiny Event Log Readers ">
+							<accountName>Bezpečnostní správce</accountName>
+							<eval>
+								<exactCount count="2" />
+								<hasString value="Users" />
+								<hasString value="Event Log Readers" />
+							</eval>
+						</securityaccount>
+						<securityaccount name="Uživatel je člen skupiny Users">
+							<accountName>Uživatel</accountName>
+							<eval>
+								<exactCount count="1" />
+								<hasString value="Users" />
+							</eval>
+						</securityaccount>
 					</checks>
 				</suite>
-			</checks>
-		</suite>
-		<suite name="GPO test">
-			<checks>
-				<gpo name="Audit: Audit the use of Backup and Restore privilege">
-					<location>Computer Configuration\Windows Settings\Security Settings\Local Policies\Security Options</location>
-					<policy>Audit: Audit the use of Backup and Restore privilege</policy>
-					<eval>
-						<first value="Disabled" />
-					</eval>
-				</gpo>
-			</checks>
-		</suite>
-		<suite name="PS test">
-			<checks>
-				<powershell name="PSO">
-					<command>secedit /export /cfg temp.ini; Get-Content -Path .\temp.ini;</command>
-					<eval>
-						<first value="Disabled" />
-					</eval>
-				</powershell>
-			</checks>
-		</suite>
-		<suite name="SECURITY test">
-			<checks>
-				<security name="secedit">					
-					<eval>
-						<first property="MinimumPasswordAge" value="0" />
-						<first property="MaximumPasswordAge" value="42" />
-						<first property="NewAdministratorName" value="&quot;Administrator&quot;" />
-					</eval>
-				</security>
-			</checks>
-		</suite>
+				<suite name="Článek 14 - Zásady hesla">
+					<checks>
+						<security name="Heslo musí splňovat požadavky na složitost">
+							<eval>
+							     <first property="PasswordComplexity" value="1"/>
+                            </eval>
+                        </security>
+					</checks>
+					<checks>
+						<security name="Maximální stáří hesla">
+							<eval>
+                                <first property="MaximumPasswordAge" value="90"/>
+                            </eval>
+                        </security>
+					</checks>
+					<checks>
+						<security name="Minimální délka hesla">
+						    <eval> 
+                              	<num property="MinimumPasswordLength" value=">=9"/>
+                            </eval>
+                        </security>
+					</checks>
+					<checks>
+						<security name="Minimální stáří hesla">
+                            <eval>
+							    <num property="MinimumPasswordAge" value=">=1"/>
+                            </eval>     
+                        </security>
+					</checks>
+					<checks>
+						<security name="Vynutit použití historie hesel">
+							<eval>
+                                 <first property="PasswordHistorySize" value="24"/>
+                            </eval>
+                        </security>
+					</checks>
+				</suite> 
+                <suite name="Článek 15 - Zásady uzamčení účtu">
+					<checks>
+						<registry name="Doba uzamčení účtu">
+							<key>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\RemoteAccess\Parameters\AccountLockout</key>
+							<value>MaxDenials</value>
+							<eval> 
+                             <first value="0"/>
+                            </eval> 
+                        </registry>    
+					</checks>
+					<checks>
+						<registry name="Prahová hodnota pro uzamčení účtu">
+							<key>HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System</key>
+							<value>MaxDevicePasswordFailedAttempts</value>
+							<eval>
+                                <first value="3"/>
+                            </eval>
+                        </registry>    
+					</checks>
+					<checks>
+						<security name="Vynulovat čítač uzamčení účtu po">
+							<eval>
+                                <first property="ResetLockoutCount" value="60"/>
+                            </eval>
+                        </security>    
+					</checks>
+				</suite>
+                <suite name="Článek 16 - Zásady auditu">
+					<checks>
+						<security name="Auditovat použití oprávnění">
+                            <eval>
+                                <first property="AuditPrivilegeUse" value="0"/>
+                            </eval>
+                        </security>    
+					</checks>
+					<checks>
+						<security name="Auditovat přístup k adresářové službě">
+                            <eval>
+                                <first property="AuditDSAccess" value="0"/>
+                             </eval>
+                        </security>   
+					</checks>
+					<checks>
+						<security name="Auditovat přístup k objektům">
+                            <eval>
+                                <first property="AuditObjectAccess" value="0"/>
+                             </eval>
+                        </security>
+					</checks>
+					<checks>
+						<security name="Auditovat sledování procesů">
+                            <eval>
+                                <first property="AuditProcessTracking" value="0"/>
+                             </eval>
+                        </security>
+					</checks>
+					<checks>
+						<security name="Auditovat správu účtů">
+							<eval>
+                                <first property="AuditAccountManage" value="3"/>
+                             </eval>
+                        </security>
+					</checks>
+					<checks>
+						<security name="Auditovat systémové události">
+                            <eval>
+                                <first property="AuditSystemEvents" value="3"/>
+                             </eval>
+                        </security>
+					</checks>
+					<checks>
+						<security name="Auditovat události přihlášení">
+                            <eval>
+                                <first property="AuditLogonEvents" value="3"/>
+                             </eval>
+                        </security>
+					</checks>
+					<checks>
+						<security name="Auditovat události přihlášení k účtu">
+                            <eval>
+                                <first property="AuditAccountLogon" value="3"/>
+                             </eval>
+                        </security>
+					</checks>
+					<checks>
+						<security name="Auditovat změny zásad">
+                            <eval>
+                                <first property="AuditPolicyChange" value="3"/>
+                             </eval>
+                        </security>
+					</checks>
+				</suite> 
+				<suite name="Článek 17 - Přiřazení uživatelských práv">
+						<checks>
+							<security name="Generovat audity zabezpečení">
+                                <eval>
+                                    <first property="SeAuditPrivilege" value="^\*S-1-5-19,\*S-1-5-20$"/>
+                                </eval>
+							</security>
+						</checks>
+						<checks>
+							<security name="Obnovit soubory a adresáře">
+                                <eval>
+                                    <first property="SeRestorePrivilege" value="^\*S-1-5-32-544$"/>
+                                </eval>
+                            </security>
+						</checks>
+						<checks>
+							<security name="Odepřít místní přihlášení">
+								<eval>
+                                    <first property="SeDenyInteractiveLogonRight" value="Guest"/>
+                                </eval>
+                            </security>
+						</checks>
+						<checks>
+							<security name="Povolit místní přihlášení">
+								<eval>
+                                    <first property="SeInteractiveLogonRight" value="^\*S-1-5-32-544,\*S-1-5-32-545$"/>
+                                </eval>
+                            </security>
+						</checks>
+						<checks>
+							<security name="Provést úlohy údržby svazku">
+								<eval>
+                                    <first property="SeManageVolumePrivilege" value="^\*S-1-5-32-544$"/>
+                                </eval>
+                            </security>
+						</checks>
+						<checks>
+							<security name="Převzít vlastnictví souborů a dalších objektů">
+								<eval>
+                                    <first property="SeTakeOwnershipPrivilege" value="^\*S-1-5-32-544$"/>
+                                </eval>
+                            </security>
+						</checks>
+						<checks>
+							<security name="Spravovat auditování a protokol zabezpečení">
+								<eval>
+                                    <first property="SeSecurityPrivilege" value="^\*S-1-5-32-544$"/>
+                                </eval>
+                            </security>
+						</checks>
+						<checks>
+							<security name="Vypnout systém">
+								<eval>
+                                    <first property="SeShutdownPrivilege" value="^\*S-1-5-32-544,\*S-1-5-32-545$"/>
+                                </eval>
+                            </security>
+						</checks>
+						<checks>
+							<security name="Zálohovat soubory a adresáře">
+								<eval>
+                                    <first property="SeBackupPrivilege" value="^\*S-1-5-32-544$"/>
+                                </eval>
+                            </security>
+						</checks>
+						<checks>
+							<security name="Změnit časové pásmo">
+								<eval>
+                                    <first property="SeTimeZonePrivilege" value="^\*S-1-5-19,\*S-1-5-32-544$"/>
+                                </eval>
+                            </security>
+						</checks>
+						<checks>
+							<security name="Změnit systémový čas">
+								<eval>
+                                    <first property="SeSystemtimePrivilege" value="^\*S-1-5-19,\*S-1-5-32-544$"/>
+                                </eval>
+                            </security>
+						</checks>
+					</suite>
+                    <suite name="Článek 18 - Možnosti zabezpečení">
+					<checks>
+						<registry name="Audit: Auditovat oprávnění k zálohování a obnovení dat">
+								<key>HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Lsa</key>
+						      	<value>FullPrivilegeAuditing</value>
+								<eval>
+                                    <first value="0"/>
+                                </eval>
+                        </registry>
+					</checks>
+					<checks>
+						<registry name="Audit: Auditovat přístup globálních systémových objektů">
+								<key>HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Lsa</key>
+						      	<value>AuditBaseObjects</value>
+								<eval>
+                                    <first value="0"/>
+                                </eval>
+                        </registry>
+					</checks>
+					<!-- u crash on audit fail bych radsi dal 1-->
+					<checks>
+						<registry name="Audit: Není-li možno protokolovat audity zabezpečení, vypnout okamžitě systém">
+								<key>HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Lsa</key>
+						      	<value>CrashOnAuditFail</value>
+								<eval>
+                                    <first value="0"/>
+                                </eval>
+                        </registry> 
+					</checks>
+					<checks>
+						<registry name="Audit: Vynutit přednost nastavení podkategorie zásad auditování před nastavením kategorie zásad auditování">
+								<key>HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Lsa</key>
+						      	<value>SCENoApplyLegacyAuditPolicy</value>
+								<eval>
+                                    <first value="0"/>
+                                </eval>
+                        </registry>
+					</checks>
+					<checks>
+						<registry name="Interaktivní přihlašování: Limit pro nečinnost počítače">
+								<key>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System</key>
+						      	<value>InactivityTimeoutSecs</value>
+								<eval>
+                                    <first value="900"/>
+                                </eval>
+                        </registry>
+					</checks>
+					<checks>
+						<registry name="Interaktivní přihlašování: Nadpis zprávy pro uživatele pokoušející se přihlásit">
+								<key>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System</key>
+						      	<value>legalnoticecaption</value>
+								<eval>
+                                    <first value="Upozornění"/>
+                                </eval>
+                        </registry>
+					</checks>
+					<checks>
+						<registry name="Interaktivní přihlašování: Nevyžadovat stisknutí kláves Ctrl+Alt+Del">
+								<key>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon</key>
+						      	<value>DisableCad</value>
+								<eval>
+                                    <first value="1"/>
+                                </eval>
+                        </registry>
+					</checks>
+					<checks>
+						<registry name="Interaktivní přihlašování: Nezobrazovat naposledy použité uživatelské jméno- kontrola v registrech">
+								<key>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System</key>
+						      	<value>dontdisplaylastusername</value>
+								<eval>
+                                    <first value="1"/>
+                                </eval>
+                        </registry>
+						<security name="Interaktivní přihlašování: Nezobrazovat naposledy použité uživatelské jméno- kontrola přes PowerShell">
+							<eval>
+								<first property="MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System\DontDisplayLastUserName" value="4,1"/>
+							</eval>
+						</security>
+					</checks>
+					<checks>
+						<registry name="Interaktivní přihlašování: Text zprávy pro uživatele pokoušející se přihlásit">
+								<key>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System</key>
+						      	<value>legalnoticetext</value>
+								<eval>
+                                    <first value="Jedná se o systém pro zpracování CITLIVÝCH informací. Zařízení nesmí být připojeno ani na WIFI ani na LAN. Všechny bezpečnostní incidenty jsou logovány."/>
+                                </eval>
+                        </registry>
+					</checks>
+					<checks>
+						<registry name="Interaktivní přihlašování: Vyzvat uživatele ke změně hesla před jeho vypršením">
+								<key>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon</key>
+						      	<value>PasswordExpiryWarning</value>
+								<eval>
+                                    <first value="14"/>
+                                </eval>
+                        </registry>
+					</checks>
+					<checks>
+						<registry name="Konzola pro zotavení: Povolit automatické přihlášení správce">
+								<key>HKEY_LOCAL_MACHINE\Software\Microsoft\Windows NT\CurrentVersion\Setup\RecoveryConsole</key>
+						      	<value>SecurityLevel</value>
+								<eval>
+                                    <first value="0"/>
+                                </eval>
+                        </registry>
+					</checks>
+					<checks>
+						<registry name="Konzola pro zotavení: Povolit kopírování na disketu a přítup ke všem jednotkám a složkám">
+								<key>HKEY_LOCAL_MACHINE\Software\Microsoft\Windows NT\CurrentVersion\Setup\RecoveryConsole</key>
+						      	<value>SetCommand</value>
+								<eval>
+                                    <first value="0"/>
+                                </eval>
+                        </registry>
+					</checks>
+					<checks>
+						<security name="Nastavení systému: Volitelné podsystémy">
+								<eval>
+                                    <first property="MACHINE\System\CurrentControlSet\Control\Session Manager\SubSystems\optional" value="7"/>
+                                </eval>
+                        </security>
+					</checks>
+					<checks>
+						<registry name="Řízení uživatelských účtů: Chování výzvy ke zvýšení oprávnění pro správce v Režimu schválení správce- kontrola v registrech">
+								<key>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System</key>
+						      	<value>ConsentPromptBehaviorAdmin</value>
+								<eval>
+                                    <first value="4"/>
+                                </eval>
+                        </registry>
+						<security name="Řízení uživatelských účtů: Chování výzvy ke zvýšení oprávnění pro správce v Režimu schválení správce- kontrola přes PowerShell">
+							<eval>
+								<first property="MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System\ConsentPromptBehaviorAdmin" value="4,4"/>
+							</eval>
+						</security>
+					</checks>
+					<checks>
+						<registry name="Řízení uživatelských účtů: Chování výzvy ke zvýšení oprávnění pro standardního uživatele- kontrola v registrech">
+								<key>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System</key>
+						      	<value>ConsentPromptBehaviorUser</value>
+								<eval>
+                                    <first value="0"/>
+                                </eval>
+                        </registry>
+						<security name="Řízení uživatelských účtů: Chování výzvy ke zvýšení oprávnění pro standardního uživatele- kontrola přes PowerShell">
+							<eval>
+								<first property="MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System\ConsentPromptBehaviorUser" value="4,0"/>
+							</eval>
+						</security>
+					</checks>
+					<checks>
+						<registry name="Řízení uživatelských účtů: Povolit aplikacím UIAccess zobrazení výzvy ke zvýšení oprávnění bez použití zabezpečené plochy">
+								<key>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System</key>
+						      	<value>EnableUIADesktopToggle</value>
+								<eval>
+                                    <first value="0"/>
+                                </eval>
+                        </registry>
+					</checks>
+					<checks>
+						<registry name="Řízení uživatelských účtů: Při zobrazení výzvy ke zvýšení oprávnění přepnout na zabezpečenou plochu">
+								<key>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System</key>
+						      	<value>PromptOnSecureDesktop</value>
+								<eval>
+                                    <first value="1"/>
+                                </eval>
+                        </registry>
+					</checks>
+					<checks>
+						<registry name="Řízení uživatelských účtů: Režim schválení správce pro integrovaný účet správce">
+								<key>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System</key>
+						      	<value>FilterAdministratorToken</value>
+								<eval>
+                                    <first value="1"/>
+                                </eval>
+                        </registry>
+					</checks>
+					<checks>
+						<registry name="Řízení uživatelských účtů: Spustit všechny správce v Režimu schválení správce">
+								<key>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System</key>
+						      	<value>EnableLUA</value>
+								<eval>
+                                    <first value="1"/>
+                                </eval>
+                        </registry>
+					</checks>
+					<checks>
+						<registry name="Řízení uživatelských účtů: Virtualizovat chyby zápisu do souboru a registru do umístění jednotlivých uživatelů">
+								<key>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System</key>
+						      	<value>EnableVirtualization</value>
+								<eval>
+                                    <first value="1"/>
+                                </eval>
+                        </registry>
+					</checks>
+					<checks>
+						<registry name="Řízení uživatelských účtů: Zjistit instalace aplikací a zobrazit výzvu ke zvýšení oprávnění">
+								<key>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System</key>
+						      	<value>EnableInstallerDetection</value>
+								<eval>
+                                    <first value="1"/>
+                                </eval>
+                        </registry>
+					</checks>
+					<checks>
+						<registry name="Řízení uživatelských účtů: Zvýšit oprávnění pouze u aplikací UIAccess, které jsou nainstalovány v zabezpečených umístěních">
+								<key>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System</key>
+						      	<value>EnableSecureUIAPaths</value>
+								<eval>
+                                    <first value="1"/>
+                                </eval>
+                        </registry>
+					</checks>
+					<checks>
+						<registry name="Řízení uživatelských účtů: Zvýšit oprávnění pouze u podepsaných a ověřených spustitelných souborů">
+								<key>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System</key>
+						      	<value>ValidateAdminCodeSignatures</value>
+								<eval>
+                                    <first value="0"/>
+                                </eval>
+                        </registry>
+					</checks>
+					<checks>
+						<registry name="Účty: Blokovat účty Microsoft">
+								<key>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System</key>
+						      	<value>NoConnectedUser</value>
+								<eval>
+                                    <first value="3"/>
+                                </eval>
+                        </registry>
+					</checks>
+					<checks>
+						<registry name="Účty: Omezit použití prázdného hesla místního účtu pouze pro přihlášení ke konzole">
+								<key>HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Lsa</key>
+						      	<value>LimitBlankPasswordUse</value>
+								<eval>
+                                    <first value="1"/>
+                                </eval>
+                        </registry>
+					</checks>
+					<checks>
+						<registry name="Vypnutí: Povolit vypnutí systému bez nutnosti přihlášení">
+								<key>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System</key>
+						      	<value>shutdownwithoutlogon</value>
+								<eval>
+                                    <first value="0"/>
+                                </eval>
+                        </registry>
+					</checks>
+					<checks>
+						<registry name="Vypnutí: Vymazat stránkovací soubor virtuální paměti">
+								<key>HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Session Manager\Memory Management</key>
+						      	<value>ClearPageFileAtShutdown</value>
+								<eval>
+                                    <first value="0"/>
+                                </eval>
+                        </registry>
+					</checks>
+					<checks>
+						<registry name="Zařízení: Zabránit uživatelům instalovat ovladače tiskáren">
+								<key>HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Print\Providers\LanMan Print Services\Servers</key>
+						      	<value>AddPrinterDrivers</value>
+								<eval>
+                                    <first value="1"/>
+                                </eval>
+                        </registry>
+					</checks>
+				</suite>
+                <suite name="Článek 19 - Služba protokolu událostí">
+					<checks>
+						<registry name="Automaticky zálohovat protokol při naplnění- Aplikace">
+								<key>HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\EventLog\Application</key>
+						      	<value>AutoBackupLogFiles</value>
+								<eval>
+                                    <first value="1"/>
+                                </eval>
+                        </registry>
+					</checks>
+					<checks>
+						<registry name="Řídit chování služby Protokol událostí, když soubor protokolu dosáhne maximální velikosti- Aplikace">
+								<key>HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\EventLog\Application</key>
+						      	<value>Retention</value>
+								<eval>
+                                    <first value="1"/>
+                                </eval>
+                        </registry>
+					</checks>
+					<checks>
+						<registry name="Automaticky zálohovat protokol při naplnění- System">
+								<key>HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\EventLog\System</key>
+						      	<value>AutoBackupLogFiles</value>
+								<eval>
+                                    <first value="1"/>
+                                </eval>
+                        </registry>
+					</checks>
+					<checks>
+						<registry name="Řídit chování služby Protokol událostí, když soubor protokolu dosáhne maximální velikosti- System">
+								<key>HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\EventLog\System</key>
+						      	<value>Retention</value>
+								<eval>
+                                    <first value="1"/>
+                                </eval>
+                        </registry>
+					</checks>
+					<checks>
+						<registry name="Automaticky zálohovat protokol při naplnění- Zabezpečení">
+								<key>HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\EventLog\Security</key>
+						      	<value>AutoBackupLogFiles</value>
+								<eval>
+                                    <first value="1"/>
+                                </eval>
+                        </registry>
+					</checks>
+					<checks>
+						<registry name="Řídit chování služby Protokol událostí, když soubor protokolu dosáhne maximální velikosti- Zabezpečení">
+								<key>HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\EventLog\Security</key>
+						      	<value>Retention</value>
+								<eval>
+                                    <first value="1"/>
+                                </eval>
+                        </registry>
+					</checks>
+		      	</suite>
+				<suite name="Článek 20 - Možnosti přihlášení k systému Windows">
+					<checks>
+						<registry name="Zobrazit informace o předchozích přihlášeních během přihlášení uživatele">
+								<key>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System</key>
+						      	<value>DisplayLastLogonInfo</value>
+								<eval>
+                                    <first value="0"/>
+                                </eval>
+                        </registry>	
+					</checks>
+					<checks>
+						<registry name="Automaticky přihlásit posledního interaktivního uživatele po restartování vyvolaném systémem">
+								<key>HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System</key>
+						      	<value>DisplayLastLogonInfo</value>
+								<eval>
+                                    <first value="0"/>
+                                </eval>
+                        </registry>	
+					</checks>
+				</suite>
+				<suite name="Článek 21 - One Drive">
+					<checks>
+						<registry name="Bránit používání OneDrivu jako úložiště souborů">
+								<key>HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows\OneDrive</key>
+						      	<value>DisableFileSyncNGSC</value>
+								<eval>
+                                    <first value="1"/>
+                                </eval>
+                        </registry>	
+					</checks>
+				</suite>
+				<suite name="Článek 22 - Zásady automatického přehrávání">
+					<checks>
+						<registry name="Vypnout automatické přehrávání">
+								<key>HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer</key>
+						      	<value>NoDriveTypeAutoRun</value>
+								<eval>
+                                    <first value="181"/> 
+                                </eval>
+                        </registry>
+					</checks>
+				</suite>
+                <suite name="Článek 23 - Přihlášení">
+					<checks>
+						<registry name="Zapnout přihlášení praktickým PIN kodem">
+								<key>HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows\System</key>
+						      	<value>AllowDomainPINLogon</value>
+								<eval>
+                                    <first value="0"/>
+                                </eval>
+                        </registry>
+					</checks>
+					<checks>
+						<registry name="Vypnout přihlášení pomocí obrázkového hesla">
+								<key>HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows\System</key>
+						      	<value>BlockDomainPicturePassword</value>
+								<eval>
+                                    <first value="1"/>
+                                </eval>
+                        </registry>
+					</checks>
+					<checks>
+						<registry name="Vypnout oznámení aplikací na zamykací obrazovce">
+								<key>HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\System</key>
+						      	<value>DisableLockScreenAppNotifications</value>
+								<eval>
+                                    <first value="1"/>
+                                </eval>
+                        </registry>
+					</checks>
+					<checks>
+						<registry name="Skrýt vstupní body pro Rychlé přepínání uživatele">
+								<key>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System</key>
+						      	<value>HideFastUserSwitching</value>
+								<eval>
+                                    <first value="1"/>
+                                </eval>
+                        </registry>
+					</checks>
+					<checks>
+						<registry name="Vždy použít klasické přihlašování">
+								<key>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System</key>
+						      	<value>LogonType</value>
+								<eval>
+                                    <first value="0"/>
+                                </eval>
+                        </registry>
+					</checks>
+				</suite>
+				<suite name="Článek 24 - Zásady skupiny">
+					<checks>
+						<registry name="Vypnout zpracování místních objektů Zásad skupiny">
+								<key>HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\System</key>
+						      	<value>DisableLGPOProcessing</value>
+								<eval>
+                                    <first value="0"/>
+                                </eval>
+                        </registry>
+					</checks>
+					<checks>
+						<registry name="Vypnout protokolování výsledné sady zásad">
+								<key>HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows\System</key>
+						      	<value>RSoPLogging</value>
+								<eval>
+                                    <first value="1"/> 
+                                </eval>
+                        </registry>
+					</checks>
+				</suite>
+				<suite name="Článek 25 - Omezení instalace zařízení">
+					<checks>
+						<registry name="Povolit správcům přepsat zásady Omezení pro instalaci zařízení">
+								<key>HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows\DeviceInstall\Restrictions</key>
+						      	<value>AllowAdminInstall</value>
+								<eval>
+                                    <first value="0"/>
+                                </eval>
+                        </registry>
+					</checks>
+					<checks>
+						<registry name="Zobrazit vlastní zprávu v případě, že nastavení zásad znemožní instalaci">
+								<key>HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows\DeviceInstall\Restrictions\DeniedPolicy</key>
+						      	<value>DetailText</value>
+								<eval>
+                                    <first value="Instalace nepovoleného zařízení"/>
+                                </eval>
+                        </registry>
+					</checks>
+					<checks>
+						<registry name="Zobrazit nadpis vlastní zprávy v případě, že nastavení zásad znemožní instalaci zařízení">
+								<key>HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\DeviceInstall\Restrictions\DeniedPolicy</key>
+						      	<value>SimpleText</value>
+								<eval>
+                                    <first value="Upozornění"/> 
+                                </eval>
+                        </registry>
+					</checks>
+					<checks>
+						<registry name="Povolit instalaci zařízení s těmito identifikačními čísly zařízení">
+								<key>HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows\DeviceInstall\Restrictions</key>
+						      	<value>AllowDeviceIDs</value>
+								<eval>
+                                    <first value="0"/> 
+                                </eval>
+                        </registry>
+					</checks>
+					<checks>
+						<registry name="Zakázat instalaci vyměnitelných zařízení">
+								<key>HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows\DeviceInstall\Restrictions</key>
+						      	<value>DenyRemovableDevices</value>
+								<eval>
+                                    <first value="0"/>
+                                </eval>
+                        </registry>
+					</checks>
+					<checks>
+						<registry name="Zakázat instalaci zařízení nepopsaných v jiných nastaveních zásad">
+								<key>HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows\DeviceInstall\Restrictions</key>
+						      	<value>DenyUnspecified</value>
+								<eval>
+                                    <first value="0"/>
+                                </eval>
+                        </registry>
+					</checks>
+				</suite>
+				<suite name="Článek 26 - Přístup k vyměnitelnému úložišti">
+					<checks>
+						<registry name="Disk CD a DVD: Odepřít oprávnění ke spouštění">
+								<key>HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows\RemovableStorageDevices\{53f56308-b6bf-11d0-94f2-00a0c91efb8b}</key>
+						      	<value>Deny_Execute</value>
+								<eval>
+                                    <first value="1"/> 
+                                </eval>
+                        </registry>
+					</checks>
+					<checks>
+						<registry name="Disk CD a DVD: Odepřít přístup ke čtení">
+								<key>HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows\RemovableStorageDevices\{53f56308-b6bf-11d0-94f2-00a0c91efb8b}</key>
+						      	<value>Deny_Read</value>
+								<eval>
+                                    <first value="0"/> 
+                                </eval>
+                        </registry>
+					</checks>
+					<checks>
+						<registry name="Disk CD a DVD: Odepřít přístup pro zápis">
+								<key>HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows\RemovableStorageDevices\{53f56308-b6bf-11d0-94f2-00a0c91efb8b}</key>
+						      	<value>Deny_Write</value>
+								<eval>
+                                    <first value="0"/> 
+                                </eval>
+                        </registry>
+					</checks>
+					<checks>
+						<registry name="Disketové jednotky: Odepřít oprávnění ke spouštění">
+								<key>HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows\RemovableStorageDevices\{53f56311-b6bf-11d0-94f2-00a0c91efb8b}</key>
+						      	<value>Deny_Execute</value>
+								<eval>
+                                    <first value="1"/> 
+                                </eval>
+                        </registry>
+					</checks>
+					<checks>
+						<registry name="Disketové jednotky: Odepřít přístup ke čtení">
+								<key>HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows\RemovableStorageDevices\{53f56311-b6bf-11d0-94f2-00a0c91efb8b}</key>
+						      	<value>Deny_Read</value>
+								<eval>
+                                    <first value="0"/> 
+                                </eval>
+                        </registry>
+					</checks>
+					<checks>
+						<registry name="Disketové jednotky: Odepřít přístup pro zápis">
+								<key>HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows\RemovableStorageDevices\{53f56311-b6bf-11d0-94f2-00a0c91efb8b}</key>
+						      	<value>Deny_Write</value>
+								<eval>
+                                    <first value="0"/>  
+                                </eval>
+                        </registry>
+					</checks>	
+					<checks>
+						<registry name="Vyměnitelné disky: Odepřít oprávnění ke spouštění">
+								<key>HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows\RemovableStorageDevices\{53f5630d-b6bf-11d0-94f2-00a0c91efb8b}</key>
+						      	<value>Deny_Execute</value>
+								<eval>
+                                    <first value="1"/>  
+                                </eval>
+                        </registry>
+					</checks>
+					<checks>
+						<registry name="Vyměnitelné disky: Odepřít přístup ke čtení">
+								<key>HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows\RemovableStorageDevices\{53f5630d-b6bf-11d0-94f2-00a0c91efb8b}</key>
+						      	<value>Deny_Read</value>
+								<eval>
+                                    <first value="0"/>  
+                                </eval>
+                        </registry>
+					</checks>
+					<checks>
+						<registry name="Vyměnitelné disky: Odepřít přístup zápis">
+								<key>HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows\RemovableStorageDevices\{53f5630d-b6bf-11d0-94f2-00a0c91efb8b}</key>
+						      	<value>Deny_Write</value>
+								<eval>
+                                    <first value="0"/>  
+                                </eval>
+                        </registry>
+					</checks>
+					<checks>
+						<registry name="Všechny třídy vyměnitelného úložiště: Odepřít veškerý přístup">
+								<key>HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\RemovableStorageDevices</key>
+						      	<value>Deny_All</value>
+								<eval>
+                                    <first value="0"/>  
+                                </eval>
+                        </registry>
+					</checks>
+					<checks>
+						<registry name="Páskové jednotky: Odepřít oprávnění ke spouštění">
+								<key>HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows\RemovableStorageDevices\{53f5630b-b6bf-11d0-94f2-00a0c91efb8b}</key>
+						      	<value>Deny_Execute</value>
+								<eval>
+                                    <first value="1"/>  
+                                </eval>
+                        </registry>
+					</checks>
+					<checks>
+						<registry name="Páskové jednotky: Odepřít oprávnění ke čtení">
+								<key>HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows\RemovableStorageDevices\{53f5630b-b6bf-11d0-94f2-00a0c91efb8b}</key>
+						      	<value>Deny_Read</value>
+								<eval>
+                                    <first value="0"/>   
+                                </eval>
+                        </registry>
+					</checks>
+					<checks>
+						<registry name="Páskové jednotky: Odepřít oprávnění pro zápis">
+								<key>HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows\RemovableStorageDevices\{53f5630b-b6bf-11d0-94f2-00a0c91efb8b}</key>
+						      	<value>Deny_Write</value>
+								<eval>
+                                    <first value="0"/>  
+                                </eval>
+                        </registry>
+					</checks>
+					<checks>
+						<registry name="Zařízení WPD: Odepřít přístup ke čtení">
+								<key>HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows\RemovableStorageDevices\{F33FDC04-D1AC-4E8E-9A30-19BBD4B108AE}</key>
+						      	<value>Deny_Read</value>
+								<eval>
+                                    <first value="1"/>  
+                                </eval>
+                        </registry>
+					</checks>
+					<checks>
+						<registry name="Zařízení WPD: Odepřít přístup pro zápis">
+								<key>HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows\RemovableStorageDevices\{F33FDC04-D1AC-4E8E-9A30-19BBD4B108AE}</key>
+						      	<value>Deny_Write</value>
+								<eval>
+                                    <first value="1"/> 
+                                </eval>
+                        </registry>
+					</checks>
+				</suite>
+				<suite name="Článek 27 - Obnovení">
+					<checks>
+						<registry name="Povolit obnovení systému do výchozího stavu">
+								<key>HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\WinRE</key>
+						      	<value>DisableSetup</value>
+								<eval>
+                                    <first value="1"/>  
+                                </eval>
+                        </registry>
+					</checks>
+				</suite>
+				<suite name="Článek 28 - Obnovení systému">
+					<checks>
+						<registry name="Vypnout konfiguraci">
+								<key>HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows NT\SystemRestore</key>
+						      	<value>DisableConfig</value>
+								<eval>
+                                    <first value="1"/>  
+                                </eval>
+                        </registry>
+					</checks>
+				</suite>
+				<suite name="Článek 29 - Přizpůsobení">
+					<checks>
+						<registry name="Nezobrazovat zamykací obrazovku">
+								<key>HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows\Personalization</key>
+						      	<value>NoLockScreen</value>
+								<eval>
+                                    <first value="1"/>  
+                                </eval>
+                        </registry>
+					</checks>
+					<checks>
+						<registry name="Bránit povolení kamery na zamykací obrazovce">
+								<key>HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows\Personalization</key>
+						      	<value>NoLockScreenCamera</value>
+								<eval>
+                                    <first value="1"/>   
+                                </eval>
+                        </registry>
+					</checks>
+					<checks>
+						<registry name="Bránit povolení prezentace na zamykací obrazovce">
+								<key>HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows\Personalization</key>
+						      	<value>NoLockScreenSlideshow</value>
+								<eval>
+                                    <first value="1"/> 
+                                </eval>
+                        </registry>
+					</checks>
+				</suite>
+				<suite name="Článek 30 - Přizpůsobení">
+					<checks>
+						<registry name="Povolit šetřič obrazovky">
+								<key>HKEY_CURRENT_USER\Software\Policies\Microsoft\Windows\ControlPanel\Desktop</key>
+						      	<value>ScreenSaveActive</value>
+								<eval>
+                                    <first value="1"/>  
+                                </eval>
+                        </registry>
+					</checks>
+					<checks>
+						<registry name="Zabránit změnám šetřiče obrazovky">
+								<key>HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Policies\System</key>
+						      	<value>NoDispScrSavPage</value>
+								<eval>
+                                    <first value="1"/>    
+                                </eval>
+                        </registry>
+					</checks>
+					<checks>
+						<registry name="Chránit šetřič obrazovky heslem">
+								<key>HKEY_CURRENT_USER\Software\Policies\Microsoft\Windows\ControlPanel\Desktop</key>
+						      	<value>ScreenSaverIsSecure</value>
+								<eval>
+                                    <first value="1"/>  
+                                </eval>
+                        </registry>
+					</checks>
+					<checks>
+						<registry name="Časový limit šetřiče obrazovky">
+								<key>HKEY_CURRENT_USER\Software\Policies\Microsoft\Windows\ControlPanel\Desktop</key>
+						      	<value>ScreenSaveTimeOut</value>
+								<eval>
+                                    <first value="900"/>   
+                                </eval>
+                        </registry>
+					</checks>
+					<checks>
+						<registry name="Vynutit konkrétní spořič obrazovky">
+								<key>HKEY_CURRENT_USER\Software\Policies\Microsoft\Windows\ControlPanel\Desktop</key>
+						      	<value>SCRNSAVE.EXE</value>
+								<eval>
+                                    <first value=""/>   
+                                </eval>
+                        </registry>
+					</checks>
+				</suite>
+				<suite name="Článek 31 - Průzkumník Windows">
+					<checks>
+						<registry name="Nepřesouvat odstraněné soubory do koše">
+								<key>HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer</key>
+						      	<value>NoRecycleFiles</value>
+								<eval>
+                                    <first value="1"/>   
+                                </eval>
+                        </registry>
+					</checks>
+				</suite>
 	</checks>
 </suite>

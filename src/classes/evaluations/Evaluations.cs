@@ -11,8 +11,7 @@ namespace kobenos.classes
      [XmlRoot("eval")]
     public class Evaluations : List<AbstractEvaluation>
     {
-
-        public EvaluationResult Evaluate(EvaluationInputValues values)
+        public EvaluationResult Evaluate(List<IEvaluationObject> values)
         {
             // provedeni vsech vyhodnoceni
             foreach (AbstractEvaluation evaluation in this)

@@ -25,9 +25,9 @@ namespace kobenos.classes
 
         }
 
-        public override EvaluationResult Evaluate(EvaluationInputValues values)
+        public override EvaluationResult Evaluate(List<IEvaluationObject> values)
         {
-            EvaluationResult evalCountResult = base.Evaluate(values);
+            var evalCountResult = base.Evaluate(values);
             if (evalCountResult.IsCompliant)
             {
                 string actualValue = values[0].GetProperty(this.property);
@@ -35,12 +35,12 @@ namespace kobenos.classes
                 {
                     Regex regex = new Regex(this.value, RegexOptions.Compiled);
                     bool result = regex.IsMatch(actualValue);
-                    string message = result ? "OK" : String.Format("Value '{0}' doesn't match regular expression '{1}'.", actualValue, this.value);
+                    string message = result ? "OK" : String.Format("Současná hodnota nastavená v systému: '{0}' neodpovídá doporučené hodnotě v konfiguračním souboru: '{1}'.", actualValue, this.value);
                     return new EvaluationResult(result, message);
                 }
                 else 
                 {
-                    return new EvaluationResult(false, String.Format("Property '{0}' doesn't exist.", this.property));
+                    return new EvaluationResult(false, String.Format("Tato vlastnost: '{0}' nebyla v systému nalezena- nebyla tedy správně nastavena bezpečnostní doporučení. Pokud se tato vlastnost v systému správně nastaví, konfigurační soubor ji dokáže najít a překontrolovat.", this.property));
                 }
             } else
             {

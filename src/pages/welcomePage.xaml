@@ -11,11 +11,47 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-         
+
         <Grid Grid.Row="0" HorizontalAlignment="Stretch">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
+            <Label Content="Vítejte" Grid.Column="0" Grid.Row="0" FontSize="66"/>
+            <Label Content="Nacházíte se v programu vytvořeným za účelem kontroly nastavení bezpečnostních politik." Grid.Column="0" Grid.Row="1" FontSize="14"/>
+        </Grid>
+        <Grid Grid.Row="1" HorizontalAlignment="Stretch">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
+            <Label Content="Informace:" Grid.Column="0" Grid.Row="0" FontSize="24"/>
+            <Label Content="- program je učený především pro počítačové stanice se systémem Windows 10 Pro a vyšší" Grid.Column="0" Grid.Row="1" FontSize="14"/>
+            <Label Content="- program smí obsluhovat pouze pověřená osoba určená ke kontrole" Grid.Column="0" Grid.Row="2" FontSize="14"/>
+            <Label Content="- program spouštějte vždy pravým plačítkem myši a Spustit jako správce" Grid.Column="0" Grid.Row="3" FontSize="14"/>
+            <Label Content="- používejte ke kontrole doporučený konfigurační soubor s názvem config.xml" Grid.Column="0" Grid.Row="4" FontSize="14"/>
+            <Label Content="- program a konfigurační soubor je určený ke kontrole počítače do stupně utajení VYHRAZENÉ" Grid.Column="0" Grid.Row="5" FontSize="14"/>
+            <Label Content="- níže vyberte konfigurační soubor a stiskněte tlačítko Pokračovat " Grid.Column="0" Grid.Row="6" FontSize="14"/>
+            <Label Content=" " Grid.Column="0" Grid.Row="7" FontSize="14"/>
+        </Grid>
+
+        <Grid Grid.Row="2" HorizontalAlignment="Stretch">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="auto"/>
                 <ColumnDefinition Width="*"/>
@@ -32,7 +68,7 @@
             <Button Content="Vybrat" Grid.Column="2" FontSize="14" Padding="3" Click="VybratButton_Click" />                
         </Grid>
 
-        <Grid Grid.Row="2" HorizontalAlignment="Stretch">
+        <Grid Grid.Row="3" HorizontalAlignment="Stretch">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>

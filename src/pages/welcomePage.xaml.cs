@@ -20,10 +20,11 @@ namespace kobenos.pages
     /// </summary>
     public partial class WelcomePage : Page
     {
-
+        public static string nameFile;
         public WelcomePage()
         {
             InitializeComponent();
+
             ConfigFilePathTextBox.Text = System.AppDomain.CurrentDomain.BaseDirectory + "config.xml";
         }
 
@@ -33,7 +34,7 @@ namespace kobenos.pages
             parentWindow.NavigateToExecutionPage(ConfigFilePathTextBox.Text);
         }
 
-        private void VybratButton_Click(object sender, RoutedEventArgs e)
+        public void VybratButton_Click(object sender, RoutedEventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.InitialDirectory = System.AppDomain.CurrentDomain.BaseDirectory;
@@ -41,6 +42,7 @@ namespace kobenos.pages
             if (openFileDialog.ShowDialog() == true)
             {
                 ConfigFilePathTextBox.Text = openFileDialog.FileName;
+                nameFile = openFileDialog.FileName;
             }
         }
 

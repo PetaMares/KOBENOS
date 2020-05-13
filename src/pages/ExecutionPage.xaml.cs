@@ -67,17 +67,28 @@ namespace kobenos
             RunCheckButton.IsEnabled = SelectedCheck != null;
         }
 
-        public void LoadConfiguration(string configFile)
+        public string ConfigFilePath { get; private set; }
+
+        public bool LoadConfiguration(string configFile)
         {
+            ConfigFilePath = configFile;
             this.MainSuite = SerializationHelper.DeserializeFile<Suite>(configFile);
-            RefreshButtons();
-            this.MainGrid.DataContext = this.MainSuite;
+            if (this.MainSuite != null)
+            {
+                RefreshButtons();
+                this.MainGrid.DataContext = this.MainSuite;
+                return true;
+            }
+            else 
+            {
+                return false;
+            }
         }
         
         private void ReportButton_Click(object sender, RoutedEventArgs e)
         {
             MainWindow parentWindow = Window.GetWindow(this) as MainWindow;
-            parentWindow.NavigateToSummaryPage(this.MainSuite.Result);
+            parentWindow.NavigateToSummaryPage((Suite)this.MainSuite, this.ConfigFilePath);
         }
 
         private void BackButton_Click(object sender, RoutedEventArgs e)

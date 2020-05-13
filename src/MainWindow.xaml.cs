@@ -80,8 +80,15 @@ namespace kobenos
 
         public void NavigateToExecutionPage(string configFile)
         {
-            this.ExecutionPage.LoadConfiguration(configFile);
-            this.navigate(this.ExecutionPage);
+            var checkControl = this.ExecutionPage.LoadConfiguration(configFile);
+            if (checkControl)
+            {
+                this.navigate(this.ExecutionPage);
+            }
+            else 
+            {
+                //zůstane na stránce a umožní vybrat nový soubor
+            }
         }
 
         public void NavigateToExecutionPage()
@@ -94,9 +101,9 @@ namespace kobenos
             this.navigate(this.SummaryPage);
         }
 
-        public void NavigateToSummaryPage(ExecutionResult result)
+        public void NavigateToSummaryPage(Suite result, string configFilePath)
         {
-            this.SummaryPage.SetResult(result);
+            this.SummaryPage.SetResult(result, configFilePath);
             this.navigate(this.SummaryPage);
         }
     }

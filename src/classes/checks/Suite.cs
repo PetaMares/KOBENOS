@@ -21,6 +21,7 @@ namespace kobenos.classes
         [XmlArrayItem(typeof(GpoCheck), ElementName = "gpo")]
         [XmlArrayItem(typeof(PowerShellCheck), ElementName = "powershell")]
         [XmlArrayItem(typeof(SecurityCheck), ElementName = "security")]
+        [XmlArrayItem(typeof(SecurityCheckAccount), ElementName = "securityaccount")]
         public List<AbstractCheck> Checks { get => checks; set => checks = value; }
 
         protected override ExecutionResult internalExecute()
@@ -38,7 +39,7 @@ namespace kobenos.classes
                 }
                 result = result && check.Result.IsSuccessful;
             }
-            string details = System.String.Format("{0}/{1}", success, checks.Count);
+            string details = System.String.Format("Úspěšné testy: {0}/{1}", success, checks.Count);
             return new ExecutionResult(result, details);
         }
 

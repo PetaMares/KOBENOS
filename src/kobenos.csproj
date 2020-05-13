@@ -3,9 +3,16 @@
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
+	  <RuntimeIdentifier>win10-x86</RuntimeIdentifier>
     <UseWPF>true</UseWPF>
     <ApplicationIcon>lock.ico</ApplicationIcon>
     <StartupObject>kobenos.App</StartupObject>
+    <GenerateAssemblyInfo> false </GenerateAssemblyInfo>
+	  <SupportedCultures>cs-CZ</SupportedCultures>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
 
   <ItemGroup>
@@ -20,8 +27,13 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Remove="classes\checks\SecurityCheck - Kopie.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.PowerShell.Commands.Diagnostics" Version="7.0.0" />
     <PackageReference Include="Microsoft.PowerShell.SDK" Version="7.0.0" />
+	<PackageReference Include="Select.HtmlToPdf.NetCore" Version="20.1.0" />
     <PackageReference Include="System.Management.Automation" Version="7.0.0" />
   </ItemGroup>
 

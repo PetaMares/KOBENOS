@@ -15,10 +15,10 @@ namespace kobenos.classes
             this.count = count;
         }
 
-        public override EvaluationResult Evaluate(EvaluationInputValues values)
+        public override EvaluationResult Evaluate(List<IEvaluationObject> values)
         {
             bool result = values.Count >= this.count;
-            string message = result ? "OK" : String.Format("Values count is {0}, but expected minimal count is {1}.", values.Count, this.count);
+            string message = result ? "OK" : String.Format("Chyba bezpečnostního nastavení. Cesta k parametru v počítači nebyla nalezena- nebyla tedy správně nastavena bezpečnostní doporučení. Pokud se tato vlastnost v systému správně nastaví, konfigurační soubor ji dokáže najít a překontrolovat. Values count is {0}, but expected minimal count is {1}.", values.Count, this.count);
             return new EvaluationResult(result, message);
         }
 

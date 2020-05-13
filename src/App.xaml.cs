@@ -13,5 +13,14 @@ namespace kobenos
     /// </summary>
     public partial class App : Application
     {
+        private void Application_DispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
+        {
+            MessageBox.Show(e.Exception.Message);
+        }
+
+        private void Application_Exit(object sender, ExitEventArgs e)
+        {
+            System.IO.File.Delete("temp.ini");
+        }
     }
 }

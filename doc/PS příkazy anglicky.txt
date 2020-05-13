@@ -1,19 +1,19 @@
   výpis všech uživatelù: get-localusers
   výpis konkrétního uživatele: get-localuser -Name ...  | select *
             - zajímá mì: Enabled, ObjectClass a PasswordRequired
-C:\test> secedit /export /areas SECURITYPOLICY /cfg blabla.ini   
-èl.14
+            
+èl.14 - Zásady hesel
     Password must meet complexity requirements
     Maximum Password Age
     Minimum Password Length
     Minimum Password Age
     Store password using reversible encryption for all users in the domain
     Enforce Password History
- èl.15  
+ èl.15 - Zásady uzamèení úètù 
     Account Lockout Duration
     Account Lockout Threshold
     Reset account lockout counter after
-èl.16
+èl.16 - Zásady auditu
     Audit privilege use
     Audit directory service access
     Audit object access
@@ -23,7 +23,7 @@ C:\test> secedit /export /areas SECURITYPOLICY /cfg blabla.ini
     Audit logon events
     Audit account logon events
     Audit policy change
-èl. 17
+èl. 17 - Pøiøazení uživatelských práv
     Generate security audits
     Restore files and directories
     Deny logon locally
@@ -35,7 +35,7 @@ C:\test> secedit /export /areas SECURITYPOLICY /cfg blabla.ini
     Back up files and directories
     Change the time zone
     Change the system time
-èl. 18
+èl. 18 - Možnosti zabezpeèení
     Audit: Audit the use of Backup and Restore privilege
     Audit: Audit the access of global system objects
     Audit: Shut down system immediately if unable to log security audits
@@ -70,25 +70,83 @@ C:\test> secedit /export /areas SECURITYPOLICY /cfg blabla.ini
     ---134--
     Shutdown: Clear virtual memory pagefile
     Devices: Prevent users from installing printer drivers
-èl.19
-    Control the location of the log file
-    Specify the maximum log file size
-    Backup up log automatically when full
-    -- Show-eventLog
-    Configure log access
-    Control Event Log behaviour when the log file reaches its maximum size
-    Control the location of the log file
-    Specify the maximum log file size
-    Backup up log automatically when full
-    Configure log access
-    Control Event Log behaviour when the log file reaches its maximum size
-    Control the location of the log file
-    Specify the maximum log file size
-    Backup up log automatically when full
-    Configure log access
-    Control Event Log behaviour when the log file reaches its maximum size
-èl.20
-     Display information about previous logons during user logon
-     Sign-in last interactive user automatically after a system-initiated restart
-èl.21
-      Prevent the usage of OneDrive for file storage
+    
+Místní poèítaè – zásady / Konfigurace poèítaèe / Šablony pro správu /
+Souèásti systému Windows / Služba protokolu událostí
+      èl.19
+          Control the location of the log file
+          Specify the maximum log file size
+          Backup up log automatically when full
+          -- Show-eventLog
+          Configure log access
+          Control Event Log behaviour when the log file reaches its maximum size
+          Control the location of the log file
+          Specify the maximum log file size
+          Backup up log automatically when full
+          Configure log access
+          Control Event Log behaviour when the log file reaches its maximum size
+          Control the location of the log file
+          Specify the maximum log file size
+          Backup up log automatically when full
+          Configure log access
+          Control Event Log behaviour when the log file reaches its maximum size
+       
+Místní poèítaè – zásady / Konfigurace poèítaèe / Šablony pro správu 
+      èl.20 - Windows Components / Windows Logon Options
+           Display information about previous logons during user logon
+           Sign-in last interactive user automatically after a system-initiated restart
+      èl.21  - Windows Components / OneDrive
+            Prevent the usage of OneDrive for file storage
+      èl.22 - Windows Components / Autoplay Policies
+            Turn off Autoplay
+      èl.23 - System / Logon
+            Turn on convenience PIN sign-in
+            Turn off picture password sign-in
+            Turn off app notifications on the lock screen
+            Hide Entry points for fast user switching
+            Always use classic logon
+      èl.24 - System / Group Policy
+          Turn off Local Group Policy Objects processing
+          Turn off Resultant Set of Policy logging
+      èl.25 - System / Device Installation / Device Installation Restrictions
+          Allow administrators to override Device Installation Restriction policies
+          Display a custom message when installation is prevented by policy setting
+          Display a custom message title when installation is prevented by policy setting
+          Allow installation of devices that match any of these device Ids
+          Prevent installation of removable devices
+          Prevent installation of devices not described by other policy settings
+      èl.26 - System / Removable Storage Access
+          CD and DVD: Deny execute access
+          CD and DVD: Deny read access
+          CD and DVD: Deny write access
+          Floppy Drives: Deny execute access
+          Floppy Drives: Deny read access
+          Floppy Drives: Deny write access
+          Removable Disks: Deny execute access
+          Removable Disks: Deny read access
+          Removable Disks: Deny write access
+          All Removable Storage classes: Deny all access
+          Tape Drives: Deny execute access
+          Tape Drives: Deny read access
+          Tape Drives: Deny write access
+          WPD Devices: Deny read access
+          WPD Devices: Deny write access
+      èl.27 - System / Recovery
+          Allow restore of system to default state
+      èl.28 - System / System Restore
+           Turn off Configuration
+           Turn off System Restore
+      èl.29 - Control Panel / Personalization
+           Do not display the lock screen
+           Prevent enabling lock screen camera
+           Prevent enabling lock screen slide show
+           
+Místní poèítaè – zásady / Konfigurace uživatele / Šablony pro správu     
+      èl.30 - Control Panel / Personalization
+          Enable screen saver
+          Prevent changing screen saver
+          Password protect the screen saver
+          Screnn saver timeout
+          Force specific screen saver
+      èl.31 - Windows Components / File Explorer
+          Do not move deleted files to the Recycle Bin

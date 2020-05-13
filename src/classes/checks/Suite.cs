@@ -43,6 +43,34 @@ namespace kobenos.classes
             return new ExecutionResult(result, details);
         }
 
+        /// <summary>
+        /// aktualizuje vysledek spusteni - to je nutne, pokud jsou podrizene testy spusteny jinak, nez pomoci internal Execute
+        /// </summary>
+        public void UpdateExecutionResult()
+        {
+            bool result = true;
+            int success = 0;
+            int total = 0;
+
+            foreach (AbstractCheck check in this.Checks)
+            {
+                total += check.GetAllChecksToExecute().Count;
+
+                if (check is Suite)
+                {
+                    Suite suite = (Suite)check;
+                    suite.UpdateExecutionResult();
+                    success += suite.Result.SuccessfulChecks;
+                } else if (check.Result.IsSuccessful)
+                {
+                    success++;
+                }
+                result = result && check.Result.IsSuccessful;
+            }
+            string details = System.String.Format("Úspěšné testy: {0}/{1}", success, total);
+            this.lastResult = new ExecutionResult(result, details, success);
+        }
+
         public override List<AbstractCheck> GetAllChecksToExecute()
         {
             List<AbstractCheck> list = new List<AbstractCheck>();

@@ -103,13 +103,13 @@ namespace kobenos
         {
             WaitWindow.Show(async progress =>
             {
+                progress.Report(new WaitWindow.WaitWindowProgress("Startuji...", 0));
+
                 List<AbstractCheck> list = check.GetAllChecksToExecute();
                 int total = list.Count;
                 int executed = 0;
                 int progressPercent = 0;
 
-                progress.Report(new WaitWindow.WaitWindowProgress("Startuji...", progressPercent));
-                
                 // provedeni vsech testu
                 foreach (AbstractCheck check in list)
                 {
@@ -118,7 +118,13 @@ namespace kobenos
                     progress.Report(new WaitWindow.WaitWindowProgress(check.Name, progressPercent));
                     
                     check.Execute();                    
-                }                
+                }
+
+                if (check is Suite)
+                {
+                    Suite suite = (Suite)check;
+                    suite.UpdateExecutionResult();                    
+                }
 
                 progress.Report(new WaitWindow.WaitWindowProgress("Dokončeno", 100));
             });

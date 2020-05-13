@@ -8,7 +8,7 @@ namespace kobenos.classes
     /// <summary>
     /// Zkontroluje hodnotu z registrů.
     /// </summary>
-    public class RegistryCheck : AbstractCheck
+    public class RegistryCheck : SimpleCheck
     {
         public string key;
 

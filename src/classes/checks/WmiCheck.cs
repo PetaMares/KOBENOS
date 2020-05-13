@@ -9,7 +9,7 @@ namespace kobenos.classes
 {
 
     [XmlRoot("wmi")]
-    public class WmiCheck: AbstractCheck
+    public class WmiCheck: SimpleCheck
     {
         public string scope;
 

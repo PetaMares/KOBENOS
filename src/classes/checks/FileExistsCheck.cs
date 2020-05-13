@@ -8,7 +8,7 @@ namespace kobenos.classes
     /**
      * Zkontroluje, zda existuje specifikovany soubor.
      */
-    class FileExistsCheck : AbstractCheck
+    class FileExistsCheck : SimpleCheck
     {
 
         private string path;

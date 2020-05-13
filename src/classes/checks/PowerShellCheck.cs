@@ -11,7 +11,7 @@ namespace kobenos.classes
 {
 
     [XmlRoot("powershell")]
-    public class PowerShellCheck: AbstractCheck
+    public class PowerShellCheck: SimpleCheck
     {
 
         public string command;

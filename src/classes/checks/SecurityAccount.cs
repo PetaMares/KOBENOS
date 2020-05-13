@@ -10,7 +10,7 @@ namespace kobenos.classes
 {
 
     [XmlRoot("securityaccount")]
-    public class SecurityCheckAccount : AbstractCheck
+    public class SecurityCheckAccount : SimpleCheck
     {
         public string accountName;
 

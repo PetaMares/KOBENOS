@@ -54,5 +54,10 @@ namespace kobenos.classes
         [XmlAttribute(AttributeName = "name")]
         public string Name { get => name; set => name = value; }
 
+        /// <summary>
+        /// V pripade Suite vrati checks "uvnitr". V pripade jednoducheho testu vrati jen ten jediny.
+        /// </summary>
+        /// <returns></returns>
+        public abstract List<AbstractCheck> GetAllChecksToExecute();
     }
 }

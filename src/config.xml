@@ -24,8 +24,11 @@
 					<query>SELECT * FROM Win32_BootConfiguration WHERE Name='BootConfiguration' AND Caption LIKE "%Harddisk0%" </query>
 					<eval>
 						<first property="Caption" value=".*\\Device\\Harddisk0.*" />
-					</eval>					
+					</eval>
 				</wmi>
+			</checks>
+		</suite>
+		
 				<suite name="Článek 9 - Nastavení systémových služeb">
 					<checks>
 						<wmi name="kontrola deaktivace WLAN- State">
@@ -381,7 +384,7 @@
 								<key>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon</key>
 						      	<value>DisableCad</value>
 								<eval>
-                                    <first value="0"/>
+                                    <first value="1"/>
                                 </eval>
                         </registry>
 					</checks>
@@ -404,7 +407,7 @@
 								<key>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System</key>
 						      	<value>legalnoticetext</value>
 								<eval>
-                                    <first value="Jedná se o systém pro zpracování CITLIVÝCH informací.(Zařízení nesmí být připojeno ani na WIFI ani na LAN).........všechny bezpečnostní incidenty jsou logovány........."/>
+                                    <first value="Jedná se o systém pro zpracování CITLIVÝCH informací. Zařízení nesmí být připojeno ani na WIFI ani na LAN. Všechny bezpečnostní incidenty jsou logovány."/>
                                 </eval>
                         </registry>
 					</checks>
@@ -860,7 +863,7 @@
 								<key>HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows\RemovableStorageDevices</key>
 						      	<value>AllowRemoteDASD</value>
 								<eval>
-                                    <first value="1"/>  
+                                    <first value="0"/>  
                                 </eval>
                         </registry>
 					</checks>
@@ -1019,7 +1022,5 @@
                         </registry>
 					</checks>
 				</suite>
-			</checks>
-		</suite>
 	</checks>
 </suite>

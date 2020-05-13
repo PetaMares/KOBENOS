@@ -28,8 +28,8 @@
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
 
-            <TextBlock Text="Zvolená sada:" />
-            <TextBlock Text="{Binding Path=Name}" FontSize="14" HorizontalAlignment="Left" Grid.Row="0" Grid.Column="1" FontWeight="Bold" />
+            <TextBlock Text="Název zvolené sady konfiguračního souboru:" FontSize="16"/>
+            <TextBlock Text="{Binding Path=Name}" FontSize="16" HorizontalAlignment="Left" Grid.Row="0" Grid.Column="1" FontWeight="Bold" />
 
             <TextBlock Text="Seznam kontrol:" Grid.Row="1" />
         </Grid>
@@ -72,11 +72,34 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
 
                 <TextBlock Text="{Binding Name}" />
                 <controls:ExecutionResult DataContext="{Binding Result}" Grid.Row="1" />
                 <controls:ExecutionDetail DataContext="{Binding Result}" Grid.Row="2" />
+                <Label Content="Doplňující informace:" Grid.Column="0" Grid.Row="3" FontSize="14"/>
+                <Label Content="- *S-1-5-19 = Local Service" Grid.Column="0" Grid.Row="4" FontSize="14"/>
+                <Label Content="- *S-1-5-20 = Network Service" Grid.Column="0" Grid.Row="5" FontSize="14"/>
+                <Label Content="- *S-1-5-32-545= Users" Grid.Column="0" Grid.Row="6" FontSize="14"/>
+                <Label Content="- *S-1-5-32-551= Backup Operators" Grid.Column="0" Grid.Row="7" FontSize="14"/>
+                <Label Content="- *S-1-5-32-554 = Administrators" Grid.Column="0" Grid.Row="8" FontSize="14"/>
+                <Label Content="Pokud se v tomto seznamu nevyskytuje zjštěný kód:" Grid.Column="0" Grid.Row="9" FontSize="14"/>
+                <Label Content="- máte špatně nastavené skupiny" Grid.Column="0" Grid.Row="10" FontSize="14"/>
+                <Label Content="- máte špatně nastavená práva" Grid.Column="0" Grid.Row="11" FontSize="14"/>
+                <Label Content="Podrobný seznam lze prohlédnout zde:" Grid.Column="0" Grid.Row="12" FontSize="14"/>
+                <Label Content="https://support.microsoft.com/en-au/help/243330/well-known-security-identifiers-in-windows-operating-systems" Grid.Column="0" Grid.Row="13" FontSize="14"/>
             </Grid>
         </Grid>
 
@@ -86,7 +109,7 @@
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
 
-            <Button Name="RunAllButton" Click="RunAllButton_Click" Content="Spustit vše" Padding="5" />
+            <Button Name="RunAllButton" Click="RunAllButton_Click" Content="Spustit všechny testy" Padding="5" />
             <Button Name="RunCheckButton" Click="RunCheckButton_Click" Content="Spustit jen tuto kontrolu" Grid.Column="1" Margin="10 0 0 0" Padding="5" />
         </Grid>
 
@@ -100,10 +123,10 @@
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
 
-            <TextBlock Text="Výsledek:" />
-            <controls:ExecutionResult DataContext="{Binding Result}" Grid.Column="1" />
+            <TextBlock Text="Celkový výsledek všech testů je:" FontSize="14"/>
+            <controls:ExecutionResult DataContext="{Binding Result}" Grid.Column="1" FontSize="14"/>
 
-            <controls:ExecutionDetail DataContext="{Binding Result}" Grid.Row="1" Grid.Column="1" />
+            <controls:ExecutionDetail DataContext="{Binding Result}" Grid.Row="1" Grid.Column="1" FontSize="14" />
         </Grid>
 
         <Grid Grid.Row="4" HorizontalAlignment="Stretch">

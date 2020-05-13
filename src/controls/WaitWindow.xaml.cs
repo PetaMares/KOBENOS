@@ -62,5 +62,7 @@ namespace kobenos.controls
             progressWindow.ShowDialog();
             Application.Current.MainWindow.Focus();
         }
+
+       
     }
 }

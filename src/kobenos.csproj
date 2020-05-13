@@ -3,7 +3,7 @@
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
-	  <RuntimeIdentifier>win10-x86</RuntimeIdentifier>
+	  <RuntimeIdentifier>win10-x64</RuntimeIdentifier>
     <UseWPF>true</UseWPF>
     <ApplicationIcon>lock.ico</ApplicationIcon>
     <StartupObject>kobenos.App</StartupObject>

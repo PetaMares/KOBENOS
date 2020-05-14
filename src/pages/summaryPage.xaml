@@ -13,36 +13,52 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <TextBlock Text="Výsledek testu" HorizontalAlignment="Center" FontSize="18" Grid.Row="0"/>
-        
-        <Grid Grid.Row="1" HorizontalAlignment="Stretch" >
+        <TextBlock Text="Generování PDF reportu" HorizontalAlignment="Center" FontSize="18" Grid.Row="0" FontWeight="Bold" Margin="10" />
+        <TextBlock Text=" "  Grid.Row="1"/>
+        <TextBlock Text="Výsledný report slouží jako podklad při certfikačním procesu." FontSize="16" Grid.Row="2" Grid.Column="0" Margin="10"/>
+        <Grid Grid.Row="3" HorizontalAlignment="Stretch">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <TextBlock Text=" "  Grid.Row="0"/>
+            <TextBlock Text="Název zvolené sady konfiguračního souboru:  " FontSize="16" Grid.Row="2" Grid.Column="0" Margin="10"/>
+            <controls:ExecutionResult x:Name="MainResult" FontSize="16" HorizontalAlignment="Left" Grid.Row="3" FontWeight="Bold" Grid.Column="1" Margin="10"/>
+        </Grid>
+
+        <Grid Grid.Row="4" HorizontalAlignment="Stretch" >
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
+                
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
-            <Label Content="Testovaný:" Grid.Column="0" FontSize="14" VerticalAlignment="Center"/>
-            <TextBox Name="Tested" Padding="3" Grid.Column="1" FontSize="14" Margin="10"/>
+            <Label Content="Testovaný:" Grid.Column="0" Grid.Row="0" FontSize="14" VerticalAlignment="Center" Margin="10"/>
+            <TextBox Name="Tested" Padding="3" Grid.Row="0" Grid.Column="1" FontSize="14" Margin="20"/>
 
-            <Label Content="Testující:" Grid.Column="0" Grid.Row="1" FontSize="14" VerticalAlignment="Center"/>
-            <TextBox Name="Tester" Padding="3" Grid.Column="1" Grid.Row="1" FontSize="14" Margin="10"/>
+            <Label Content="Testující:" Grid.Column="0" Grid.Row="1" FontSize="14" VerticalAlignment="Center" Margin="10"/>
+            <TextBox Name="Tester" Padding="3" Grid.Column="1" Grid.Row="1" FontSize="14" Margin="20"/>
 
-            <Button Name="GenerateReportButton" Grid.Row="2" Grid.Column="1" Content="Report" Click="GenerateReportButton_Click" />
+            <Button Name="GenerateReportButton" Grid.Column="1" Grid.Row="2" Content="Generovat report" Click="GenerateReportButton_Click" HorizontalAlignment="Stretch" FontSize="14" Margin="20" />
         </Grid>
 
-        <Grid Grid.Row="3" HorizontalAlignment="Stretch">
-            <controls:ExecutionResult x:Name="MainResult" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18" FontWeight="Bold" />
-        </Grid>
 
-        <Grid Grid.Row="4" HorizontalAlignment="Stretch" Margin="0 10 0 0">
+        <Grid Grid.Row="5" HorizontalAlignment="Stretch" Margin="0 10 0 0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>

@@ -6,6 +6,7 @@ using SelectPdf;
 using System.IO;
 using Microsoft.Win32;
 using System.Text;
+using kobenos.controls;
 
 namespace kobenos.pages
 {
@@ -44,7 +45,7 @@ namespace kobenos.pages
         {
             if(Tester.Text.Length == 0 || Tested.Text.Length == 0)
             {
-                MessageBox.Show("CHYBA");
+                MessageBox.Show("Nebyla vyplněna požadovaná textová pole. Prosím vyplňte je.");
                 return;
             }
 
@@ -52,37 +53,52 @@ namespace kobenos.pages
             saveFileDialog.InitialDirectory = System.AppDomain.CurrentDomain.BaseDirectory;
             saveFileDialog.Filter = "PDF files (*.pdf)|*.pdf|All files (*.*)|*.*";
 
+            
+                
             if (saveFileDialog.ShowDialog() == true)
             {
-                HtmlToPdf converter = new HtmlToPdf();
-                converter.Options.PdfPageSize = PdfPageSize.A4;
-                converter.Options.MarginBottom = 72;
-                converter.Options.MarginLeft = 72;
-                converter.Options.MarginRight = 72;
-                converter.Options.MarginTop = 72;
+                string testerName = Tester.Text;
+                string testedName = Tested.Text;
 
+                WaitWindow.Show(async progress =>
+                {
+                    progress.Report(new WaitWindow.WaitWindowProgress("Startuji proces tvorby PDF reportu", 0));
 
-                // convert the url to pdf
-                string header = "<h1>KOntrola BEzpečnostního Nastavení Operačního Systému</h1>\n";
-                string tester = "<h2>Testující: " + Tester.Text + "</h2>";
-                string tested = "<h2>Testovaný: " + Tested.Text + "</h2>";
-                string start = "<h2>Čas startu testu: " + this.result.StartTime + "</h2>";
-                string end = "<h2>Čas konce testu: " + this.result.EndTime + "</h2>";
-                string result = $"<h2>Výsledek: {this.result.Result.Name} - {this.result.Result.Details}</h2>";
-                string config = "<h2>Konfigurační soubor: " + this.ConfigFile + "</h2>";
-                string testResult = "<h2>Tests results:</h2>";
+                    HtmlToPdf converter = new HtmlToPdf();
+                    converter.Options.PdfPageSize = PdfPageSize.A4;
+                    converter.Options.MarginBottom = 72;
+                    converter.Options.MarginLeft = 72;
+                    converter.Options.MarginRight = 72;
+                    converter.Options.MarginTop = 72;
 
-                var sb = new StringBuilder(header + tester + tested + start + end + result + config + testResult);
+                    progress.Report(new WaitWindow.WaitWindowProgress("Vytvářím podklad pro tvorbu PDF reportu", 30));
 
-                AppendCheck(this.result, sb);
+                    // convert the url to pdf
+                    string header = "<h1>KOntrola BEzpečnostního Nastavení Operačního Systému</h1>\n";
+                    string tester = "<h2>Testující: " + testerName + "</h2>";
+                    string tested = "<h2>Testovaný: " + testedName + "</h2>";
+                    string start = "<h2>Čas startu testu: " + this.result.StartTime + "</h2>";
+                    string end = "<h2>Čas konce testu: " + this.result.EndTime + "</h2>";
+                    string result = $"<h2>Výsledek: {this.result.Result.Name} - {this.result.Result.Details}</h2>";
+                    string config = "<h2>Konfigurační soubor: " + this.ConfigFile + "</h2>";
+                    string testResult = "<h2>Tests results:</h2>";
 
-                PdfDocument doc = converter.ConvertHtmlString(sb.ToString());
+                    var sb = new StringBuilder(header + tester + tested + start + end + result + config + testResult);
 
-                // save pdf document
-                doc.Save(saveFileDialog.FileName);
+                    AppendCheck(this.result, sb);
 
-                // close pdf document
-                doc.Close();
+                    progress.Report(new WaitWindow.WaitWindowProgress("Vytvářím PDF report", 60));
+
+                    PdfDocument doc = converter.ConvertHtmlString(sb.ToString());
+
+                    progress.Report(new WaitWindow.WaitWindowProgress("Ukládám PDF report", 90));
+
+                    // save pdf document
+                    doc.Save(saveFileDialog.FileName);
+
+                    // close pdf document
+                    doc.Close();
+                }, false);
             }
 
         }

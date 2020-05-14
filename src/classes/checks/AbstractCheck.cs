@@ -13,9 +13,9 @@ namespace kobenos.classes
         private string name;
 
         [XmlIgnore]
-        public DateTime StartTime { get; private set; }
+        public DateTime StartTime { get; protected set; }
         [XmlIgnore]
-        public DateTime EndTime { get; private set; }
+        public DateTime EndTime { get; protected set; }
 
         protected ExecutionResult lastResult = new ExecutionResult();
 

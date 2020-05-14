@@ -3,8 +3,6 @@
 	<checks>
 		<suite name="Všeobecná nastavení">
 			<checks>
-				<os name="Kontrola verze Windows">
-				</os>
 				<wmi name="Kontrola aktivace Windows">
 					<scope>root\CIMV2</scope>
 					<query>SELECT * FROM SoftwareLicensingProduct WHERE Name LIKE "%Windows%" AND LicenseStatus = 1</query>

@@ -55,7 +55,7 @@ namespace kobenos.controls
             }
         }
 
-        public static void Show(Func<IProgress<WaitWindowProgress>, Task> workAsync)
+        public static void Show(Func<IProgress<WaitWindowProgress>, Task> workAsync, bool showProgressBar = true)
         {
             var progressWindow = new WaitWindow();
             progressWindow.Owner = Application.Current.MainWindow;
@@ -63,6 +63,8 @@ namespace kobenos.controls
                 (progress) => { 
                     progressWindow.ProgressText = progress.Text;
                     progressWindow.MainProgressBar.Value = progress.Percent;
+                    progressWindow.MainProgressBar.Visibility =
+                        showProgressBar ? Visibility.Visible : Visibility.Hidden;
                 }
             );
 

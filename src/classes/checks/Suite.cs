@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Text;
 using System.Xml.Serialization;
 
@@ -15,7 +16,6 @@ namespace kobenos.classes
 
         [XmlArray("checks")]
         [XmlArrayItem(typeof(Suite), ElementName = "suite")]
-        [XmlArrayItem(typeof(OSVersionCheck), ElementName = "os")]
         [XmlArrayItem(typeof(WmiCheck), ElementName = "wmi")]        
         [XmlArrayItem(typeof(RegistryCheck), ElementName = "registry")]
         [XmlArrayItem(typeof(PowerShellCheck), ElementName = "powershell")]
@@ -66,6 +66,12 @@ namespace kobenos.classes
                     success++;
                 }
                 result = result && check.Result.IsSuccessful;
+
+                StartTime =
+                    StartTime == default(DateTime)
+                    ? check.StartTime
+                    : (StartTime < check.StartTime ? StartTime : check.StartTime);
+                EndTime = EndTime > check.EndTime ? EndTime : check.EndTime;
             }
             string details = System.String.Format("Úspěšné testy: {0}/{1}", success, total);
             this.lastResult = new ExecutionResult(result, details, success);
